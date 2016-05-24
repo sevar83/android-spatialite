@@ -258,8 +258,13 @@ initialize_epsg (int filter, struct epsg_defs **first, struct epsg_defs **last)
         initialize_epsg_44 (filter, first, last);
         initialize_epsg_45 (filter, first, last);
         initialize_epsg_46 (filter, first, last);
+
+/* SV - instead of commenting out, the ommiting of Prussian and extra must be configured with the
+    /srsinit/epsg_update C generation tool. For the exact procedure check README.txt in this directory
+
         initialize_epsg_prussian (filter, first, last);
         initialize_epsg_extra (filter, first, last);
+*/
 #endif /* full EPSG initialization enabled/disabled */
     }
     initialize_epsg_wgs84_00 (filter, first, last);
