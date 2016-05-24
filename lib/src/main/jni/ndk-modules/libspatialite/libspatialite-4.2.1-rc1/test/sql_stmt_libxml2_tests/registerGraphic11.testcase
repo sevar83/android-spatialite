@@ -1,0 +1,8 @@
+RegisterExternalGraphic - INTEGER title
+:memory: #use in-memory database
+SELECT RegisterExternalGraphic('resource.png', zeroblob(4), 1, NULL, NULL);
+1 # rows (not including the header row)
+1 # columns
+RegisterExternalGraphic('resource.png', zeroblob(4), 1, NULL, NULL);
+-1
+

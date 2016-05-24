@@ -1,0 +1,152 @@
+/** \example test_xl.c
+
+test_xl.c is a simple demonstration and diagnostic tool for the Excel (.xls)
+file format.
+
+This sample code provides an example of:
+ - opening the .xls file
+ - querying general information
+ - querying Workbooks, SST entries and FAT entries
+ - error handling
+ - closing the .xls file when no further operations are required
+ 
+Here is an example of a typical run:
+\verbatim
+./test_xl multi.xls
+
+Excel document: multi.xls
+==========================================================
+CFBF Version ........: 3
+CFBF Sector size ....: 512
+CFBF FAT entries ....: 128
+BIFF Version ........: 8 [Excel 98/XP/2003/2007/2010]
+BIFF Max record size : 8224
+BIFF DateMode .......: 0 [day#1 = '1900-01-01']
+BIFF Password/Crypted: NO, clear data
+BIFF CodePage .......: UTF-16LE [Unicode]
+BIFF Worksheets .....: 2
+BIFF SST entries ....: 24
+BIFF Formats ........: 2
+BIFF eXtendedFormats : 24
+
+Worksheets:
+=========================================================
+  0] I'm a Worsheet
+        ok, Worksheet succesfully selected: currently active: 0
+        12 Rows X 7 Columns
+
+  1] Yet another
+        ok, Worksheet succesfully selected: currently active: 1
+        302 Rows X 4 Columns
+\endverbatim
+
+Here is another example. Note that this earlier version (Excel 3.0) format
+does not use the CFBF container, so no information is provided for the first
+three entries.
+\verbatim
+# ./test_xl v3sample.xls
+
+Excel document: v3sample.xls
+==========================================================
+CFBF Version ........: UNKNOWN
+CFBF Sector size ....: UNKNOWN
+CFBF FAT entries ....: 0
+BIFF Version ........: 3 [Excel 3.0]
+BIFF Max record size : UNKNOWN
+BIFF DateMode .......: 0 [day#1 = '1900-01-01']
+BIFF Password/Crypted: NO, clear data
+BIFF CodePage .......: CP1252 [Windows Latin 1]
+BIFF Worksheets .....: 1
+BIFF Formats ........: 21
+BIFF eXtendedFormats : 25
+
+Worksheets:
+=========================================================
+  0] Worksheet
+        ok, Worksheet succesfully selected: currently active: 0
+        17 Rows X 6 Columns
+\endverbatim
+
+For more information, or to aid with debugging, you can specify a -verbose
+flag, as shown in this example:
+\verbatim
+# ./test_xl multi.xls -verbose
+
+Excel document: multi.xls
+==========================================================
+...
+
+Worksheets:
+=========================================================
+...
+
+SST [Shared String Table]:
+=========================================================
+       0] uno
+       1] one
+       2] due
+       3] two
+       4] tre
+       5] three
+...
+      18] dieci
+      19] ten
+      20] undici
+      21] eleven
+      22] dodici
+      23] twelve
+
+FAT entries [File Allocation Table]:
+=========================================================
+       0 -> 0xfffffffe FATSECT
+       1 -> 0xffffffff FREESECT
+       2 ->        3
+       3 ->        4
+...      
+      36 ->       37
+      37 ->       38
+      38 -> 0xfffffffe ENDOFCHAIN
+      39 -> 0xfffffffe ENDOFCHAIN
+      40 ->       41
+      41 -> 0xfffffffe ENDOFCHAIN
+      42 ->       43
+      43 -> 0xfffffffe ENDOFCHAIN
+      44 -> 0xffffffff FREESECT
+...
+     127 -> 0xffffffff FREESECT
+\endverbatim
+
+*/
+
+/** \example xl2sql.c
+
+xl2sql a simple tool that takes an .xls file as input, and generates a SQL
+script as output. You can then use the SQL script to load the extracted data
+info a SQLite / SpatiaLite database.
+
+Here is a typical usage example:
+\verbatim
+./xl2sql comuni_italiani.xls >comuni.sql
+spatialite italy.sqlite <comuni.sql
+\endverbatim
+
+The first command will parse the .xls document, extracting any data and
+generating the corresponding SQL script. The second command will create and
+populate a database from the SQL script. When using xl2sql this way, the first
+worksheet will become database table xl_table_00, the second worksheet will
+become database table xl_table_01 and so on.
+
+As an alternative, if you pass a second argument to xl2sql, this argument will
+be used as the table prefix. For example:
+\verbatim
+./xl2sql comuni_italiani.xls italia >comuni.sql
+spatialite italy2.sqlite <comuni.sql
+\endverbatim
+
+This will result in the tables being named italia_00, italia_01 and so on.
+
+This sample code provides an example of:
+ - selecting a worksheet to be active
+ - retrieving cell values 
+
+*/

@@ -1,0 +1,8 @@
+RegisterRasterStyledLayer - NULL style_id
+:memory: #use in-memory database
+SELECT RegisterRasterStyledLayer('alpha', NULL, zeroblob(4));
+1 # rows (not including the header row)
+1 # columns
+RegisterRasterStyledLayer('alpha', NULL, zeroblob(4));
+-1
+

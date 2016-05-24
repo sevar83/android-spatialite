@@ -1,0 +1,48 @@
+# $Id: makefile.vc 2011/08/17 Sandro Furieri $
+#
+# NMAKE Makefile to build libfreexl on Windows
+#
+!INCLUDE nmake.opt
+
+LIBOBJ	               =	freexl.obj
+FREEXL_DLL	 	       =	freexl$(VERSION).dll
+
+CFLAGS	=	/nologo -IC:\OSGeo4W\include -I. -Iheaders $(OPTFLAGS)
+
+default:	all
+
+all: freexl.lib freexl_i.lib
+
+$(LIBOBJ):	src\freexl.c
+	cl $(CFLAGS) src\freexl.c /c
+
+freexl.lib:	$(LIBOBJ)
+	if exist freexl.lib del freexl.lib
+	lib /out:freexl.lib $(LIBOBJ)
+
+$(FREEXL_DLL):	freexl_i.lib
+
+freexl_i.lib:	$(LIBOBJ)
+	link /debug /dll /out:$(FREEXL_DLL) \
+		/implib:freexl_i.lib $(LIBOBJ) \
+		C:\OSGeo4w\lib\iconv.lib
+	if exist $(FREEXL_DLL).manifest mt -manifest \
+		$(FREEXL_DLL).manifest -outputresource:$(FREEXL_DLL);2 
+
+clean:
+	del *.dll
+	del *.exp
+	del *.manifest
+	del *.lib
+	del *.obj
+	del *.pdb
+
+install: all
+	-mkdir $(INSTDIR)
+	-mkdir $(INSTDIR)\bin
+	-mkdir $(INSTDIR)\lib
+	-mkdir $(INSTDIR)\include
+	copy *.dll $(INSTDIR)\bin
+	copy *.lib $(INSTDIR)\lib
+	copy headers\freexl.h $(INSTDIR)\include	
+

@@ -1,0 +1,8 @@
+RegisterVectorStyledLayer - BLOB style_id
+:memory: #use in-memory database
+SELECT RegisterVectorStyledLayer('alpha', 'beta', zeroblob(4), zeroblob(4));
+1 # rows (not including the header row)
+1 # columns
+RegisterVectorStyledLayer('alpha', 'beta', zeroblob(4), zeroblob(4))
+-1
+

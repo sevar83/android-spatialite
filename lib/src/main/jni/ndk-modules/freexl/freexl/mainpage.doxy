@@ -1,0 +1,547 @@
+/** \mainpage notitle
+
+\section Introduction
+
+FreeXL is an open source library to extract valid data from within an Excel
+(.xls) spreadsheet.
+
+The FreeXL design goals are:
+ - to be simple and lightweight
+ - to be stable, robust and efficient
+ - to be easily and universally portable.
+ - completely ignore any GUI-related oddity
+ 
+Note that the final goal means that FreeXL ignores at all fonts, sizes and
+alignments, and most formats. It ignores Pivot Table, Charts, Formulas, Visual
+Basic macros and so on.
+
+FreeXL is structurally simple and quite light-weight (typically 40-80K of object
+code, stripped). FreeXL has one key dependency - GNU libiconv, which is used for
+character set conversions. This is often provided as part of the C library on
+Linux systems, and is widely available.
+
+Building and installing FreeXL is straightforward:
+\verbatim
+./configure
+make
+make install
+\endverbatim
+
+Linking FreeXL to your own code is usually simple:
+\verbatim
+gcc my_program.c -o my_program -lfreexl 
+\endverbatim
+
+On some systems you may have to provide a slightly more complex arrangement:
+\verbatim
+gcc -I/usr/local/include my_program.c -o my_program \
+  -L/usr/local/lib -lfreexl -liconv -lm
+\endverbatim
+
+FreeXL also provides pkg-config support, so you can also do:
+\verbatim
+gcc -I/usr/local/include my_program.c -o my_program `pkg-config --libs freexl`
+\endverbatim
+
+I sincerely hope FreeXL could be useful to many of you. Excel *.xls spreadsheets
+are widespread, and although Microsoft itself is strongly pushing the new XML
+based formats, there is still a lot of legacy data stored in the older binary
+formats.
+
+So in an era of open data, a simple and easy way to extract data from .xls is
+surely useful. The original use of FreeXL was to support the SQLite /
+SpatiaLite VirtualXL driver (implementing direct access to .xls files via SQL).
+However there are many other possibilities, including use with shell scripts and
+simple wrappers for Python, Perl and other very high level languages.
+
+FreeXL is licensed under the MPL tri-license terms: you are free to choose the
+best-fit license between:
+ - the MPL 1.1 
+ - the GPL v2.0 or any subsequent version
+ - the LGPL v2.1  or any subsequent version
+
+Enjoy, and happy coding
+*/
+
+/** \page Origins The background story for FreeXL
+
+Where, when and why a new free software library was born...
+
+At the end of April 2011 Markus Neteler
+[http://en.wikipedia.org/wiki/Markus_Neteler] and I (Sandro) were in Udine in
+Northern Italy, attending the annual Italian gvSIG Users conference. So, on a
+lovely hot and sunny spring evening, accompanied by a picturesque sunset, we
+were sitting in the town centre in the pleasant Piazza Matteotti aka Piazza San
+Giacomo, peacefully drinking some spritz while eating chips and peanuts.
+
+\image html piazza.jpg
+\image latex piazza.eps "Piazza" width=12cm
+
+You'll have to admit, it was a really dangerous situation: as a general safety
+rule, never let two developers sit idle for too long. Some odd and crazy idea
+will inevitably occur to them  (of course, drinking too much spritz can 
+contribute as well).
+
+Markus was desperately attempting to convince me that implementing a
+VirtualTable driver for SpatiaLite supporting direct SQL reading ofExcel .xls
+files was a good initiative. Surely it would be useful for many users. I
+strongly resisted, fiercely fighting and rejecting such idea, on the basis that
+attempting to read proprietary closed formats such as Excel was a complete
+nonsense, and probably a very difficult if not impossible task.
+ 
+At the end of this very animated discussion, Markus pronounced the magic spell
+that suddenly convinced me about the absolute validity of his suggestions:
+<em>I can raise some funding for this project</em> After hearing such wise and
+significant words from Markus I immediately realized that developing a new
+driver for accessing Excel .xls documents surely was an exciting and useful task
+after all.
+
+So FreeXL / VirtualXL was conceived at that exact moment, and slowly 
+began its development cycle.
+*/
+
+/** \page Specs File format specifications and source information
+
+The .xls binary file format is extensively documented and is publicly available.
+The most authoritative source is made available by Microsoft at
+http://msdn.microsoft.com/en-us/library/cc313154%28v=office.12%29.aspx
+
+A simpler option is made available by Open Office:
+http://sc.openoffice.org/excelfileformat.pdf
+
+Searching the web you'll easily find several other valuable information sources.
+*/
+
+/** \page Format About the .xls binary format
+
+What a .xls binary file really is 
+
+(Prepare yourself to be continuously surprised by many unexpected revelations
+...)
+
+You may already know that there are many different versions of .xls files.
+Different versions have different capabilities. So we'll start by
+reviewing the Excel evolutionary history and and we'll introduce some Microsoft
+jargon because it's central to understanding the underlying operations.
+
+\section CFBF CFBF
+
+Unexpected Revelation #1:
+<em>There is no .xls file format. Its really a common file suffix applied to
+many different things.</em>
+
+Recent Microsoft Office document files are based on a common container layout
+named CFBF (Compound File Binary Format). This container format is the same for
+Excel (.xls), Word (.doc_ and PowerPoint (.ppt) amongst other applications.
+More information:
+ - http://en.wikipedia.org/wiki/Compound_File_Binary_Format
+ - http://msdn.microsoft.com/en-us/library/dd942138%28v=prot.13%29.aspx 
+
+Unexpected Revelation #2:
+<em>CFBF  is more of a file system than a file format</em>
+
+A CFBF file is divided into many equal-sized blocks named sectors.
+Such sectors cannot be directly accessed. In order to retrieve sectors in the
+expected logical order a FAT (File Allocation Table) is allocated within 
+the CFBF file. A CFBF file is internally organized as if it was a raw physical
+disk. The design is based on Microsoft own FAT file-system as used by MS-DOS and
+early versions of Windows. The first sector of the CFBF file acts as if it was a
+kind-of MBR (Master Boot Record) - this first sector provides information about
+the layout and type of the CFBF file, such as block/sector size and version.
+A FAT chain allows a reader to re-assemble the sectors in the required logical
+order. There is a list of free block, and very large files may use a
+double indirection (DIFAT - Double Indirection FAT). A CFBF file always has at
+least a root directory: but a complete directory tree can be provided.
+
+A CFBF file can contain many and many distinct independent files. Just to make
+things a little clearer, Microsoft calls such pseudo-files (I mean: the many
+fake ones contained within the real CFBF file) <em>streams</em>
+
+The practical consequence is that any software tool attempting to access an
+Excel binary document must first be able to correctly access this CFBF 
+container format.
+
+\section BIFF BIFF
+Unexpected Revelation #3:
+<em>An Excel document will contain a stream (pseudo-file) named Workbook in
+the root directory of the CFBF file (filesystem).</em>
+
+The Workbook stream is internally structured accordingly to the BIFF (Binary
+Interchange File Format) specifications. You can think of the BIFF as the real
+Excel binary format (following more conventional naming rules). Several BIFF
+versions were introduced during the years: and there are significant differences
+between them.
+
+An useful correspondence table relating corresponding Excel and BIFF versions:
+
+<table>
+    <tr>
+	<th>
+	    <b>Excel Version</b>
+	</th>
+	<th>
+	    <b>Commercial Name</b>
+	</th>
+	<th>
+	    <b>BIFF Version</b>
+	</th>
+	<th>
+	    <b>Release Year</b>
+	</th>
+	<th>
+	    <b>Notes</b>
+	</th>
+    </tr>
+    <tr>
+	<td>2.x</td>
+	<td>Excel 2.0</td>
+	<td>BIFF2</td>
+	<td>1987</td>
+	<td>Before CFBF. File is the BIFF stream, containing a single
+	worksheet.</td>
+    </tr>
+    <tr>
+	<td>3.0</td>
+	<td>Excel 3.0</td>
+	<td>BIFF3</td>
+	<td>1990</td>
+	<td>Before CFBF. File is the BIFF stream, containing a single
+	worksheet.</td>
+    </tr>
+    <tr>
+	<td>4.0</td>
+	<td>Excel 4.0</td>
+	<td>BIFF4</td>
+	<td>1992</td>
+	<td>Before CFBF. File is the BIFF stream, containing a single
+	worksheet.</td>
+    </tr>
+    <tr>
+	<td>5.0</td>
+	<td>Excel 5.0</td>
+	<td>BIFF5</td>
+	<td>1993</td>
+	<td>Starting with BIFF5, a single Workbook can internally store many
+	individual Worksheets. The BIFF stream is stored in the CFBF file
+	container.</td>
+    </tr>
+    <tr>
+	<td>7.0</td>
+	<td>Excel 95</td>
+	<td>BIFF5</td>
+	<td>1995</td>
+	<td></td>
+    </tr>
+    <tr>
+	<td>8.0</td>
+	<td>Excel 98</td>
+	<td>BIFF8</td>
+	<td>1998</td>
+	<td></td>
+    </tr>
+    <tr>
+	<td>9.0</td>
+	<td>Excel 2000</td>
+	<td>BIFF8</td>
+	<td>1999</td>
+	<td></td>
+    </tr>
+    <tr>
+	<td>10.0</td>
+	<td>Excel XP</td>
+	<td>BIFF8</td>
+	<td>2001</td>
+	<td></td>
+    </tr>
+    <tr>
+	<td>11.0</td>
+	<td>Excel 2003</td>
+	<td>BIFF8</td>
+	<td>2003</td>
+	<td></td>
+    </tr>
+    <tr>
+	<td>12.0</td>
+	<td>Excel 2007</td>
+	<td>BIFF8</td>
+	<td>2007</td>
+	<td>Introduced alternate XML format, which is usually the default
+	for new files.</td>
+    </tr>
+    <tr>
+	<td>14.0</td>
+	<td>Excel 2010</td>
+	<td>BIFF8</td>
+	<td>2010</td>
+	<td>XML format is usually the default for new files.</td>
+    </tr>
+</table>
+
+Note that FreeXL does not support the new XML format which is a completely
+different and unrelated format.
+
+Perhaps you are now expecting that BIFF will simply and directly encode your
+spreadsheet data. Unfortunately, you should have know better given the steps
+we took to get here...
+
+Unexpected Revelation #4:
+<em>Any BIFF stream (pseudo-file stored within a CFBF container file) is
+internally organized as a collection of variable-length records.</em>.
+
+Each record starts with 
+ - a 16 bit unsigned integer specifying the record type 
+ - another 16 bit unsigned integer specifies the record data length (in bytes)
+ excluding the standard type-size prefix.
+
+Note that there are many different record types, and the record size / layout
+may differ for different BIFF versions.
+
+Three record types have an absolutely special meaning:
+ - a BOF [Beginning Of File] record marks starting of a different sub-stream.
+ - an EOF [End Of File] record marks ending of current sub-stream.
+ - a CONTINUE record means that the previous record exceeded the maximum size
+ for a record, and the previous record data payload will be spanned on 
+ following CONTINUE records for as many CONTINUE records as are required to
+ store the full data size.
+
+Unexpected Revelation #5:
+<em>So a BIFF stream (pseudo-file) isn't really a file - it's more like a
+collection of individual sub-streams, each one of which is enclosed between BOF
+/ EOF markers.</em>
+
+The most recent BIFF8 requires that at least the following internal
+sub-streams are be defined:
+ - the first sub-stream contains workbook level global data and metadata, such
+ as author, password protection, styles, formats, window settings and so on
+ - list of individual worksheets included into the Workbook, where each 
+ worksheet is identified by a name and by a type (data Worksheet, Chart,
+ Visual Basic module ... visible, hidden ...), and relative offset position of
+ the corresponding BOF record allows for fast positioning.
+ - any text string is stored here into the SST [Shared String Table], so
+ individual text cells simply refer the corresponding SST entry by index (in all
+ previous BIFF version text strings are directly stored into the appropriate
+ cell).
+ - any subsequent sub-stream represents a single Worksheet, and the most
+ relevant data stored at Worksheet level are dimension (number of valid rows and
+ columns) and any cell value data.
+
+We will now see how BIFF encodes individual data types with several further
+amazing surprises are still to come. Be prepared!
+
+\section BIFF Supported data types and encoding
+
+Leaving aside special values such as images, OLE, COM, Visual Basic related
+items and so on, the basic data types are supported in BIFF:
+ - text strings
+ - numbers (both integers and decimals)
+ - dates, date-times and times
+ - NULL (empty cell)
+
+Note that any multi-byte value is stored in BIFF accordingly using Little Endian
+byte ordering (i.e. least significant byte comes first, most significant byte
+comes last).
+
+<table>
+    <tr>
+	<th><b>BIFF Record Type</b></th>
+	<th><b>BIFF Version</b></th>
+	<th><b>Content Type</b></th>
+    </tr>
+    <tr>
+	<td>INTEGER</td>
+	<td>BIFF2</td> 
+	<td>16 bit unsigned integer</td>
+    </tr>
+    <tr>
+	<td>NUMBER</td>
+	<td>BIFF2 BIFF3 BIFF4 BIFF5 BIFF8</td>
+	<td>64 bit floating point (double precision)</td>
+    </tr>
+    <tr>
+	<td>RK</td>
+	<td>BIFF3 BIFF4 BIFF5 BIFF8</td>
+	<td>number, variant-type: INTEGER FLOAT DATE DATETIME TIME
+	(please see the corresponding detailed description)</td>
+    </tr>
+    <tr>
+	<td>MULRK</td>
+	<td>BIFF5 BIFF8</td>
+	<td>a variable-sized array of elementary RK values.
+	associated to a range of consecutive cells on the same row </td>
+    </tr>
+    <tr>
+	<td>LABEL</td>
+	<td>BIFF2 BIFF3 BIFF4 BIFF5 BIFF8</td>
+	<td>text string, variable-length.
+	(please see the corresponding detailed description)</td>
+    </tr>
+    <tr>
+	<td>LABELSST</td>
+	<td>BIFF8</td>
+	<td>text string, variable-length. based on the global SST
+	[Shared String Table] stored at the workbook level, so a LABELSST simply
+	requires providing the corresponding SST index.</td>
+    </tr>
+</table>
+
+So the BIFF record type that is easy to handle is NUMBER, which is essentially
+a C-style <em>double</em>. Other record types require additional handling.
+
+\subsection RK RK values
+
+An RK value is a 32 bit value. 
+
+The least significant two bits are a bit-mask (in little endian order, so the 
+least two significant bits in the first byte that is read):
+ - if 0x02 is set the RK value represents a 30 bit signed integer, otherwise it
+ represents a 64 bit floating point double precision number requiring special
+ reconstruction.
+ - if 0x01 is set the corresponding value needs to be divided by 100, so even an
+ integer actually becomes a floating point double precision.
+
+When interpreting RK values as a signed integer, right shifting two bits is
+required:
+\code
+int value = rk_value >> 2;
+\endcode
+
+When interpreting RK values as a 64 bit floating point, two steps are required:
+ - the RK value requires appropriate  masking: 
+\code
+int value = rk_value & 0xfffffffc;
+\endcode
+ - then the 32 bit value will be copied into a 64 bit buffer, and the least
+ significant four bytes need to be initialized as zeroes: 0x00000000.
+
+As a final step, if 0x01 was set into the bit-mask, now we have to divide by
+100 before returning the effective cell value. So for 32 bit integers:
+\code
+double final_value = (double)value / 100.0;
+\endcode
+and for 64 bit floats:
+\code
+double final_value = value / 100.0;
+\endcode
+
+\subsection Text Text values
+
+Any BIFF version from BIFF2 to BIFF5 simply supports CodePage based character
+encoding, i.e. each character simply requires 8 bits to be represented  (single
+byte). Correct representation of characters requires knowing which one CodePage
+table has to be applied. This can be determined from the workbook or
+worksheet metadata (it is the CODEPAGE record).
+
+BIFF8 is much more sophisticated, since any text
+string is usually encoded as Unicode in UTF-16 Little Endian [UTF-16LE] format.
+This encoding is a multi-byte encoding (two bytes are required to represent a
+single character), but being universal no character table is required.
+
+BIFF text strings are never null-terminated. The actual length is always
+explicitly stated, as an 8 bit unsigned int or as a 16 bit unsigned int
+(depending on BIFF versions).
+
+FreeXL is intended to be strictly interoperable with SQLite and SpatiaLite, so
+any text string has to be converted to UTF-8 encoding. GNU libiconv can easily
+handle any required charset conversion. So we can simply fetch the appropriate
+bytes, then call iconv() as appropriate, and we'll immediately get back the
+corresponding UTF-8 encoded text string.
+
+Converting Unicode based text strings is a little more complex, because
+each Unicode string is prefixed by a mask byte, specifying how the string is
+encoded:
+ - if 0x01 is set, then the string really is 16 bit per character Unicode,
+ otherwise a stripped notation is used instead. Stripped notation means
+ that the characters are actually represented as single bytes, so already
+ have the UTF8 equivalent.
+ - if 0x04 and/or 0x08 are set, than some further variable-length data
+ (providing information on text decoration such as italics, bold, underline) is
+ inserted immediately before and after the text string itself, so we must
+ carefully skip over this extra data so to maintain the right byte alignment.
+
+Note that the string length is expressed in characters, not in bytes, so the 
+actual length in bytes is twice the indicated length.
+
+\subsection Dates Retrieving Date, DateTime and Time values.
+
+Dates, DateTimes and Time values are also a little complicated. Any Date is
+expressed as an Integer (number of days since the conventional reference day):
+ - for Windows Excel the reference day (day 0) is 1900, January 1
+ - for Mac Excel the reference day (day 0) is 1904, January 2
+
+There is no possible ambiguity, because the DATEMODE metadata record 
+specifies tells which reference day is to be used.
+
+An odd bug affects Excel, which (incorrectly) treats 1900 as a leap year.
+Therefore, the non-existent 29 February 1900 has to be included in the days
+calculation so to get the expected Date value. 
+
+Any Time is expressed as a Fraction (percent of seconds since midnight).
+0.5 corresponds to 12:00:00 (midday), 0.25 corresponds to 06:00:00, 0.75
+corresponds to 18:00:00 and so on. 
+
+So a DateTime is simply the sum of a Date value and of a Time value. Dates
+can be represented by Integers: but Times and DateTimes require a floating point
+number.
+
+The complication with Dates, DateTimes and Time values is that the data-type
+does not specify when a cell values has to be interpreted as a Date or Time - 
+it is simply an Integer or Float numbers like any other. A further indirection
+has to applied so to correctly recognize Dates, DateTimes and Times:
+ - each NUMBER, RK or MULRK value exposes an index referencing the XF
+(Extended Format) entry associated with the corresponding cell.
+ - each XF record specifies an unique combination of font, alignment, color
+ and so on, however a further indirection specifies the corresponding FORMAT 
+ entry
+ - each FORMAT record specifies an output format, such as M/D/YY, h:mm:ss AM/PM
+ or M/D/YY h:mm: and this finally gives us a good chance to guess which cell
+ values are intended to represent Date/Time values. 
+ 
+Both XF and FORMAT records are globally stored at the Workbook level, and
+represent ordered arrays.
+
+If you haven't yet given up, if you aren't yet become totally mind-boggled,
+and if you are still awake and conscious, then you now know how .xls files
+are internally organized and structured.
+
+Be happy and feel proud of yourself.
+*/
+
+/** \page OtherTools Other tools and libraries
+There an impressively wide choice of Free and open source libraries and tools
+supporting the .xls format. A sample:
+
+ - Gnumeric [http://projects.gnome.org/gnumeric/] seems to be the pioneer of
+them all, and probably was the first FLOSS tool able to read and write .xls
+(circa 2001). Part of the Gnome Office project.
+ - KSpread / Caligra Tables [http://www.calligra-suite.org/tables/] / KCells
+[http://www.koffice.org/kcells/] are similar (but now distinct) programs
+from the KOffice and Calligra Office projects.
+ - Open Office Calc [http://www.openoffice.org/product/calc.html] and
+LibreOffice Calc [http://www.libreoffice.org/features/calc/] are similar
+(but now distinct) spreadsheet applications originally from the StartOffice
+code base. Probably the most comprehensive support in FLOSS.
+ - Apache POI-HSSF [http://poi.apache.org/spreadsheet/index.html] is a
+sophisticated Java library fully supporting .xls files.
+ - JExcelAPI [http://jexcelapi.sourceforge.net/] is another Java library
+(much simpler and lighter than POI-HSSF) supporting .xls files.
+ - several C or C++ libraries exist as well: quite curiously one is named
+libxls and another xlslib, but they are two absolutely distinct and unrelated
+packages
+ - There are other implementations are available based on .NET or PHP.
+
+A quick critical review:
+ - GUI tools implementations are difficult to re-use. They focus on import of
+ all formulas, GUI presentation and so on, which is really a different use.
+ - Java libraries seem to be really interesting, but Java is difficult to call
+ from a C or C++ program.
+ - Several C/C++ libraries exist, but none of them seems to be sufficient and
+  stable as required. Some are still marked to be “beta-stage” despite 
+  being released some four or five years ago - project activity seems to be
+  very low, and download statistics are discouraging.
+
+Conclusion: a suitable C/C++ library supporting data extraction from .xls files
+doesn't seem to exists: or at least, there is no obvious reference choice.
+
+So we'll go on the hardest way, we'll develop yet another .xls reading
+library: FreeXL.
+*/

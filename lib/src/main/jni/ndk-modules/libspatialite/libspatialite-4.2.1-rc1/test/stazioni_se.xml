@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<StyledLayerDescriptor xmlns="http://www.opengis.net/sld" xmlns:ogc="http://www.opengis.net/ogc" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="1.0.0" xsi:schemaLocation="http://www.opengis.net/sld http://schemas.opengis.net/sld/1.0.0/StyledLayerDescriptor.xsd">
+  <Name>OSM Railway Stations - SLD test</Name>  
+  <Title>SLD test - Point [Railway Stations]</Title>
+  <Abstract>an SLD complex variable style [depending on actual scale]</Abstract>
+  <NamedLayer>
+    <Name>OSM Railway Stations - SE test</Name>
+    <UserStyle>
+      <Title>SE test - Point [Railway Stations]</Title>
+      <Abstract>a complex variable style [depending on actual scale]</Abstract>
+      <FeatureTypeStyle>
+        <Rule>
+          <Title>Upper scale [simple circle, no label]</Title>
+          <MinScaleDenominator>500001</MinScaleDenominator>
+          <MaxScaleDenominator>2500000</MaxScaleDenominator>
+          <PointSymbolizer>
+            <Graphic>
+              <Mark>
+                <WellKnownName>circle</WellKnownName>
+                <Fill>
+                  <CssParameter name="fill">#8F00FF</CssParameter>
+                </Fill>
+              </Mark>
+              <Size>6</Size>
+            </Graphic>
+          </PointSymbolizer>
+        </Rule>
+        <Rule>
+          <Title>Medium scale [bigger star, no label]</Title>
+          <MaxScaleDenominator>500000</MaxScaleDenominator>
+          <PointSymbolizer>
+            <Graphic>
+              <Mark>
+                <WellKnownName>star</WellKnownName>
+                <Fill>
+                  <CssParameter name="fill">#DC143C</CssParameter>
+                </Fill>
+                <Stroke>
+                  <CssParameter name="stroke">#FFFFFF</CssParameter>
+                  <CssParameter name="stroke-width">1</CssParameter>
+                </Stroke>
+              </Mark>
+              <Size>18</Size>
+            </Graphic>
+          </PointSymbolizer>
+        </Rule>
+        <Rule>
+          <Title>Medium scale [bigger star + label]</Title>
+          <MaxScaleDenominator>250000</MaxScaleDenominator>
+          <PointSymbolizer>
+            <Graphic>
+              <Mark>
+                <WellKnownName>star</WellKnownName>
+                <Fill>
+                  <CssParameter name="fill">#DC143C</CssParameter>
+                </Fill>
+                <Stroke>
+                  <CssParameter name="stroke">#FFFFFF</CssParameter>
+                  <CssParameter name="stroke-width">1</CssParameter>
+                </Stroke>
+              </Mark>
+              <Size>18</Size>
+            </Graphic>
+          </PointSymbolizer>
+          <TextSymbolizer>
+            <Label>
+              <ogc:PropertyName>name</ogc:PropertyName>
+            </Label>
+            <Font>
+              <CssParameter name="font-family">Arial</CssParameter>
+              <CssParameter name="font-size">12</CssParameter>
+              <CssParameter name="font-style">normal</CssParameter>
+              <CssParameter name="font-weight">bold</CssParameter>
+            </Font>
+            <LabelPlacement>
+              <PointPlacement>
+                <AnchorPoint>
+                  <AnchorPointX>0.5</AnchorPointX>
+                  <AnchorPointY>0.0</AnchorPointY>
+                </AnchorPoint>
+                <Displacement>
+                  <DisplacementX>0</DisplacementX>
+                  <DisplacementY>7</DisplacementY>
+                </Displacement>
+                <Rotation>-45</Rotation>
+              </PointPlacement>
+            </LabelPlacement>
+            <Halo>
+              <Radius>1</Radius>
+              <Fill>
+                <CssParameter name="fill">#FFFFFF</CssParameter>
+              </Fill>
+            </Halo>
+            <Fill>
+              <CssParameter name="fill">#DC143C</CssParameter>
+            </Fill>
+          </TextSymbolizer>
+        </Rule>
+      </FeatureTypeStyle>
+    </UserStyle>
+  </NamedLayer>
+</StyledLayerDescriptor>

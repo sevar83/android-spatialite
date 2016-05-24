@@ -1,0 +1,27 @@
+FreeXL is a simple library intended for extracting the contents and some
+metadata from Microsoft Excel (.xls) format files.
+
+It makes no attempt to extract GUI-related formatting or formulas / charts / etc
+
+
+Documentation
+-------------
+Documentation is generated using Doxygen. You can run "doxygen" in the top level
+directory to generate HTML and LaTeX documentation (in the html/ and latex/
+directories respectively). You can generate a PDF format manual if you go into
+the latex/ directory and type "make". The output should be a file called
+refman.pdf. The HTML documentation is normally more useful.
+
+
+Coverage testing
+----------------
+FreeXL has coverage testing support. You need to have gcov and lcov installed.
+
+Process:
+1. Use --enable-gcov=yes with configure script
+2. Clean and rebuild.
+3. make coverage-init
+4. make check (or whatever other tests you want to check coverage for)
+5. make coverage
+6. check summary on command line output.
+7. review detailed coverage results in covresults/index.html

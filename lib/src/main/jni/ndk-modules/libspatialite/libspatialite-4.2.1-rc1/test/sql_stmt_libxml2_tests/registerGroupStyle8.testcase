@@ -1,0 +1,8 @@
+RegisterGroupStyle - TEXT style
+:memory: #use in-memory database
+SELECT RegisterGroupStyle('alpha', 'beta');
+1 # rows (not including the header row)
+1 # columns
+RegisterGroupStyle('alpha', 'beta')
+-1
+

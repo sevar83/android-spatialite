@@ -1,0 +1,17 @@
+In order DS-5 to work, you need to have its specially modified version of gdbserver copied on the target device together with the .so libs.
+Make sure you have a rooted device. "Root access to apps and ADB" switched on in Android system settings. Below replace the NDK version r9 with your current version.
+sudo cp /opt/eclipse/plugins/com.arm.ds.collateral_5.17.0.20131213_212405/arm/gdbserver/android/gdbserver-dyna-7.1 /opt/android-ndk-r9/prebuilt/android-arm/gdbserver/gdbserver
+adb root
+adb push -p /opt/android-ndk-r9/prebuilt/android-arm/gdbserver/gdbserver /data/data/com.buildware.geocoord/lib/
+Notes:
+- maybe 700 permissions for gdbserver are needed too)
+- gdbserver might get deleted after running with Android Studio
+
+Start Eclipse:
+- Switch to DS-5 perspective. 
+- Create or edit a debug configuration and choose "Attach to a running Android application". 
+- Check "Connect as root"
+- Click on "Files" tab -> Load symbols from file -> /home/sevar/workspace/android-studio/geoworld/androidspatialite/build/obj/local/armeabi-v7a/libandroid_spatialite.so
+- Save the debug configuration
+- It is a good idea to set some breakpoints before connecting to the debug target as it may to be possible afterwards
+- Click the button "Connect to Target" in the toolbar of the upper-left part of the screen

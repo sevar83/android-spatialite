@@ -1,0 +1,55 @@
+apply plugin: 'com.android.library'
+
+android {
+    compileSdkVersion 23
+    buildToolsVersion "23.0.2"
+
+    defaultConfig {
+        minSdkVersion 16
+        targetSdkVersion 23
+        versionCode 1
+        versionName "1.0"
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    // This tricks Gradle that there is no native source code to build,
+    // so we can build it with our custom task "ndkBuild"
+    sourceSets {
+        main {
+            jni.srcDirs = []
+            jniLibs.srcDir 'build/libs'
+        }
+    }
+}
+
+// Howto "Using custom Android.mk with Gradle/Android Studio"
+// http://blog.gaku.net/ndk/
+// http://blog.gaku.net/including-ndk-produced-so-file-into-apk/
+// https://github.com/twitter-university/FibonacciNativeProject/tree/master/FibonacciNative
+// http://ph0b.com/android-studio-gradle-and-ndk-integration/
+task ndkBuild(type: Exec, description: 'Compile JNI sources via NDK') {
+    commandLine 'ndk-build',
+            'V=1',
+            '-j', Runtime.runtime.availableProcessors(),
+            'NDK_PROJECT_PATH=build',
+            'NDK_APPLICATION_MK=src/main/jni/Application.mk',
+            'APP_BUILD_SCRIPT=src/main/jni/Android.mk'
+}
+
+tasks.withType(JavaCompile) {
+    compileTask -> compileTask.dependsOn ndkBuild
+}
+
+dependencies {
+    compile fileTree(dir: 'libs', include: ['*.jar'])
+    testCompile 'junit:junit:4.12'
+    androidTestCompile 'com.android.support:support-annotations:23.4.0'
+    androidTestCompile 'com.android.support.test:runner:0.4.1'
+    androidTestCompile 'com.android.support.test:rules:0.4.1'
+}

@@ -1,0 +1,8 @@
+RegisterExternalGraphic - TEXT resource
+:memory: #use in-memory database
+SELECT RegisterExternalGraphic('resource.png', 'alpha');
+1 # rows (not including the header row)
+1 # columns
+RegisterExternalGraphic('resource.png', 'alpha');
+-1
+

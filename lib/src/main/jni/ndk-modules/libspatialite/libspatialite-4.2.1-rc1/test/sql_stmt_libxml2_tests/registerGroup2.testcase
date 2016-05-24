@@ -1,0 +1,8 @@
+RegisterStyledGroup - INTEGER group_name
+:memory: #use in-memory database
+SELECT RegisterStyledGroup(1, NULL, NULL);
+1 # rows (not including the header row)
+1 # columns
+RegisterStyledGroup(1, NULL, NULL)
+-1
+

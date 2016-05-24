@@ -1,0 +1,24 @@
+**** gg_transform.c
+added
+
+static int
+gaiaIsLongLat (char *str)
+{
+/* checks if we have to do with ANGLES if +proj=longlat is defined */
+// SV - added more aliases that are used sometimes: latlong, lonlat, latlon
+    if (strstr (str, "+proj=longlat") != NULL ||
+        strstr (str, "+proj=latlong") != NULL ||
+        strstr (str, "+proj=lonlat") != NULL ||
+        strstr (str, "+proj=latlon") != NULL)
+	return 1;
+    return 0;
+}
+
+
+**** srsinit/epsg_inlined_extra.c
+commented
+
+/* SV
+       	initialize_epsg_prussian (filter, first, last);
+				initialize_epsg_extra (filter, first, last);
+*/

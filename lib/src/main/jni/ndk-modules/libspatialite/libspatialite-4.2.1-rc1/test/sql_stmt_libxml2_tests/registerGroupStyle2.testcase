@@ -1,0 +1,8 @@
+RegisterGroupStyle - INTEGER group
+:memory: #use in-memory database
+SELECT RegisterGroupStyle(1, NULL);
+1 # rows (not including the header row)
+1 # columns
+RegisterGroupStyle(1, NULL)
+-1
+

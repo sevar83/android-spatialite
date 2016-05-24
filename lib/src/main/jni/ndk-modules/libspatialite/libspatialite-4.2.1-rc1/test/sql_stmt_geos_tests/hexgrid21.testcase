@@ -1,0 +1,10 @@
+HexagonalGrid - valid - no Origin
+:memory: #use in-memory database
+SELECT AsText(HexagonalGrid(GeomFromText('POLYGON((0.2 0.2, 2.2 0.2, 2.2 1.2, 0.2 1.2, 0.2 0.2))', 4326), 1.0));
+1 # rows (not including the header row)
+1 # columns
+AsText(HexagonalGrid(GeomFromText('POLYGON((0.2 0.2, 2.2 0.2, 2.2 1.2, 0.2 1.2, 0.2 0.2))', 4326), 1.0))
+MULTIPOLYGON(((0 0.866025, 0.5 0, 1.5 0, 2 0.866025, 1.5 1.732051, 0.5 1.732051, 0 0.866025)), ((1.5 1.732051, 2 0.866025, 3 0.866025, 3.5 1.732051, 3 2.598076, 2 2.598076, 1.5 1.732051)))
+
+
+

@@ -1,0 +1,8 @@
+RegisterGroupStyle - INTEGER style_id
+:memory: #use in-memory database
+SELECT RegisterGroupStyle('alpha', 1, zeroblob(4));
+1 # rows (not including the header row)
+1 # columns
+RegisterGroupStyle('alpha', 1, zeroblob(4));
+0
+

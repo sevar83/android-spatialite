@@ -1,0 +1,12 @@
+# Package Information for pkg-config
+
+prefix=/usr/local
+exec_prefix=${prefix}
+libdir=${exec_prefix}/lib
+includedir=${prefix}/include
+
+Name: freexl
+Description: a simple library extracting data from .xls (Excel BIFF) files
+Version: 1.0.0e
+Libs: -L${libdir} -lfreexl -lm
+Cflags: -I${includedir} 

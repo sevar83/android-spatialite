@@ -1,0 +1,8 @@
+RegisterStyledGroup - vector DOUBLE paint_order
+:memory: #use in-memory database
+SELECT RegisterStyledGroup('alpha', 'beta', 'gamma', 1.1);
+1 # rows (not including the header row)
+1 # columns
+RegisterStyledGroup('alpha', 'beta', 'gamma', 1.1)
+-1
+
