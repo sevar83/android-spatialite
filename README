@@ -1,3 +1,5 @@
+[![Release](https://jitpack.io/v/org.bitbucket.buildware/android-spatialite.svg)](https://jitpack.io/#org.bitbucket.buildware/android-spatialite)
+
 USAGE
 
 1) ./gradlew install
