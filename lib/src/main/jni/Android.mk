@@ -11,7 +11,8 @@ LOCAL_SRC_FILES:= \
 	CursorWindow.cpp \
   jniproj.c \
   org_spatialite_tools_ImportExport.cpp \
-  posix.c
+  posix.c \
+  exidx_workaround.cpp
 #	org_spatialite_database_SQLiteDebug.cpp	
 
 LOCAL_C_INCLUDES += \
