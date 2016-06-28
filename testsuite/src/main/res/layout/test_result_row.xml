@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:tools="http://schemas.android.com/tools"
+                android:orientation="vertical"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent">
+    <TextView android:id="@+id/test_status"
+              android:layout_height="wrap_content"
+              android:layout_width="wrap_content"
+              android:padding="5dip"
+              android:gravity="right"
+              android:textSize="18sp"
+              android:layout_alignParentRight="true"
+              tools:text="Status"/>
+    <TextView android:id="@+id/test_name"
+              android:layout_height="wrap_content"
+              android:layout_width="fill_parent"
+              android:paddingTop="5dip"
+              android:gravity="left"
+              android:textSize="18sp"
+              android:singleLine="true"
+              android:ellipsize="end"
+              android:layout_toLeftOf="@+id/test_status"
+              tools:text="Name"/>
+    <TextView android:id="@+id/test_message"
+              android:layout_height="wrap_content"
+              android:layout_width="fill_parent"
+              android:gravity="left"
+              android:textSize="14sp"
+              android:singleLine="true"
+              android:ellipsize="end"
+              android:layout_below="@+id/test_name"
+              android:layout_toLeftOf="@+id/test_status"
+              tools:text="Message"/>
+</RelativeLayout>
