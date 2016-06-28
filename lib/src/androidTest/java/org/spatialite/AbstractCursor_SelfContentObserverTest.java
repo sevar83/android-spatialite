@@ -15,26 +15,38 @@
  */
 package org.spatialite;
 
-import android.test.AndroidTestCase;
+import android.support.test.filters.SmallTest;
+import android.support.test.runner.AndroidJUnit4;
 
-public class AbstractCursor_SelfContentObserverTest extends AndroidTestCase{
+import org.junit.Test;
+import org.junit.runner.RunWith;
 
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
+
+@RunWith(AndroidJUnit4.class)
+@SmallTest
+public class AbstractCursor_SelfContentObserverTest {
+
+    @Test
     public void testConstructor() {
         MockAbstractCursor mac = new MockAbstractCursor();
         mac.getMockSelfContentObserver();
     }
 
+    @Test
     public void testDeliverSelfNotifications() {
         MockAbstractCursor mac = new MockAbstractCursor();
         MockAbstractCursor.MockSelfContentObserver msc = mac.getMockSelfContentObserver();
         assertFalse(msc.deliverSelfNotifications());
     }
 
+    @Test
     public void testOnChange() {
         MockAbstractCursor mockCursor = new MockAbstractCursor();
         MockAbstractCursor.MockSelfContentObserver msc = mockCursor.getMockSelfContentObserver();
         mockCursor.registerContentObserver(msc);
-        // here, the directly call of AbstractCurso#onChange is intended to test
+        // here, the directly call of AbstractCursor#onChange is intended to test
         // SelfContentObserver#onChange
         mockCursor.onChange(false);
         assertTrue(msc.mIsOnChangeCalled);

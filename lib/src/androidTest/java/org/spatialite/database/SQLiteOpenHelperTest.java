@@ -17,14 +17,27 @@
 package org.spatialite.database;
 
 import android.content.Context;
-import android.test.AndroidTestCase;
+import android.support.test.filters.SmallTest;
+import android.support.test.runner.AndroidJUnit4;
 
+import org.junit.Before;
+import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.spatialite.Cursor;
 
+import static android.support.test.InstrumentationRegistry.getInstrumentation;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNotSame;
+import static org.junit.Assert.assertSame;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
 /**
  * Test {@link SQLiteOpenHelper}.
  */
-public class SQLiteOpenHelperTest extends AndroidTestCase {
+@RunWith(AndroidJUnit4.class)
+@SmallTest
+public class SQLiteOpenHelperTest {
     private static final String TEST_DATABASE_NAME = "database_test.db";
     private static final int TEST_VERSION = 1;
     private static final int TEST_ILLEGAL_VERSION = 0;
@@ -36,32 +49,34 @@ public class SQLiteOpenHelperTest extends AndroidTestCase {
         }
     };
 
-    @Override
-    protected void setUp() throws Exception {
-        super.setUp();
-        SQLiteDatabase.loadLibs(getContext());
+    @Before
+    public void setUp() throws Exception {
+        SQLiteDatabase.loadLibs(getInstrumentation().getTargetContext());
         mOpenHelper = getOpenHelper();
     }
 
+    @Test
     public void testConstructor() {
-        new MockOpenHelper(mContext, TEST_DATABASE_NAME, mFactory, TEST_VERSION);
+        Context targetContext = getInstrumentation().getTargetContext();
+        new MockOpenHelper(targetContext, TEST_DATABASE_NAME, mFactory, TEST_VERSION);
 
         // Test with illegal version number.
         try {
-            new MockOpenHelper(mContext, TEST_DATABASE_NAME, mFactory, TEST_ILLEGAL_VERSION);
+            new MockOpenHelper(targetContext, TEST_DATABASE_NAME, mFactory, TEST_ILLEGAL_VERSION);
             fail("Constructor of SQLiteOpenHelp should throws a IllegalArgumentException here.");
         } catch (IllegalArgumentException e) {
         }
 
         // Test with null factory
-        new MockOpenHelper(mContext, TEST_DATABASE_NAME, null, TEST_VERSION);
+        new MockOpenHelper(targetContext, TEST_DATABASE_NAME, null, TEST_VERSION);
     }
 
+    @Test
     public void testGetDatabase() {
         SQLiteDatabase database = null;
         assertFalse(mOpenHelper.hasCalledOnOpen());
         // Test getReadableDatabase.
-        database = mOpenHelper.getReadableDatabase();
+        database = mOpenHelper.getReadableDatabase((String) null);
         assertNotNull(database);
         assertTrue(database.isOpen());
         assertTrue(mOpenHelper.hasCalledOnOpen());
@@ -70,7 +85,7 @@ public class SQLiteOpenHelperTest extends AndroidTestCase {
         mOpenHelper.resetStatus();
         assertFalse(mOpenHelper.hasCalledOnOpen());
         // Test getWritableDatabase.
-        SQLiteDatabase database2 = mOpenHelper.getWritableDatabase();
+        SQLiteDatabase database2 = mOpenHelper.getWritableDatabase((String) null);
         assertSame(database, database2);
         assertTrue(database.isOpen());
         assertFalse(mOpenHelper.hasCalledOnOpen());
@@ -81,7 +96,7 @@ public class SQLiteOpenHelperTest extends AndroidTestCase {
         // After close(), onOpen() will be invoked by getWritableDatabase.
         mOpenHelper.resetStatus();
         assertFalse(mOpenHelper.hasCalledOnOpen());
-        SQLiteDatabase database3 = mOpenHelper.getWritableDatabase();
+        SQLiteDatabase database3 = mOpenHelper.getWritableDatabase((String) null);
         assertNotNull(database);
         assertNotSame(database, database3);
         assertTrue(mOpenHelper.hasCalledOnOpen());
@@ -91,7 +106,7 @@ public class SQLiteOpenHelperTest extends AndroidTestCase {
     }
 
     private MockOpenHelper getOpenHelper() {
-        return new MockOpenHelper(mContext, TEST_DATABASE_NAME, mFactory, TEST_VERSION);
+        return new MockOpenHelper(getInstrumentation().getTargetContext(), TEST_DATABASE_NAME, mFactory, TEST_VERSION);
     }
 
     private class MockOpenHelper extends SQLiteOpenHelper {

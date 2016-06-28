@@ -17,13 +17,23 @@
 package org.spatialite.database;
 
 import android.content.Context;
-import android.test.AndroidTestCase;
+import android.support.test.filters.MediumTest;
+import android.support.test.runner.AndroidJUnit4;
 import android.test.PerformanceTestCase;
-import android.test.suitebuilder.annotation.MediumTest;
 
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.spatialite.Cursor;
 
 import java.io.File;
+
+import static android.support.test.InstrumentationRegistry.getInstrumentation;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
 
 /*
  * These tests were taken from
@@ -31,7 +41,9 @@ import java.io.File;
  * Modifications:
  * - use Context to create and delete the DB to avoid hard-coded paths
  */
-public class DatabaseStatementTest extends AndroidTestCase implements PerformanceTestCase {
+@RunWith(AndroidJUnit4.class)
+@MediumTest
+public class DatabaseStatementTest implements PerformanceTestCase {
 
     private static final String sString1 = "this is a test";
     private static final String sString2 = "and yet another test";
@@ -43,28 +55,27 @@ public class DatabaseStatementTest extends AndroidTestCase implements Performanc
     private SQLiteDatabase mDatabase;
     private File mDatabaseFile;
 
-    @Override
-    protected void setUp() throws Exception {
-        super.setUp();
+    @Before
+    public void setUp() throws Exception {
         setupDatabase();
         mDatabase.setVersion(CURRENT_DATABASE_VERSION);
     }
 
-    @Override
-    protected void tearDown() throws Exception {
+    @After
+    public void tearDown() throws Exception {
         mDatabase.close();
-        getContext().deleteDatabase(DATABASE_NAME);
-        super.tearDown();
+        getInstrumentation().getTargetContext().deleteDatabase(DATABASE_NAME);
     }
 
     private void setupDatabase() {
-        SQLiteDatabase.loadLibs(getContext());
-        File dbDir = getContext().getDir("tests", Context.MODE_PRIVATE);
+        Context targetContext = getInstrumentation().getTargetContext();
+        SQLiteDatabase.loadLibs(targetContext);
+        File dbDir = targetContext.getDir("tests", Context.MODE_PRIVATE);
         mDatabaseFile = new File(dbDir, DATABASE_NAME);
         if (mDatabaseFile.exists()) {
             mDatabaseFile.delete();
         }
-        mDatabase = SQLiteDatabase.openOrCreateDatabase(mDatabaseFile.getPath(), null);
+        mDatabase = SQLiteDatabase.openOrCreateDatabase(mDatabaseFile.getPath(), (String) null, null);
         assertNotNull(mDatabaseFile);
     }
 
@@ -85,6 +96,7 @@ public class DatabaseStatementTest extends AndroidTestCase implements Performanc
         mDatabase.execSQL("INSERT INTO test (data) VALUES ('" + sString3 + "');");
     }
 
+    @Test
     @MediumTest
     public void testExecuteStatement() throws Exception {
         populateDefaultTable();
@@ -97,6 +109,7 @@ public class DatabaseStatementTest extends AndroidTestCase implements Performanc
         statement.close();
     }
 
+    @Test
     @MediumTest
     public void testSimpleQuery() throws Exception {
         mDatabase.execSQL("CREATE TABLE test (num INTEGER NOT NULL, str TEXT NOT NULL);");
@@ -134,6 +147,7 @@ public class DatabaseStatementTest extends AndroidTestCase implements Performanc
         statement2.close();
     }
 
+    @Test
     @MediumTest
     public void testStatementLongBinding() throws Exception {
         mDatabase.execSQL("CREATE TABLE test (num INTEGER);");
@@ -156,6 +170,7 @@ public class DatabaseStatementTest extends AndroidTestCase implements Performanc
         c.close();
     }
 
+    @Test
     @MediumTest
     public void testStatementStringBinding() throws Exception {
         mDatabase.execSQL("CREATE TABLE test (num TEXT);");
@@ -178,6 +193,7 @@ public class DatabaseStatementTest extends AndroidTestCase implements Performanc
         c.close();
     }
 
+    @Test
     @MediumTest
     public void testStatementClearBindings() throws Exception {
         mDatabase.execSQL("CREATE TABLE test (num INTEGER);");
@@ -200,6 +216,7 @@ public class DatabaseStatementTest extends AndroidTestCase implements Performanc
         c.close();
     }
 
+    @Test
     @MediumTest
     public void testSimpleStringBinding() throws Exception {
         mDatabase.execSQL("CREATE TABLE test (num TEXT, value TEXT);");
@@ -224,6 +241,7 @@ public class DatabaseStatementTest extends AndroidTestCase implements Performanc
         c.close();
     }
 
+    @Test
     @MediumTest
     public void testStatementMultipleBindings() throws Exception {
         mDatabase.execSQL("CREATE TABLE test (num INTEGER, str TEXT);");
@@ -287,6 +305,7 @@ public class DatabaseStatementTest extends AndroidTestCase implements Performanc
         }
     }
 
+    @Test
     @MediumTest
     public void testStatementMultiThreaded() throws Exception {
         mDatabase.execSQL("CREATE TABLE test (num INTEGER, str TEXT);");
@@ -302,6 +321,7 @@ public class DatabaseStatementTest extends AndroidTestCase implements Performanc
         }
     }
 
+    @Test
     @MediumTest
     public void testStatementConstraint() throws Exception {
         mDatabase.execSQL("CREATE TABLE test (num INTEGER NOT NULL);");

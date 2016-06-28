@@ -20,22 +20,37 @@ package org.spatialite;
 import android.content.Context;
 import android.database.CharArrayBuffer;
 import android.database.ContentObserver;
-import android.database.CursorWindow;
 import android.database.DataSetObserver;
 import android.net.Uri;
 import android.os.Bundle;
-import android.test.InstrumentationTestCase;
+import android.support.test.filters.SmallTest;
+import android.support.test.runner.AndroidJUnit4;
 
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.spatialite.database.SQLiteDatabase;
 
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Random;
 
+import static android.support.test.InstrumentationRegistry.getInstrumentation;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertSame;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
+
 /**
  * Test {@link AbstractCursor}.
  */
-public class AbstractCursorTest extends InstrumentationTestCase {
+@RunWith(AndroidJUnit4.class)
+@SmallTest
+public class AbstractCursorTest {
     private static final int POSITION0 = 0;
     private static final int POSITION1 = 1;
     private  static final int ROW_MAX = 10;
@@ -52,31 +67,30 @@ public class AbstractCursorTest extends InstrumentationTestCase {
     private File mDatabaseFile;
     private AbstractCursor mDatabaseCursor;
 
-    @Override
-    protected void setUp() throws Exception {
-        super.setUp();
-
+    @Before
+    public void setUp() throws Exception {
         setupDatabase();
         ArrayList<ArrayList> list = createTestList(ROW_MAX, COLUMN_NAMES.length);
         mTestAbstractCursor = new TestAbstractCursor(COLUMN_NAMES, list);
     }
 
-    @Override
-    protected void tearDown() throws Exception {
+    @After
+    public void tearDown() throws Exception {
         mDatabaseCursor.close();
         mTestAbstractCursor.close();
         mDatabase.close();
         if (mDatabaseFile.exists()) {
             mDatabaseFile.delete();
         }
-        super.tearDown();
     }
 
+    @Test
     public void testConstructor() {
         TestAbstractCursor abstractCursor = new TestAbstractCursor();
         assertEquals(-1, abstractCursor.getPosition());
     }
 
+    @Test
     public void testGetBlob() {
         try {
             mTestAbstractCursor.getBlob(0);
@@ -86,6 +100,7 @@ public class AbstractCursorTest extends InstrumentationTestCase {
         }
     }
 
+    @Test
     public void testRegisterDataSetObserver() {
         MockDataSetObserver datasetObserver = new MockDataSetObserver();
 
@@ -109,6 +124,7 @@ public class AbstractCursorTest extends InstrumentationTestCase {
         mDatabaseCursor.registerDataSetObserver(datasetObserver);
     }
 
+    @Test
     public void testRegisterContentObserver() {
         MockContentObserver contentObserver = new MockContentObserver();
 
@@ -132,12 +148,14 @@ public class AbstractCursorTest extends InstrumentationTestCase {
         mDatabaseCursor.registerContentObserver(contentObserver);
     }
 
+    @Test
     public void testSetNotificationUri() {
         String MOCK_URI = "content://abstractrcursortest/testtable";
         mDatabaseCursor.setNotificationUri(getInstrumentation().getContext().getContentResolver(),
                 Uri.parse(MOCK_URI));
     }
 
+    @Test
     public void testRespond() {
         Bundle b = new Bundle();
         Bundle bundle = mDatabaseCursor.respond(b);
@@ -147,6 +165,7 @@ public class AbstractCursorTest extends InstrumentationTestCase {
         assertSame(Bundle.EMPTY, bundle);
     }
 
+    @Test
     public void testRequery() {
         MockDataSetObserver mock = new MockDataSetObserver();
         mDatabaseCursor.registerDataSetObserver(mock);
@@ -155,6 +174,7 @@ public class AbstractCursorTest extends InstrumentationTestCase {
         assertTrue(mock.hadCalledOnChanged());
     }
 
+    @Test
     public void testOnChange() throws InterruptedException {
         MockContentObserver mock = new MockContentObserver();
         mTestAbstractCursor.registerContentObserver(mock);
@@ -168,6 +188,7 @@ public class AbstractCursorTest extends InstrumentationTestCase {
         assertTrue(mock.hadCalledOnChange());
     }
 
+    @Test
     public void testOnMove() {
         mTestAbstractCursor.resetOnMoveRet();
         assertFalse(mTestAbstractCursor.getOnMoveRet());
@@ -178,6 +199,7 @@ public class AbstractCursorTest extends InstrumentationTestCase {
         assertEquals(5, mTestAbstractCursor.getNewPos());
     }
 
+    @Test
     public void testMoveToPrevious() {
         // Test moveToFirst, isFirst, moveToNext, getPosition
         assertTrue(mDatabaseCursor.moveToFirst());
@@ -248,12 +270,14 @@ public class AbstractCursorTest extends InstrumentationTestCase {
         assertFalse(mDatabaseCursor.isAfterLast());
     }
 
+    @Test
     public void testIsClosed() {
         assertFalse(mDatabaseCursor.isClosed());
         mDatabaseCursor.close();
         assertTrue(mDatabaseCursor.isClosed());
     }
 
+    @Test
     public void testGetWindow() {
         CursorWindow window = new CursorWindow(false);
         assertEquals(0, window.getNumRows());
@@ -270,28 +294,34 @@ public class AbstractCursorTest extends InstrumentationTestCase {
         window.clear();
     }
 
+    @Test
     public void testGetWantsAllOnMoveCalls() {
         assertFalse(mDatabaseCursor.getWantsAllOnMoveCalls());
     }
 
+    @Test
     public void testIsFieldUpdated() {
         mTestAbstractCursor.moveToFirst();
         assertFalse(mTestAbstractCursor.isFieldUpdated(0));
     }
 
+    @Test
     public void testGetUpdatedField() {
         mTestAbstractCursor.moveToFirst();
         assertNull(mTestAbstractCursor.getUpdatedField(0));
     }
 
+    @Test
     public void testGetExtras() {
         assertSame(Bundle.EMPTY, mDatabaseCursor.getExtras());
     }
 
+    @Test
     public void testGetCount() {
         assertEquals(DATA_COUNT, mDatabaseCursor.getCount());
     }
 
+    @Test
     public void testGetColumnNames() {
         String[] names = mDatabaseCursor.getColumnNames();
         assertEquals(COLUMN_NAMES1.length, names.length);
@@ -301,11 +331,13 @@ public class AbstractCursorTest extends InstrumentationTestCase {
         }
     }
 
+    @Test
     public void testGetColumnName() {
         assertEquals(COLUMN_NAMES1[0], mDatabaseCursor.getColumnName(0));
         assertEquals(COLUMN_NAMES1[1], mDatabaseCursor.getColumnName(1));
     }
 
+    @Test
     public void testGetColumnIndexOrThrow() {
         final String COLUMN_FAKE = "fake_name";
         assertEquals(POSITION0, mDatabaseCursor.getColumnIndex(COLUMN_NAMES1[POSITION0]));
@@ -321,15 +353,18 @@ public class AbstractCursorTest extends InstrumentationTestCase {
         }
     }
 
+    @Test
     public void testGetColumnIndex() {
         assertEquals(POSITION0, mDatabaseCursor.getColumnIndex(COLUMN_NAMES1[POSITION0]));
         assertEquals(POSITION1, mDatabaseCursor.getColumnIndex(COLUMN_NAMES1[POSITION1]));
     }
 
+    @Test
     public void testGetColumnCount() {
         assertEquals(COLUMN_NAMES1.length, mDatabaseCursor.getColumnCount());
     }
 
+    @Test
     public void testDeactivate() {
         MockDataSetObserver mock = new MockDataSetObserver();
         mDatabaseCursor.registerDataSetObserver(mock);
@@ -338,6 +373,7 @@ public class AbstractCursorTest extends InstrumentationTestCase {
         assertTrue(mock.hadCalledOnInvalid());
     }
 
+    @Test
     public void testCopyStringToBuffer() {
         CharArrayBuffer ca = new CharArrayBuffer(1000);
         mTestAbstractCursor.moveToFirst();
@@ -352,6 +388,7 @@ public class AbstractCursorTest extends InstrumentationTestCase {
         assertEquals(sb.toString(), new String(ca.data, 0, ca.sizeCopied));
     }
 
+    @Test
     public void testCheckPosition() {
         // Test with position = -1.
         try {
@@ -402,7 +439,7 @@ public class AbstractCursorTest extends InstrumentationTestCase {
         if (mDatabaseFile.exists()) {
             mDatabaseFile.delete();
         }
-        mDatabase = SQLiteDatabase.openOrCreateDatabase(mDatabaseFile.getPath(), null);
+        mDatabase = SQLiteDatabase.openOrCreateDatabase(mDatabaseFile.getPath(), (String) null, null);
         assertNotNull(mDatabaseFile);
         mDatabase.execSQL("CREATE TABLE test1 (_id INTEGER PRIMARY KEY, number TEXT);");
         generateData();

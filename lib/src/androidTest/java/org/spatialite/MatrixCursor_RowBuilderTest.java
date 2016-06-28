@@ -17,15 +17,28 @@
 package org.spatialite;
 
 
-import junit.framework.TestCase;
+import android.support.test.filters.SmallTest;
+import android.support.test.runner.AndroidJUnit4;
 
-public class MatrixCursor_RowBuilderTest extends TestCase {
+import org.junit.Test;
+import org.junit.runner.RunWith;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
+
+@RunWith(AndroidJUnit4.class)
+@SmallTest
+public class MatrixCursor_RowBuilderTest {
     private static final int COLUMN0_INDEX = 0;
 
     private static final int COLUMN1_INDEX = 1;
 
     private static final int COLUMN2_INDEX = 2;
 
+    @Test
     public void testAdd() {
         MatrixCursor cursor = new MatrixCursor(new String[] { "column0", "column1", "column2" });
         assertEquals(0, cursor.getCount());

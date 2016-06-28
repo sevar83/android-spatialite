@@ -21,12 +21,26 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.CursorJoiner;
 import android.database.CursorJoiner.Result;
-import android.database.sqlite.SQLiteDatabase;
-import android.test.AndroidTestCase;
+import android.support.test.filters.SmallTest;
+import android.support.test.runner.AndroidJUnit4;
+
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.spatialite.database.SQLiteDatabase;
 
 import java.io.File;
 
-public class CursorJoinerTest extends AndroidTestCase {
+import static android.support.test.InstrumentationRegistry.getInstrumentation;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
+
+@RunWith(AndroidJUnit4.class)
+@SmallTest
+public class CursorJoinerTest {
 
     private static final int TEST_ITEM_COUNT = 10;
     private static final int DEFAULT_TABLE1_VALUE_BEGINS = 1;
@@ -44,19 +58,18 @@ public class CursorJoinerTest extends AndroidTestCase {
     private SQLiteDatabase mDatabase;
     private File mDatabaseFile;
 
-    @Override
-    protected void setUp() throws Exception {
-        super.setUp();
+    @Before
+    public void setUp() throws Exception {
         setupDatabase();
     }
 
-    @Override
-    protected void tearDown() throws Exception {
+    @After
+    public void tearDown() throws Exception {
         mDatabase.close();
         mDatabaseFile.delete();
-        super.tearDown();
     }
 
+    @Test
     public void testCursorJoinerAndIterator() {
         Cursor cursor1 = getCursor(TABLE_NAME_1, null, null);
         Cursor cursor2 = getCursor(TABLE_NAME_2, null, null);
@@ -131,6 +144,7 @@ public class CursorJoinerTest extends AndroidTestCase {
         closeCursor(cursor1);
     }
 
+    @Test
     public void testNext() {
         String[] columnNames = new String[] { "number" };
         Cursor cursor1 = getCursor(TABLE_NAME_1, null, columnNames);
@@ -204,13 +218,14 @@ public class CursorJoinerTest extends AndroidTestCase {
     }
 
     private void setupDatabase() {
-        org.spatialite.database.SQLiteDatabase.loadLibs(getContext());
-        File dbDir = getContext().getDir("tests", Context.MODE_PRIVATE);
+        Context targetContext = getInstrumentation().getTargetContext();
+        SQLiteDatabase.loadLibs(targetContext);
+        File dbDir = targetContext.getDir("tests", Context.MODE_PRIVATE);
         mDatabaseFile = new File(dbDir, "database_test.db");
         if (mDatabaseFile.exists()) {
             mDatabaseFile.delete();
         }
-        mDatabase = SQLiteDatabase.openOrCreateDatabase(mDatabaseFile.getPath(), null);
+        mDatabase = SQLiteDatabase.openOrCreateDatabase(mDatabaseFile.getPath(), (String) null, null);
         assertNotNull(mDatabaseFile);
         createTable(TABLE_NAME_1, TABLE1_COLUMNS);
         createTable(TABLE_NAME_2, TABLE2_COLUMNS);

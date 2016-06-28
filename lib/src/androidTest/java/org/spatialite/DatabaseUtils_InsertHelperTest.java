@@ -19,50 +19,66 @@ package org.spatialite;
 
 import android.content.ContentValues;
 import android.content.Context;
-import android.test.AndroidTestCase;
+import android.support.test.filters.SmallTest;
+import android.support.test.runner.AndroidJUnit4;
 import android.test.MoreAsserts;
 
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.spatialite.database.SQLiteDatabase;
 
 import java.io.File;
 
-public class DatabaseUtils_InsertHelperTest extends AndroidTestCase {
+import static android.support.test.InstrumentationRegistry.getInstrumentation;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.fail;
+import static org.spatialite.TestConstants.EPSILON;
+
+@RunWith(AndroidJUnit4.class)
+@SmallTest
+public class DatabaseUtils_InsertHelperTest {
     private static final String TEST_TABLE_NAME = "test";
     private static final String DATABASE_NAME = "database_test.db";
 
     private SQLiteDatabase mDatabase;
     private DatabaseUtils.InsertHelper mInsertHelper;
 
-    @Override
-    protected void setUp() throws Exception {
-        super.setUp();
-        SQLiteDatabase.loadLibs(getContext());
-        File dbDir = getContext().getDir("tests", Context.MODE_PRIVATE);
+    @Before
+    public void setUp() throws Exception {
+        Context targetContext = getInstrumentation().getTargetContext();
+        SQLiteDatabase.loadLibs(targetContext);
+        File dbDir = targetContext.getDir("tests", Context.MODE_PRIVATE);
         File databaseFile = new File(dbDir, DATABASE_NAME);
         if (databaseFile.exists()) {
             databaseFile.delete();
         }
-        mDatabase = SQLiteDatabase.openOrCreateDatabase(databaseFile.getPath(), null);
+        mDatabase = SQLiteDatabase.openOrCreateDatabase(databaseFile.getPath(), (String) null, null);
         assertNotNull(mDatabase);
         mInsertHelper = new DatabaseUtils.InsertHelper(mDatabase, TEST_TABLE_NAME);
     }
 
-    @Override
-    protected void tearDown() throws Exception {
+    @After
+    public void tearDown() throws Exception {
         mInsertHelper.close();
         mDatabase.close();
-        getContext().deleteDatabase(DATABASE_NAME);
-        super.tearDown();
+        getInstrumentation().getTargetContext().deleteDatabase(DATABASE_NAME);
     }
 
+    @Test
     public void testConstructor() {
         new DatabaseUtils.InsertHelper(mDatabase, TEST_TABLE_NAME);
     }
 
+    @Test
     public void testClose() {
         mInsertHelper.close();
     }
 
+    @Test
     public void testGetColumnIndex() {
         mDatabase.execSQL("CREATE TABLE " + TEST_TABLE_NAME + " (_id INTEGER PRIMARY KEY, " +
                 "name TEXT, age INTEGER, address TEXT);");
@@ -135,8 +151,8 @@ public class DatabaseUtils_InsertHelperTest extends AndroidTestCase {
         assertEquals(1, cursor.getInt(booleanValueIndex));
         assertEquals(10, cursor.getInt(intValueIndex));
         assertEquals(1000L, cursor.getLong(longValueIndex));
-        assertEquals(123.456, cursor.getDouble(doubleValueIndex));
-        assertEquals(1.0f, cursor.getFloat(floatValueIndex));
+        assertEquals(123.456, cursor.getDouble(doubleValueIndex), EPSILON);
+        assertEquals(1.0f, cursor.getFloat(floatValueIndex), (float) EPSILON);
         assertEquals("test insert", cursor.getString(stringValueIndex));
         byte[] value = cursor.getBlob(blobValueIndex);
         MoreAsserts.assertEquals(blob, value);

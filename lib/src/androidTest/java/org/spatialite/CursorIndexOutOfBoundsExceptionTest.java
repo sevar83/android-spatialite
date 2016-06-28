@@ -16,10 +16,20 @@
 
 package org.spatialite;
 
-import android.test.AndroidTestCase;
+import android.support.test.filters.SmallTest;
+import android.support.test.runner.AndroidJUnit4;
 
-public class CursorIndexOutOfBoundsExceptionTest extends AndroidTestCase {
+import org.junit.Test;
+import org.junit.runner.RunWith;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNull;
+
+@RunWith(AndroidJUnit4.class)
+@SmallTest
+public class CursorIndexOutOfBoundsExceptionTest {
+
+    @Test
     public void testConstructors() {
         int INDEX = 100;
         int SIZE = 99;

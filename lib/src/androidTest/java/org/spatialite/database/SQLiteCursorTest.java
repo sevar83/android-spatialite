@@ -19,8 +19,13 @@ package org.spatialite.database;
 
 import android.content.Context;
 import android.database.DataSetObserver;
-import android.test.AndroidTestCase;
+import android.support.test.filters.SmallTest;
 
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.junit.runners.JUnit4;
 import org.spatialite.AbstractCursor;
 import org.spatialite.CursorWindow;
 import org.spatialite.StaleDataException;
@@ -28,10 +33,19 @@ import org.spatialite.StaleDataException;
 import java.io.File;
 import java.util.Arrays;
 
+import static android.support.test.InstrumentationRegistry.getInstrumentation;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
+
 /**
  * Test {@link AbstractCursor}.
  */
-public class SQLiteCursorTest extends AndroidTestCase {
+@RunWith(JUnit4.class)
+@SmallTest
+public class SQLiteCursorTest {
     private SQLiteDatabase mDatabase;
     private static final String[] COLUMNS = new String[] { "_id", "number_1", "number_2" };
     private static final String TABLE_NAME = "test";
@@ -41,32 +55,32 @@ public class SQLiteCursorTest extends AndroidTestCase {
     private static final String TEST_SQL = "SELECT * FROM test ORDER BY number_1";
     private static final String DATABASE_FILE = "database_test.db";
 
-    @Override
-    protected void setUp() throws Exception {
-        super.setUp();
+    @Before
+    public void setUp() throws Exception {
         setupDatabase();
         createTable(TABLE_NAME, TABLE_COLUMNS);
         addValuesIntoTable(TABLE_NAME, DEFAULT_TABLE_VALUE_BEGINS, TEST_COUNT);
     }
 
-    @Override
-    protected void tearDown() throws Exception {
+    @After
+    public void tearDown() throws Exception {
         mDatabase.close();
-        getContext().deleteDatabase(DATABASE_FILE);
-        super.tearDown();
+        getInstrumentation().getTargetContext().deleteDatabase(DATABASE_FILE);
     }
 
     private void setupDatabase() {
-        SQLiteDatabase.loadLibs(getContext());
-        File dbDir = getContext().getDir("tests", Context.MODE_PRIVATE);
+        Context targetContext = getInstrumentation().getTargetContext();
+        SQLiteDatabase.loadLibs(targetContext);
+        File dbDir = targetContext.getDir("tests", Context.MODE_PRIVATE);
         File databaseFile = new File(dbDir, DATABASE_FILE);
         if (databaseFile.exists()) {
             databaseFile.delete();
         }
-        mDatabase = SQLiteDatabase.openOrCreateDatabase(databaseFile.getPath(), null);
+        mDatabase = SQLiteDatabase.openOrCreateDatabase(databaseFile.getPath(), (String) null, null);
         assertNotNull(databaseFile);
     }
 
+    @Test
     public void testConstructor() {
         SQLiteDirectCursorDriver cursorDriver = new SQLiteDirectCursorDriver(mDatabase,
                 TEST_SQL, TABLE_NAME);
@@ -81,6 +95,7 @@ public class SQLiteCursorTest extends AndroidTestCase {
         assertNotNull(cursor);
     }
 
+    @Test
     public void testClose() {
         SQLiteCursor cursor = getCursor();
         assertTrue(cursor.moveToFirst());
@@ -96,6 +111,7 @@ public class SQLiteCursorTest extends AndroidTestCase {
         assertTrue(cursor.isClosed());
     }
 
+    @Test
     public void testRegisterDataSetObserver() {
         SQLiteCursor cursor = getCursor();
         MockCursorWindow cursorWindow = new MockCursorWindow(false);
@@ -147,6 +163,7 @@ public class SQLiteCursorTest extends AndroidTestCase {
         assertFalse(observer.hasInvalidated());
     }
 
+    @Test
     public void testRequery() {
         final String DELETE = "DELETE FROM " + TABLE_NAME + " WHERE number_1 =";
         final String DELETE_1 = DELETE + "1;";
@@ -197,6 +214,7 @@ public class SQLiteCursorTest extends AndroidTestCase {
         assertFalse(c.requery());
     }*/
 
+    @Test
     public void testGetColumnIndex() {
         SQLiteCursor cursor = getCursor();
 
@@ -207,6 +225,7 @@ public class SQLiteCursorTest extends AndroidTestCase {
         assertTrue(Arrays.equals(COLUMNS, cursor.getColumnNames()));
     }
 
+    @Test
     public void testSetSelectionArguments() {
         final String SELECTION = "_id > ?";
         int TEST_ARG1 = 2;
@@ -219,6 +238,7 @@ public class SQLiteCursorTest extends AndroidTestCase {
         assertEquals(TEST_COUNT - TEST_ARG2, cursor.getCount());
     }
 
+    @Test
     public void testOnMove() {
         // Do not test this API. It is callback which:
         // 1. The callback mechanism has been tested in super class
