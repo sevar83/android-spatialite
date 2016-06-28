@@ -16,12 +16,14 @@
 
 package org.spatialite.database;
 
-import java.io.File;
-
-import org.spatialite.database.SQLiteDatabase.CursorFactory;
-
 import android.content.Context;
 import android.util.Log;
+
+import org.spatialite.DatabaseErrorHandler;
+import org.spatialite.DefaultDatabaseErrorHandler;
+import org.spatialite.database.SQLiteDatabase.CursorFactory;
+
+import java.io.File;
 
 /**
  * A helper class to manage database creation and version management.
@@ -38,10 +40,28 @@ public abstract class SQLiteOpenHelper {
     private final Context mContext;
     private final String mName;
     private final CursorFactory mFactory;
-    protected final int mNewVersion;    // SV: private -> protected
+    protected final int mNewVersion;    // SV: make protected
+    private final SQLiteDatabaseHook mHook;
+    private final DatabaseErrorHandler mErrorHandler;
 
     private SQLiteDatabase mDatabase = null;
     private boolean mIsInitializing = false;
+
+    /**
+     * Create a helper object to create, open, and/or manage a database.
+     * This method always returns very quickly.  The database is not actually
+     * created or opened until one of {@link #getWritableDatabase} or
+     * {@link #getReadableDatabase} is called.
+     *
+     * @param context to use to open or create the database
+     * @param name of the database file, or null for an in-memory database
+     * @param factory to use for creating cursor objects, or null for the default
+     * @param version number of the database (starting at 1); if the database is older,
+     *     {@link #onUpgrade} will be used to upgrade the database
+     */
+    public SQLiteOpenHelper(Context context, String name, CursorFactory factory, int version) {
+        this(context, name, factory, version, null, new DefaultDatabaseErrorHandler());
+    }
 
     /**
      * Create a helper object to create, open, and/or manage a database.
@@ -53,14 +73,43 @@ public abstract class SQLiteOpenHelper {
      * @param factory to use for creating cursor objects, or null for the default
      * @param version number of the database (starting at 1); if the database is older,
      *     {@link #onUpgrade} will be used to upgrade the database
+     * @param hook to run on pre/post key events
      */
-    public SQLiteOpenHelper(Context context, String name, CursorFactory factory, int version) {
+    public SQLiteOpenHelper(Context context, String name, CursorFactory factory,
+                            int version, SQLiteDatabaseHook hook) {
+        this(context, name, factory, version, hook, new DefaultDatabaseErrorHandler());
+    }
+
+    /**
+     * Create a helper object to create, open, and/or manage a database.
+     * The database is not actually created or opened until one of
+     * {@link #getWritableDatabase} or {@link #getReadableDatabase} is called.
+     *
+     * <p>Accepts input param: a concrete instance of {@link DatabaseErrorHandler} to be
+     * used to handle corruption when sqlite reports database corruption.</p>
+     *
+     * @param context to use to open or create the database
+     * @param name of the database file, or null for an in-memory database
+     * @param factory to use for creating cursor objects, or null for the default
+     * @param version number of the database (starting at 1); if the database is older,
+     *     {@link #onUpgrade} will be used to upgrade the database
+     * @param hook to run on pre/post key events
+     * @param errorHandler the {@link DatabaseErrorHandler} to be used when sqlite reports database
+     *     corruption.
+     */
+    public SQLiteOpenHelper(Context context, String name, CursorFactory factory,
+                            int version, SQLiteDatabaseHook hook, DatabaseErrorHandler errorHandler) {
         if (version < 1) throw new IllegalArgumentException("Version must be >= 1, was " + version);
+        if (errorHandler == null) {
+            throw new IllegalArgumentException("DatabaseErrorHandler param value can't be null.");
+        }
 
         mContext = context;
         mName = name;
         mFactory = factory;
         mNewVersion = version;
+        mHook = hook;
+        mErrorHandler = errorHandler;
     }
 
     /**
@@ -75,7 +124,12 @@ public abstract class SQLiteOpenHelper {
      * @throws SQLiteException if the database cannot be opened for writing
      * @return a read/write database object valid until {@link #close} is called
      */
-    public synchronized SQLiteDatabase getWritableDatabase() {
+
+    public synchronized SQLiteDatabase getWritableDatabase(String password) {
+      return getWritableDatabase(password.toCharArray());
+    }
+
+    public synchronized SQLiteDatabase getWritableDatabase(char[] password) {
         if (mDatabase != null && mDatabase.isOpen() && !mDatabase.isReadOnly()) {
             return mDatabase;  // The database is already open for business
         }
@@ -96,7 +150,7 @@ public abstract class SQLiteOpenHelper {
         try {
             mIsInitializing = true;
             if (mName == null) {
-                db = SQLiteDatabase.create(null);
+                db = SQLiteDatabase.create(null, password);
                 
             } else {
                 String path = mContext.getDatabasePath(mName).getPath();
@@ -104,13 +158,8 @@ public abstract class SQLiteOpenHelper {
                 File dbPathFile = new File (path);
                 if (!dbPathFile.exists())
                 	dbPathFile.getParentFile().mkdirs();
-                
-                db = SQLiteDatabase.openOrCreateDatabase(path, mFactory);
-                
-                // db = SQLiteDatabase.openDatabase(path, mFactory, SQLiteDatabase.OPEN_READWRITE);
 
-                // db = mContext.openOrCreateDatabase(mName, 0, mFactory);
-            	
+                db = SQLiteDatabase.openOrCreateDatabase(path, password, mFactory, mHook, mErrorHandler);
             }
             
 
@@ -161,7 +210,11 @@ public abstract class SQLiteOpenHelper {
      * @return a database object valid until {@link #getWritableDatabase}
      *     or {@link #close} is called.
      */
-    public synchronized SQLiteDatabase getReadableDatabase() {
+    public synchronized SQLiteDatabase getReadableDatabase(String password) {
+      return getReadableDatabase(password != null ? password.toCharArray() : null);
+    }
+
+    public synchronized SQLiteDatabase getReadableDatabase(char[] password) {
         if (mDatabase != null && mDatabase.isOpen()) {
             return mDatabase;  // The database is already open for business
         }
@@ -171,7 +224,7 @@ public abstract class SQLiteOpenHelper {
         }
 
         try {
-            return getWritableDatabase();
+            return getWritableDatabase(password);
         } catch (SQLiteException e) {
             if (mName == null) throw e;  // Can't open a temp database read-only!
             Log.e(TAG, "Couldn't open " + mName + " for writing (will try read-only):", e);
@@ -189,12 +242,11 @@ public abstract class SQLiteOpenHelper {
             }
             if(!databasePath.exists()){
                 mIsInitializing = false;
-                db = getWritableDatabase();
+                db = getWritableDatabase(password);
                 mIsInitializing = true;
                 db.close();
             }
-            // SV db = SQLiteDatabase.openDatabase(path, mFactory, SQLiteDatabase.OPEN_READONLY);
-            db = SQLiteDatabase.openDatabase(path, mFactory, SQLiteDatabase.OPEN_READONLY | SQLiteDatabase.CREATE_IF_NECESSARY);
+            db = SQLiteDatabase.openDatabase(path, password, mFactory, SQLiteDatabase.OPEN_READONLY);
             if (db.getVersion() != mNewVersion) {
                 throw new SQLiteException("Can't upgrade read-only database from version " +
                         db.getVersion() + " to " + mNewVersion + ": " + path);

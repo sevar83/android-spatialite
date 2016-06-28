@@ -16,17 +16,14 @@
 
 package org.spatialite;
 
-import java.util.Map;
-
-import org.spatialite.IContentObserver;
-
 import android.database.CharArrayBuffer;
 import android.database.ContentObserver;
 import android.database.DataSetObserver;
-
 import android.os.Bundle;
 import android.os.RemoteException;
 import android.util.Log;
+
+import java.util.Map;
 
 /**
  * Adapts an {@link IBulkCursor} to a {@link Cursor} for use in the local
@@ -92,7 +89,7 @@ public final class BulkCursorToCursorAdaptor extends AbstractWindowedCursor {
         if (mObserverBridge == null) {
             mObserverBridge = new SelfContentObserver(this);
         }
-        return null; //mObserverBridge.getContentObserver(); //TODO nf fix this
+        return null;//mObserverBridge.getContentObserver(); //TODO nf fix this
     }
 
     @Override
@@ -121,11 +118,8 @@ public final class BulkCursorToCursorAdaptor extends AbstractWindowedCursor {
         }
 
         // Couldn't obtain a window, something is wrong
-        if (mWindow == null) {
-            return false;
-        }
+        return mWindow != null;
 
-        return true;
     }
 
     @Override

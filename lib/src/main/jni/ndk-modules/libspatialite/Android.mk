@@ -157,33 +157,6 @@ LOCAL_C_INCLUDES := \
 
 LOCAL_MODULE := spatialite
 
-# SQLite flags copied from android-sqlite module
-common_sqlite_flags := \
-	-DNDEBUG=1 \
-	-DHAVE_USLEEP=1 \
-	-DSQLITE_ENABLE_RTREE \
-	-DSQLITE_ENABLE_ICU \
-	-DSQLITE_HAVE_ISNAN \
-	-DSQLITE_DEFAULT_JOURNAL_SIZE_LIMIT=1048576 \
-	-DSQLITE_THREADSAFE=2 \
-	-DSQLITE_TEMP_STORE=3 \
-	-DSQLITE_POWERSAFE_OVERWRITE=1 \
-	-DSQLITE_DEFAULT_FILE_FORMAT=4 \
-	-DSQLITE_DEFAULT_AUTOVACUUM=1 \
-	-DSQLITE_ENABLE_MEMORY_MANAGEMENT=1 \
-	-DSQLITE_ENABLE_FTS3 \
-	-DSQLITE_ENABLE_FTS3_BACKWARDS \
-	-DSQLITE_ENABLE_FTS4 \
-	-DSQLITE_OMIT_BUILTIN_TEST \
-	-DSQLITE_OMIT_COMPILEOPTION_DIAGS \
-	-DSQLITE_DEFAULT_FILE_PERMISSIONS=0600 \
-	-fvisibility=hidden \
-	-DOS_PATH_SEPARATOR="'/'" \
-	-DHAVE_SYS_UIO_H \
-  -DUSE_PREAD64 \
-  -Dfdatasync=fsync \
-  -DHAVE_MALLOC_USABLE_SIZE
-
 # spatialite flags
 # comment out TARGET_CPU in config.h - will be replaced with TARGET_ARCH_ABI
 spatialite_flags := \
@@ -197,13 +170,12 @@ spatialite_flags := \
 	-DENABLE_GCP=1 \
     -DENABLE_GEOPACKAGE=1 \
     -DENABLE_LIBXML2=1 \
-#	-Dfdatasync=fsync
 
 LOCAL_CFLAGS    := \
    $(common_sqlite_flags) \
    $(spatialite_flags)
 
-LOCAL_STATIC_LIBRARIES := proj4 geos android-sqlite iconv libxml2
+LOCAL_STATIC_LIBRARIES := proj4 geos sqlite iconv libxml2
 
 LOCAL_EXPORT_C_INCLUDES := $(LOCAL_PATH)/$(SPATIALITE_PATH)/src/headers
 LOCAL_EXPORT_LDLIBS := -llog -lz
