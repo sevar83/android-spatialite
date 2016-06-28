@@ -20,9 +20,14 @@ package org.spatialite.database;
 import android.content.ContentValues;
 import android.content.Context;
 import android.os.ParcelFileDescriptor;
-import android.test.AndroidTestCase;
+import android.support.test.filters.SmallTest;
+import android.support.test.runner.AndroidJUnit4;
 import android.test.MoreAsserts;
 
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.spatialite.Cursor;
 import org.spatialite.SQLException;
 
@@ -30,7 +35,14 @@ import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 
-public class SQLiteStatementTest extends AndroidTestCase {
+import static android.support.test.InstrumentationRegistry.getInstrumentation;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.fail;
+
+@RunWith(AndroidJUnit4.class)
+@SmallTest
+public class SQLiteStatementTest {
     private static final String STRING1 = "this is a test";
     private static final String STRING2 = "another test";
 
@@ -48,29 +60,27 @@ public class SQLiteStatementTest extends AndroidTestCase {
     private static final int CURRENT_DATABASE_VERSION = 42;
     private SQLiteDatabase mDatabase;
 
-    @Override
-    protected void setUp() throws Exception {
-        super.setUp();
-
+    @Before
+    public void setUp() throws Exception {
         setupDatabase();
         mDatabase.setVersion(CURRENT_DATABASE_VERSION);
     }
 
-    @Override
-    protected void tearDown() throws Exception {
+    @After
+    public void tearDown() throws Exception {
         mDatabase.close();
-        getContext().deleteDatabase(DATABASE_NAME);
-        super.tearDown();
+        getInstrumentation().getTargetContext().deleteDatabase(DATABASE_NAME);
     }
 
     private void setupDatabase() {
-        SQLiteDatabase.loadLibs(getContext());
-        File dbDir = getContext().getDir("tests", Context.MODE_PRIVATE);
+        Context targetContext = getInstrumentation().getTargetContext();
+        SQLiteDatabase.loadLibs(targetContext);
+        File dbDir = targetContext.getDir("tests", Context.MODE_PRIVATE);
         File databaseFile = new File(dbDir, DATABASE_NAME);
         if (databaseFile.exists()) {
             databaseFile.delete();
         }
-        mDatabase = SQLiteDatabase.openOrCreateDatabase(databaseFile.getPath(), null);
+        mDatabase = SQLiteDatabase.openOrCreateDatabase(databaseFile.getPath(), (String) null, null);
         assertNotNull(databaseFile);
     }
 
@@ -133,6 +143,7 @@ public class SQLiteStatementTest extends AndroidTestCase {
         }
     }*/
 
+    @Test
     public void testExecuteInsert() {
         populateDefaultTable();
 
@@ -172,6 +183,7 @@ public class SQLiteStatementTest extends AndroidTestCase {
         }
     }
 
+    @Test
     public void testSimpleQueryForLong() {
         mDatabase.execSQL("CREATE TABLE test (num INTEGER NOT NULL, str TEXT NOT NULL);");
         mDatabase.execSQL("INSERT INTO test VALUES (1234, 'hello');");
@@ -196,6 +208,7 @@ public class SQLiteStatementTest extends AndroidTestCase {
         statement.close();
     }
 
+    @Test
     public void testSimpleQueryForString() {
         mDatabase.execSQL("CREATE TABLE test (num INTEGER NOT NULL, str TEXT NOT NULL);");
         mDatabase.execSQL("INSERT INTO test VALUES (1234, 'hello');");

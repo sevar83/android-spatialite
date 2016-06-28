@@ -18,43 +18,54 @@ package org.spatialite.database;
 
 
 import android.content.Context;
-import android.test.AndroidTestCase;
+import android.support.test.filters.SmallTest;
+import android.support.test.runner.AndroidJUnit4;
 import android.test.MoreAsserts;
 
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.spatialite.Cursor;
 
 import java.io.File;
 
-public class SQLiteProgramTest extends AndroidTestCase {
+import static android.support.test.InstrumentationRegistry.getInstrumentation;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.fail;
+
+@RunWith(AndroidJUnit4.class)
+@SmallTest
+public class SQLiteProgramTest {
     private static final String DATABASE_NAME = "database_test.db";
 
     private SQLiteDatabase mDatabase;
 
-    @Override
-    protected void setUp() throws Exception {
-        super.setUp();
+    @Before
+    public void setUp() throws Exception {
         setupDatabase();
     }
 
-    @Override
-    protected void tearDown() throws Exception {
+    @After
+    public void tearDown() throws Exception {
         mDatabase.close();
-        getContext().deleteDatabase(DATABASE_NAME);
-
-        super.tearDown();
+        getInstrumentation().getTargetContext().deleteDatabase(DATABASE_NAME);
     }
 
     private void setupDatabase() {
-        SQLiteDatabase.loadLibs(getContext());
-        File dbDir = getContext().getDir("tests", Context.MODE_PRIVATE);
+        SQLiteDatabase.loadLibs(getInstrumentation().getTargetContext());
+        File dbDir = getInstrumentation().getTargetContext().getDir("tests", Context.MODE_PRIVATE);
         File databaseFile = new File(dbDir, DATABASE_NAME);
         if (databaseFile.exists()) {
             databaseFile.delete();
         }
-        mDatabase = SQLiteDatabase.openOrCreateDatabase(databaseFile.getPath(), null);
+        mDatabase = SQLiteDatabase.openOrCreateDatabase(databaseFile.getPath(), (String) null, null);
         assertNotNull(databaseFile);
     }
 
+    @Test
     public void testBind() {
         mDatabase.execSQL("CREATE TABLE test (_id INTEGER PRIMARY KEY, text1 TEXT, text2 TEXT, " +
                 "num1 INTEGER, num2 INTEGER, image BLOB);");
@@ -125,6 +136,7 @@ public class SQLiteProgramTest extends AndroidTestCase {
         statement.close();
     }
 
+    @Test
     public void testBindNull() {
         mDatabase.execSQL("CREATE TABLE test (_id INTEGER PRIMARY KEY, text1 TEXT, text2 TEXT, " +
                 "num1 INTEGER, num2 INTEGER, image BLOB);");
@@ -155,6 +167,7 @@ public class SQLiteProgramTest extends AndroidTestCase {
         cursor.close();
     }
 
+    @Test
     public void testBindBlob() {
         mDatabase.execSQL("CREATE TABLE test (_id INTEGER PRIMARY KEY, text1 TEXT, text2 TEXT, " +
                 "num1 INTEGER, num2 INTEGER, image BLOB);");

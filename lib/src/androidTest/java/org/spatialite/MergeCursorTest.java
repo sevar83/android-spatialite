@@ -21,14 +21,29 @@ import android.content.Context;
 import android.database.ContentObserver;
 import android.database.DataSetObserver;
 import android.database.MergeCursor;
-import android.test.AndroidTestCase;
+import android.support.test.filters.SmallTest;
+import android.support.test.runner.AndroidJUnit4;
 
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.spatialite.database.SQLiteDatabase;
 
 import java.io.File;
 import java.util.Arrays;
 
-public class MergeCursorTest extends AndroidTestCase {
+import static android.support.test.InstrumentationRegistry.getContext;
+import static android.support.test.InstrumentationRegistry.getInstrumentation;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
+
+@RunWith(AndroidJUnit4.class)
+@SmallTest
+public class MergeCursorTest {
     private final int NUMBER_1_COLUMN_INDEX = 1;
     private static final String TABLE1_NAME = "test1";
     private static final String TABLE2_NAME = "test2";
@@ -53,15 +68,14 @@ public class MergeCursorTest extends AndroidTestCase {
     private static final int MAX_VALUE = 10;
     private static final int HALF_VALUE = MAX_VALUE / 2;
 
-    @Override
-    protected void setUp() throws Exception {
-        super.setUp();
+    @Before
+    public void setUp() throws Exception {
         setupDatabase();
         mCursors = new Cursor[2];
     }
 
-    @Override
-    protected void tearDown() throws Exception {
+    @After
+    public void tearDown() throws Exception {
         for (int i = 0; i < mCursors.length; i++) {
             if (null != mCursors[i]) {
                 mCursors[i].close();
@@ -69,9 +83,9 @@ public class MergeCursorTest extends AndroidTestCase {
         }
         mDatabase.close();
         mDatabaseFile.delete();
-        super.tearDown();
     }
 
+    @Test
     public void testConstructor() {
         // If each item of mCursors are null, count will be zero.
         MergeCursor mergeCursor = new MergeCursor(mCursors);
@@ -84,6 +98,7 @@ public class MergeCursorTest extends AndroidTestCase {
         assertEquals(mCursors[0].getCount() + mCursors[1].getCount(), mergeCursor.getCount());
     }
 
+    @Test
     public void testOnMove() {
         createCursors();
         MergeCursor mergeCursor = new MergeCursor(mCursors);
@@ -95,6 +110,7 @@ public class MergeCursorTest extends AndroidTestCase {
         }
     }
 
+    @Test
     public void testCursorSwiching() {
         mDatabase.execSQL("CREATE TABLE " + TABLE5_NAME + " (_id INTEGER PRIMARY KEY,"
                 + TABLE3_COLUMNS + ");");
@@ -122,6 +138,7 @@ public class MergeCursorTest extends AndroidTestCase {
         assertTrue(Arrays.equals(tableColumns, mergeCursor.getColumnNames()));
     }
 
+    @Test
     public void testGetValues() {
         byte NUMBER_BLOB_UNIT = 99;
         String[] TEST_STRING = new String[] {"Test String1", "Test String2"};
@@ -129,7 +146,7 @@ public class MergeCursorTest extends AndroidTestCase {
 
         final double NUMBER_DOUBLE = Double.MAX_VALUE;
         final double NUMBER_FLOAT = (float) NUMBER_DOUBLE;
-        final long NUMBER_LONG_INTEGER = (long) 0xaabbccddffL;
+        final long NUMBER_LONG_INTEGER = 0xaabbccddffL;
         final long NUMBER_INTEGER = (int) NUMBER_LONG_INTEGER;
         final long NUMBER_SHORT = (short) NUMBER_INTEGER;
 
@@ -181,6 +198,7 @@ public class MergeCursorTest extends AndroidTestCase {
         }
     }
 
+    @Test
     public void testContentObsererOperations() throws IllegalStateException {
         createCursors();
         MergeCursor mergeCursor = new MergeCursor(mCursors);
@@ -218,6 +236,7 @@ public class MergeCursorTest extends AndroidTestCase {
         }
     }
 
+    @Test
     public void testDeactivate() throws IllegalStateException {
         createCursors();
         MergeCursor mergeCursor = new MergeCursor(mCursors);
@@ -279,6 +298,7 @@ public class MergeCursorTest extends AndroidTestCase {
         }
     }
 
+    @Test
     public void testRequery() {
         final String TEST_VALUE1 = Integer.toString(MAX_VALUE + 1);
         final String TEST_VALUE2 = Integer.toString(MAX_VALUE + 2);
@@ -324,12 +344,12 @@ public class MergeCursorTest extends AndroidTestCase {
 
     private void setupDatabase() {
         SQLiteDatabase.loadLibs(getContext());
-        File dbDir = getContext().getDir("tests", Context.MODE_PRIVATE);
+        File dbDir = getInstrumentation().getTargetContext().getDir("tests", Context.MODE_PRIVATE);
         mDatabaseFile = new File(dbDir, "database_test.db");
         if (mDatabaseFile.exists()) {
             mDatabaseFile.delete();
         }
-        mDatabase = SQLiteDatabase.openOrCreateDatabase(mDatabaseFile.getPath(), null);
+        mDatabase = SQLiteDatabase.openOrCreateDatabase(mDatabaseFile.getPath(), (String) null, null);
         assertNotNull(mDatabaseFile);
         createTable(TABLE1_NAME, TABLE1_COLUMNS);
         createTable(TABLE2_NAME, TABLE2_COLUMNS);

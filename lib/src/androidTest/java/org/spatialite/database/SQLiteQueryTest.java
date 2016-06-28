@@ -16,9 +16,18 @@
 
 package org.spatialite.database;
 
+import android.support.test.filters.SmallTest;
+
 import junit.framework.TestCase;
 
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.junit.runners.JUnit4;
+
+@RunWith(JUnit4.class)
+@SmallTest
 public class SQLiteQueryTest extends TestCase {
+    @Test
     public void testMethods() {
         // cannot obtain an instance of SQLiteQuery
     }

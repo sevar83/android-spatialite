@@ -16,10 +16,20 @@
 
 package org.spatialite;
 
-import android.test.AndroidTestCase;
+import android.support.test.filters.SmallTest;
+import android.support.test.runner.AndroidJUnit4;
 
-public class SQLExceptionTest extends AndroidTestCase {
+import org.junit.Test;
+import org.junit.runner.RunWith;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNull;
+
+@RunWith(AndroidJUnit4.class)
+@SmallTest
+public class SQLExceptionTest {
+
+    @Test
     public void testConstructors() {
         String expected1 = "Expected exception message";
 

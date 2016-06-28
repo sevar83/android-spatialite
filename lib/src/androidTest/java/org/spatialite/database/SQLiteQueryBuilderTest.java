@@ -17,48 +17,61 @@
 package org.spatialite.database;
 
 import android.content.Context;
-import android.test.AndroidTestCase;
+import android.support.test.filters.SmallTest;
+import android.support.test.runner.AndroidJUnit4;
 
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.spatialite.Cursor;
 
 import java.io.File;
 import java.util.HashMap;
 import java.util.Map;
 
-public class SQLiteQueryBuilderTest extends AndroidTestCase {
+import static android.support.test.InstrumentationRegistry.getInstrumentation;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
+
+@RunWith(AndroidJUnit4.class)
+@SmallTest
+public class SQLiteQueryBuilderTest {
     private SQLiteDatabase mDatabase;
     private final String TEST_TABLE_NAME = "test";
     private final String EMPLOYEE_TABLE_NAME = "employee";
     private static final String DATABASE_FILE = "database_test.db";
 
-    @Override
-    protected void setUp() throws Exception {
-        super.setUp();
+    @Before
+    public void setUp() throws Exception {
         setupDatabase();
     }
 
-    @Override
-    protected void tearDown() throws Exception {
+    @After
+    public void tearDown() throws Exception {
         mDatabase.close();
-        getContext().deleteDatabase(DATABASE_FILE);
-        super.tearDown();
+        getInstrumentation().getTargetContext().deleteDatabase(DATABASE_FILE);
     }
 
     private void setupDatabase() {
-        SQLiteDatabase.loadLibs(getContext());
-        File dbDir = getContext().getDir("tests", Context.MODE_PRIVATE);
+        Context targetContext = getInstrumentation().getTargetContext();
+        SQLiteDatabase.loadLibs(targetContext);
+        File dbDir = targetContext.getDir("tests", Context.MODE_PRIVATE);
         File databaseFile = new File(dbDir, DATABASE_FILE);
         if (databaseFile.exists()) {
             databaseFile.delete();
         }
-        mDatabase = SQLiteDatabase.openOrCreateDatabase(databaseFile.getPath(), null);
+        mDatabase = SQLiteDatabase.openOrCreateDatabase(databaseFile.getPath(), (String) null, null);
         assertNotNull(databaseFile);
     }
 
+    @Test
     public void testConstructor() {
         new SQLiteQueryBuilder();
     }
 
+    @Test
     public void testSetDistinct() {
         String expected;
         SQLiteQueryBuilder sqliteQueryBuilder = new SQLiteQueryBuilder();
@@ -93,6 +106,7 @@ public class SQLiteQueryBuilderTest extends AndroidTestCase {
         assertEquals(expected, sql);
     }
 
+    @Test
     public void testSetProjectionMap() {
         String expected;
         Map<String, String> projectMap = new HashMap<String, String>();
@@ -121,6 +135,7 @@ public class SQLiteQueryBuilderTest extends AndroidTestCase {
         assertEquals(expected, sql);
     }
 
+    @Test
     public void testSetCursorFactory() {
         mDatabase.execSQL("CREATE TABLE test (_id INTEGER PRIMARY KEY, " +
                 "name TEXT, age INTEGER, address TEXT);");
@@ -155,6 +170,7 @@ public class SQLiteQueryBuilderTest extends AndroidTestCase {
         }
     }
 
+    @Test
     public void testBuildQueryString() {
         String expected;
         final String[] DEFAULT_TEST_PROJECTION = new String [] { "name", "age", "sum(salary)" };
@@ -173,6 +189,7 @@ public class SQLiteQueryBuilderTest extends AndroidTestCase {
         assertEquals(expected, sql);
     }
 
+    @Test
     public void testBuildQuery() {
         final String[] DEFAULT_TEST_PROJECTION = new String[] { "name", "sum(salary)" };
         final String DEFAULT_TEST_WHERE = "age > 25";
@@ -189,6 +206,7 @@ public class SQLiteQueryBuilderTest extends AndroidTestCase {
         assertEquals(expected, sql);
     }
 
+    @Test
     public void testAppendColumns() {
         StringBuilder sb = new StringBuilder();
         String[] columns = new String[] { "name", "age" };
@@ -198,6 +216,7 @@ public class SQLiteQueryBuilderTest extends AndroidTestCase {
         assertEquals("name, age ", sb.toString());
     }
 
+    @Test
     public void testQuery() {
         createEmployeeTable();
 
@@ -237,6 +256,7 @@ public class SQLiteQueryBuilderTest extends AndroidTestCase {
         assertEquals(4000, cursor.getInt(COLUMN_SALARY_INDEX));
     }
 
+    @Test
     public void testUnionQuery() {
         String expected;
         String[] innerProjection = new String[] {"name", "age", "location"};

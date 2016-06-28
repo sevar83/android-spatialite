@@ -21,10 +21,14 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.os.Parcel;
 import android.os.ParcelFileDescriptor;
-import android.test.AndroidTestCase;
+import android.support.test.filters.SmallTest;
+import android.support.test.runner.AndroidJUnit4;
 import android.test.MoreAsserts;
 
+import org.junit.After;
+import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.spatialite.DatabaseUtils.InsertHelper;
 import org.spatialite.database.SQLiteAbortException;
 import org.spatialite.database.SQLiteDatabase;
@@ -39,8 +43,18 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.PrintStream;
 
-public class DatabaseUtilsTest extends AndroidTestCase {
-    private Context mMockContext;
+import static android.support.test.InstrumentationRegistry.getInstrumentation;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
+import static org.spatialite.TestConstants.EPSILON;
+
+@RunWith(AndroidJUnit4.class)
+@SmallTest
+public class DatabaseUtilsTest {
     private SQLiteDatabase mDatabase;
     private File mDatabaseFile;
     private static final String[] TEST_PROJECTION = new String[]{
@@ -51,15 +65,17 @@ public class DatabaseUtilsTest extends AndroidTestCase {
     };
     private static final String TABLE_NAME = "test";
 
-    protected void setUp() throws Exception {
-        SQLiteDatabase.loadLibs(getContext());
+    @Before
+    public void setUp() throws Exception {
+        Context targetContext = getInstrumentation().getTargetContext();
+        SQLiteDatabase.loadLibs(targetContext);
 
-        File dbDir = getContext().getDir("tests", Context.MODE_PRIVATE);
+        File dbDir = getInstrumentation().getTargetContext().getDir("tests", Context.MODE_PRIVATE);
         mDatabaseFile = new File(dbDir, "database_test.db");
         if (mDatabaseFile.exists()) {
             mDatabaseFile.delete();
         }
-        mDatabase = SQLiteDatabase.openOrCreateDatabase(mDatabaseFile.getPath(), null);
+        mDatabase = SQLiteDatabase.openOrCreateDatabase(mDatabaseFile.getPath(), (String) null, null);
         assertNotNull(mDatabase);
         mDatabase.execSQL("CREATE TABLE " + TABLE_NAME + " (_id INTEGER PRIMARY KEY, " +
                 "name TEXT, age INTEGER, address TEXT);");
@@ -67,11 +83,10 @@ public class DatabaseUtilsTest extends AndroidTestCase {
                 "CREATE TABLE blob_test (_id INTEGER PRIMARY KEY, name TEXT, data BLOB)");
     }
 
-    protected void tearDown() throws Exception {
+    @After
+    public void tearDown() throws Exception {
         mDatabase.close();
         mDatabaseFile.delete();
-
-        super.tearDown();
     }
 
     @Test
@@ -172,13 +187,13 @@ public class DatabaseUtilsTest extends AndroidTestCase {
         String key = "key";
         cursor.moveToFirst();
         DatabaseUtils.cursorDoubleToContentValues(cursor, "age", contentValues, key);
-        assertEquals(20.0, contentValues.getAsDouble(key));
+        assertEquals(20.0, contentValues.getAsDouble(key), EPSILON);
 
         DatabaseUtils.cursorDoubleToContentValues(cursor, "Error Field Name", contentValues, key);
         assertNull(contentValues.getAsDouble(key));
 
         DatabaseUtils.cursorDoubleToContentValues(cursor, "name", contentValues, key);
-        assertEquals(0.0, contentValues.getAsDouble(key));
+        assertEquals(0.0, contentValues.getAsDouble(key), EPSILON);
     }
 
     @Test
@@ -192,13 +207,13 @@ public class DatabaseUtilsTest extends AndroidTestCase {
         ContentValues contentValues = new ContentValues();
         cursor.moveToFirst();
         DatabaseUtils.cursorDoubleToCursorValues(cursor, "age", contentValues);
-        assertEquals(20.0, contentValues.getAsDouble("age"));
+        assertEquals(20.0, contentValues.getAsDouble("age"), EPSILON);
 
         DatabaseUtils.cursorDoubleToCursorValues(cursor, "Error Field Name", contentValues);
         assertNull(contentValues.getAsDouble("Error Field Name"));
 
         DatabaseUtils.cursorDoubleToCursorValues(cursor, "name", contentValues);
-        assertEquals(0.0, contentValues.getAsDouble("name"));
+        assertEquals(0.0, contentValues.getAsDouble("name"), EPSILON);
     }
 
     @Test
@@ -272,9 +287,9 @@ public class DatabaseUtilsTest extends AndroidTestCase {
         ContentValues contentValues = new ContentValues();
         cursor.moveToNext();
         DatabaseUtils.cursorRowToContentValues(cursor, contentValues);
-        assertEquals("Mike", (String) contentValues.get("name"));
-        assertEquals("20", (String) contentValues.get("age"));
-        assertEquals("LA", (String) contentValues.get("address"));
+        assertEquals("Mike", contentValues.get("name"));
+        assertEquals("20", contentValues.get("age"));
+        assertEquals("LA", contentValues.get("address"));
     }
 
     @Test
@@ -289,7 +304,7 @@ public class DatabaseUtilsTest extends AndroidTestCase {
         String key = "key";
         cursor.moveToNext();
         DatabaseUtils.cursorStringToContentValues(cursor, "age", contentValues, key);
-        assertEquals("20", (String) contentValues.get(key));
+        assertEquals("20", contentValues.get(key));
 
         try {
             DatabaseUtils.cursorStringToContentValues(cursor, "Error Field Name",
