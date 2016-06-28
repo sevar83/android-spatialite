@@ -1,9 +1,0 @@
-LOCAL_PATH := $(my-dir)
-include $(CLEAR_VARS)
-
-LOCAL_MODULE := liblog_static
-LOCAL_SRC_FILES := dummy.c
-LOCAL_EXPORT_CFLAGS := -DHAVE_SYS_UIO_H
-LOCAL_EXPORT_C_INCLUDES := $(LOCAL_PATH)/include
-include $(BUILD_STATIC_LIBRARY)
-

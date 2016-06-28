@@ -16,14 +16,12 @@
 
 package org.spatialite;
 
-import android.os.RemoteException;
+import android.os.Bundle;
 import android.os.IBinder;
 import android.os.IInterface;
-import android.os.Bundle;
+import android.os.RemoteException;
 
 import java.util.Map;
-
-import org.spatialite.IContentObserver;
 
 /**
  * This interface provides a low-level way to pass bulk cursor data across
@@ -37,16 +35,16 @@ public interface IBulkCursor extends IInterface  {
      * Returns a BulkCursorWindow, which either has a reference to a shared
      * memory segment with the rows, or an array of JSON strings.
      */
-    public CursorWindow getWindow(int startPos) throws RemoteException;
+    CursorWindow getWindow(int startPos) throws RemoteException;
 
-    public void onMove(int position) throws RemoteException;
+    void onMove(int position) throws RemoteException;
 
     /**
      * Returns the number of rows in the cursor.
      *
      * @return the number of rows in the cursor.
      */
-    public int count() throws RemoteException;
+    int count() throws RemoteException;
 
     /**
      * Returns a string array holding the names of all of the columns in the
@@ -54,17 +52,17 @@ public interface IBulkCursor extends IInterface  {
      *
      * @return the names of the columns returned in this query.
      */
-    public String[] getColumnNames() throws RemoteException;
+    String[] getColumnNames() throws RemoteException;
 
-    public boolean updateRows(Map<? extends Long, ? extends Map<String, Object>> values) throws RemoteException;
+    boolean updateRows(Map<? extends Long, ? extends Map<String, Object>> values) throws RemoteException;
 
-    public boolean deleteRow(int position) throws RemoteException;
+    boolean deleteRow(int position) throws RemoteException;
 
-    public void deactivate() throws RemoteException;
+    void deactivate() throws RemoteException;
 
-    public void close() throws RemoteException;
+    void close() throws RemoteException;
 
-    public int requery(IContentObserver observer, CursorWindow window) throws RemoteException;
+    int requery(IContentObserver observer, CursorWindow window) throws RemoteException;
 
     boolean getWantsAllOnMoveCalls() throws RemoteException;
 
@@ -73,18 +71,18 @@ public interface IBulkCursor extends IInterface  {
     Bundle respond(Bundle extras) throws RemoteException;
 
     /* IPC constants */
-    static final String descriptor = "android.content.IBulkCursor";
+    String descriptor = "android.content.IBulkCursor";
 
-    static final int GET_CURSOR_WINDOW_TRANSACTION = IBinder.FIRST_CALL_TRANSACTION;
-    static final int COUNT_TRANSACTION = IBinder.FIRST_CALL_TRANSACTION + 1;
-    static final int GET_COLUMN_NAMES_TRANSACTION = IBinder.FIRST_CALL_TRANSACTION + 2;
-    static final int UPDATE_ROWS_TRANSACTION = IBinder.FIRST_CALL_TRANSACTION + 3;
-    static final int DELETE_ROW_TRANSACTION = IBinder.FIRST_CALL_TRANSACTION + 4;
-    static final int DEACTIVATE_TRANSACTION = IBinder.FIRST_CALL_TRANSACTION + 5;
-    static final int REQUERY_TRANSACTION = IBinder.FIRST_CALL_TRANSACTION + 6;
-    static final int ON_MOVE_TRANSACTION = IBinder.FIRST_CALL_TRANSACTION + 7;
-    static final int WANTS_ON_MOVE_TRANSACTION = IBinder.FIRST_CALL_TRANSACTION + 8;
-    static final int GET_EXTRAS_TRANSACTION = IBinder.FIRST_CALL_TRANSACTION + 9;
-    static final int RESPOND_TRANSACTION = IBinder.FIRST_CALL_TRANSACTION + 10;
-    static final int CLOSE_TRANSACTION = IBinder.FIRST_CALL_TRANSACTION + 11;
+    int GET_CURSOR_WINDOW_TRANSACTION = IBinder.FIRST_CALL_TRANSACTION;
+    int COUNT_TRANSACTION = IBinder.FIRST_CALL_TRANSACTION + 1;
+    int GET_COLUMN_NAMES_TRANSACTION = IBinder.FIRST_CALL_TRANSACTION + 2;
+    int UPDATE_ROWS_TRANSACTION = IBinder.FIRST_CALL_TRANSACTION + 3;
+    int DELETE_ROW_TRANSACTION = IBinder.FIRST_CALL_TRANSACTION + 4;
+    int DEACTIVATE_TRANSACTION = IBinder.FIRST_CALL_TRANSACTION + 5;
+    int REQUERY_TRANSACTION = IBinder.FIRST_CALL_TRANSACTION + 6;
+    int ON_MOVE_TRANSACTION = IBinder.FIRST_CALL_TRANSACTION + 7;
+    int WANTS_ON_MOVE_TRANSACTION = IBinder.FIRST_CALL_TRANSACTION + 8;
+    int GET_EXTRAS_TRANSACTION = IBinder.FIRST_CALL_TRANSACTION + 9;
+    int RESPOND_TRANSACTION = IBinder.FIRST_CALL_TRANSACTION + 10;
+    int CLOSE_TRANSACTION = IBinder.FIRST_CALL_TRANSACTION + 11;
 }

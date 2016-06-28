@@ -17,15 +17,13 @@
 package org.spatialite;
 
 import android.os.Binder;
-import android.os.RemoteException;
+import android.os.Bundle;
 import android.os.IBinder;
 import android.os.Parcel;
-import android.os.Bundle;
+import android.os.RemoteException;
 
 import java.util.HashMap;
 import java.util.Map;
-
-import org.spatialite.IContentObserver;
 
 /**
  * Native implementation of the bulk cursor. This is only for use in implementing
@@ -358,7 +356,7 @@ final class BulkCursorProxy implements IBulkCursor {
 
         DatabaseUtils.readExceptionFromParcel(reply);
         
-        boolean result = (reply.readInt() == 1 ? true : false);
+        boolean result = (reply.readInt() == 1);
 
         data.recycle();
         reply.recycle();
@@ -379,7 +377,7 @@ final class BulkCursorProxy implements IBulkCursor {
 
         DatabaseUtils.readExceptionFromParcel(reply);
         
-        boolean result = (reply.readInt() == 1 ? true : false);
+        boolean result = (reply.readInt() == 1);
 
         data.recycle();
         reply.recycle();

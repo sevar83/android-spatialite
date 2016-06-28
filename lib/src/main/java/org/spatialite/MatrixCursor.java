@@ -18,8 +18,6 @@ package org.spatialite;
 
 import java.util.ArrayList;
 
-import android.database.CharArrayBuffer;
-
 
 /**
  * A mutable cursor implementation backed by an array of {@code Object}s. Use

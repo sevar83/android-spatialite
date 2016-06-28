@@ -1,3 +1,0 @@
-ICU_PREFIX env variable name is supplied in compile time inside Android.mk with cflag -DICU_DATA_DIR_PREFIX_ENV_VAR.
-Also its value is set at runtime in SQLiteDatabase.loadLibs() -> setICURoot().
-Make sure the same name is used!

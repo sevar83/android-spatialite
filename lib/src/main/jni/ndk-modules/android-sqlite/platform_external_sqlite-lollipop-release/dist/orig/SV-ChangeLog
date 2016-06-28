@@ -1,4 +1,0 @@
-sqlite3_android.c: changed all ALOGE() calls to LOGE()
-
-sqlite3.c: commented line 24116 # define HAVE_POSIX_FALLOCATE 1
-Looks like fallocate() is present in newer versions of Bionic

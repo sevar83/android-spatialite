@@ -18,16 +18,17 @@
 #define LOG_TAG "Cursor"
 
 #include <jni.h>
-#include <JNIHelp.h>
+// #include <JNIHelp.h>
+// #include <android_runtime/AndroidRuntime.h>
+// #include <utils/Log.h>
 
 #include <sqlite3.h>
-
-#include <utils/Log.h>
-
 #include <stdio.h>
 #include <string.h>
 #include <unistd.h>
-
+#include "log.h"
+#include "jni_elements.h"
+#include "jni_exception.h"
 #include "sqlite3_exception.h"
 
 
@@ -65,7 +66,7 @@ sqlite3_stmt * compile(JNIEnv* env, jobject object,
 
     if (err == SQLITE_OK) {
         // Store the statement in the Java object for future calls
-    	LOGV("Prepared statement %p on %p", statement, handle);
+        LOGV("Prepared statement %p on %p", statement, handle);
         env->SetIntField(object, gStatementField, (int)statement);
         return statement;
     } else {
@@ -125,9 +126,7 @@ int register_android_database_SQLiteCompiledSql(JNIEnv * env)
         LOGE("Error locating fields");
         return -1;
     }
-
-    return jniRegisterNativeMethods(env,
-        "org/spatialite/database/SQLiteCompiledSql", sMethods, NELEM(sMethods));
+    return env->RegisterNatives(clazz, sMethods, NELEM(sMethods));
 }
 
 

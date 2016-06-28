@@ -16,11 +16,12 @@
 
 package org.spatialite;
 
-import java.io.FileNotFoundException;
-import java.io.PrintStream;
-import java.text.Collator;
-import java.util.HashMap;
-import java.util.Map;
+import android.content.ContentValues;
+import android.content.OperationApplicationException;
+import android.os.Parcel;
+import android.text.TextUtils;
+import android.util.Config;
+import android.util.Log;
 
 import org.spatialite.database.SQLiteAbortException;
 import org.spatialite.database.SQLiteConstraintException;
@@ -32,12 +33,11 @@ import org.spatialite.database.SQLiteFullException;
 import org.spatialite.database.SQLiteProgram;
 import org.spatialite.database.SQLiteStatement;
 
-import android.content.ContentValues;
-import android.content.OperationApplicationException;
-import android.os.Parcel;
-import android.text.TextUtils;
-import android.util.Config;
-import android.util.Log;
+import java.io.FileNotFoundException;
+import java.io.PrintStream;
+import java.text.Collator;
+import java.util.HashMap;
+import java.util.Map;
 //import org.apache.commons.codec.binary.Hex;
 
 /**
@@ -483,7 +483,7 @@ public class DatabaseUtils {
      *
      * @param cursor The cursor to read from
      * @param field The TEXT field to read
-     * @param values The {@link ContentValues} to put the value into, with the field as the key
+     * @param values The ContentValues to put the value into, with the field as the key
      */
     public static void cursorStringToContentValues(Cursor cursor, String field,
             ContentValues values) {
@@ -508,7 +508,7 @@ public class DatabaseUtils {
      *
      * @param cursor The cursor to read from
      * @param field The TEXT field to read
-     * @param values The {@link ContentValues} to put the value into, with the field as the key
+     * @param values The ContentValues to put the value into, with the field as the key
      * @param key The key to store the value with in the map
      */
     public static void cursorStringToContentValues(Cursor cursor, String field,
@@ -521,7 +521,7 @@ public class DatabaseUtils {
      *
      * @param cursor The cursor to read from
      * @param field The INTEGER field to read
-     * @param values The {@link ContentValues} to put the value into, with the field as the key
+     * @param values The ContentValues to put the value into, with the field as the key
      */
     public static void cursorIntToContentValues(Cursor cursor, String field, ContentValues values) {
         cursorIntToContentValues(cursor, field, values, field);
@@ -532,7 +532,7 @@ public class DatabaseUtils {
      *
      * @param cursor The cursor to read from
      * @param field The INTEGER field to read
-     * @param values The {@link ContentValues} to put the value into, with the field as the key
+     * @param values The ContentValues to put the value into, with the field as the key
      * @param key The key to store the value with in the map
      */
     public static void cursorIntToContentValues(Cursor cursor, String field, ContentValues values,
@@ -550,7 +550,7 @@ public class DatabaseUtils {
      *
      * @param cursor The cursor to read from
      * @param field The INTEGER field to read
-     * @param values The {@link ContentValues} to put the value into, with the field as the key
+     * @param values The ContentValues to put the value into, with the field as the key
      */
     public static void cursorLongToContentValues(Cursor cursor, String field, ContentValues values)
     {
@@ -562,7 +562,7 @@ public class DatabaseUtils {
      *
      * @param cursor The cursor to read from
      * @param field The INTEGER field to read
-     * @param values The {@link ContentValues} to put the value into
+     * @param values The ContentValues to put the value into
      * @param key The key to store the value with in the map
      */
     public static void cursorLongToContentValues(Cursor cursor, String field, ContentValues values,
@@ -581,7 +581,7 @@ public class DatabaseUtils {
      *
      * @param cursor The cursor to read from
      * @param field The REAL field to read
-     * @param values The {@link ContentValues} to put the value into
+     * @param values The ContentValues to put the value into
      */
     public static void cursorDoubleToCursorValues(Cursor cursor, String field, ContentValues values)
     {
@@ -593,7 +593,7 @@ public class DatabaseUtils {
      *
      * @param cursor The cursor to read from
      * @param field The REAL field to read
-     * @param values The {@link ContentValues} to put the value into
+     * @param values The ContentValues to put the value into
      * @param key The key to store the value with in the map
      */
     public static void cursorDoubleToContentValues(Cursor cursor, String field,
@@ -610,7 +610,7 @@ public class DatabaseUtils {
      * Read the entire contents of a cursor row and store them in a ContentValues.
      *
      * @param cursor the cursor to read from.
-     * @param values the {@link ContentValues} to put the row into.
+     * @param values the ContentValues to put the row into.
      */
     public static void cursorRowToContentValues(Cursor cursor, ContentValues values) {
         AbstractWindowedCursor awc =
@@ -706,7 +706,7 @@ public class DatabaseUtils {
      *
      * @param cursor The cursor to read from
      * @param column The column to read
-     * @param values The {@link ContentValues} to put the value into
+     * @param values The ContentValues to put the value into
      */
     public static void cursorStringToContentValuesIfPresent(Cursor cursor, ContentValues values,
             String column) {
@@ -722,7 +722,7 @@ public class DatabaseUtils {
      *
      * @param cursor The cursor to read from
      * @param column The column to read
-     * @param values The {@link ContentValues} to put the value into
+     * @param values The ContentValues to put the value into
      */
     public static void cursorLongToContentValuesIfPresent(Cursor cursor, ContentValues values,
             String column) {
@@ -738,7 +738,7 @@ public class DatabaseUtils {
      *
      * @param cursor The cursor to read from
      * @param column The column to read
-     * @param values The {@link ContentValues} to put the value into
+     * @param values The ContentValues to put the value into
      */
     public static void cursorShortToContentValuesIfPresent(Cursor cursor, ContentValues values,
             String column) {
@@ -754,7 +754,7 @@ public class DatabaseUtils {
      *
      * @param cursor The cursor to read from
      * @param column The column to read
-     * @param values The {@link ContentValues} to put the value into
+     * @param values The ContentValues to put the value into
      */
     public static void cursorIntToContentValuesIfPresent(Cursor cursor, ContentValues values,
             String column) {
@@ -770,7 +770,7 @@ public class DatabaseUtils {
      *
      * @param cursor The cursor to read from
      * @param column The column to read
-     * @param values The {@link ContentValues} to put the value into
+     * @param values The ContentValues to put the value into
      */
     public static void cursorFloatToContentValuesIfPresent(Cursor cursor, ContentValues values,
             String column) {
@@ -786,7 +786,7 @@ public class DatabaseUtils {
      *
      * @param cursor The cursor to read from
      * @param column The column to read
-     * @param values The {@link ContentValues} to put the value into
+     * @param values The ContentValues to put the value into
      */
     public static void cursorDoubleToContentValuesIfPresent(Cursor cursor, ContentValues values,
             String column) {
@@ -1134,6 +1134,64 @@ public class DatabaseUtils {
         }
     }
 
+    public static void cursorFillWindow(final Cursor cursor,
+            int position, final android.database.CursorWindow window) {
+        if (position < 0 || position >= cursor.getCount()) {
+            return;
+        }
+        final int oldPos = cursor.getPosition();
+        final int numColumns = cursor.getColumnCount();
+        window.clear();
+        window.setStartPosition(position);
+        window.setNumColumns(numColumns);
+        if (cursor.moveToPosition(position)) {
+            do {
+                if (!window.allocRow()) {
+                    break;
+                }
+                for (int i = 0; i < numColumns; i++) {
+                    final int type = cursor.getType(i);
+                    final boolean success;
+                    switch (type) {
+                        case Cursor.FIELD_TYPE_NULL:
+                            success = window.putNull(position, i);
+                            break;
+
+                        case Cursor.FIELD_TYPE_INTEGER:
+                            success = window.putLong(cursor.getLong(i), position, i);
+                            break;
+
+                        case Cursor.FIELD_TYPE_FLOAT:
+                            success = window.putDouble(cursor.getDouble(i), position, i);
+                            break;
+
+                        case Cursor.FIELD_TYPE_BLOB: {
+                            final byte[] value = cursor.getBlob(i);
+                            success = value != null ? window.putBlob(value, position, i)
+                                    : window.putNull(position, i);
+                            break;
+                        }
+
+                        default: // assume value is convertible to String
+                        case Cursor.FIELD_TYPE_STRING: {
+                            final String value = cursor.getString(i);
+                            success = value != null ? window.putString(value, position, i)
+                                    : window.putNull(position, i);
+                            break;
+                        }
+                    }
+                    if (!success) {
+                        window.freeLastRow();
+                        break;
+                    }
+                }
+                position += 1;
+            } while (cursor.moveToNext());
+        }
+        cursor.moveToPosition(oldPos);
+    }
+
+
     /**
      * Creates a db and populates it with the sql statements in sqlStatements.
      *
@@ -1147,10 +1205,10 @@ public class DatabaseUtils {
     /*
     static public void createDbFromSqlStatements(
             Context context, String dbName, int dbVersion, String sqlStatements) {
-    	
+
     	//TODO TODO TODO what needs ot happen here
         SQLiteDatabase db = context.openOrCreateDatabase(dbName, 0, null);
-        
+
         // TODO: this is not quite safe since it assumes that all semicolons at the end of a line
         // terminate statements. It is possible that a text field contains ;\n. We will have to fix
         // this if that turns out to be a problem.
@@ -1162,60 +1220,6 @@ public class DatabaseUtils {
         db.setVersion(dbVersion);
         db.close();
     }*/
-    
-  	public static void cursorFillWindow(final Cursor cursor, int position, final android.database.CursorWindow window) {
-  		if (position < 0 || position >= cursor.getCount()) {
-  			return;
-  		}
-  		final int oldPos = cursor.getPosition();
-  		final int numColumns = cursor.getColumnCount();
-  		window.clear();
-  		window.setStartPosition(position);
-  		window.setNumColumns(numColumns);
-  		if (cursor.moveToPosition(position)) {
-  			do {
-  				if (!window.allocRow()) {
-  					break;
-  				}
-  				for (int i = 0; i < numColumns; i++) {
-  					final int type = cursor.getType(i);
-  					final boolean success;
-  					switch (type) {
-  					case Cursor.FIELD_TYPE_NULL:
-  						success = window.putNull(position, i);
-  						break;
-  
-  					case Cursor.FIELD_TYPE_INTEGER:
-  						success = window.putLong(cursor.getLong(i), position, i);
-  						break;
-  
-  					case Cursor.FIELD_TYPE_FLOAT:
-  						success = window.putDouble(cursor.getDouble(i), position, i);
-  						break;
-  
-  					case Cursor.FIELD_TYPE_BLOB: {
-  						final byte[] value = cursor.getBlob(i);
-  						success = value != null ? window.putBlob(value, position, i) : window.putNull(position, i);
-  						break;
-  					}
-  
-  					default: // assume value is convertible to String
-  					case Cursor.FIELD_TYPE_STRING: {
-  						final String value = cursor.getString(i);
-  						success = value != null ? window.putString(value, position, i) : window.putNull(position, i);
-  						break;
-  					}
-  					}
-  					if (!success) {
-  						window.freeLastRow();
-  						break;
-  					}
-  				}
-  				position += 1;
-  			} while (cursor.moveToNext());
-  		}
-  		cursor.moveToPosition(oldPos);
-  	}
     
     // SV 
     // Extracts from org.apache.commons.codec.binary.Hex class

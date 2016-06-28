@@ -17,16 +17,9 @@
 package org.spatialite;
 
 import android.database.CharArrayBuffer;
-
-import android.content.res.Resources;
-import android.database.sqlite.SQLiteClosable;
-import android.os.Binder;
 import android.os.IBinder;
 import android.os.Parcel;
 import android.os.Parcelable;
-import android.os.Process;
-import android.util.Log;
-import android.util.SparseIntArray;
 
 /**
  * A buffer containing multiple cursor rows.

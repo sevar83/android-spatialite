@@ -18,19 +18,20 @@
 #define LOG_TAG "Cursor"
 
 #include <jni.h>
-#include <JNIHelp.h>
-
-#include <sqlite3.h>
-
-#include <utils/Log.h>
-
-#include <stdio.h>
-#include <string.h>
-#include <unistd.h>
+// #include <JNIHelp.h>
+// #include <android_runtime/AndroidRuntime.h>
+// #include <utils/Log.h>
 
 // SV: Attempt to disable the overwhelming LOG_WINDOW logs if cursor window is very big
 #define LOG_NDEBUG 1
 
+#include <sqlite3.h>
+#include <stdio.h>
+#include <string.h>
+#include <unistd.h>
+#include "log.h"
+#include "jni_elements.h"
+#include "jni_exception.h"
 #include "CursorWindow.h"
 #include "sqlite3_exception.h"
 
@@ -192,16 +193,8 @@ static jint native_fill_window(JNIEnv* env, jobject object, jobject javaWindow,
                 int type = sqlite3_column_type(statement, i);
                 if (type == SQLITE_TEXT) {
                     // TEXT data
-#if WINDOW_STORAGE_UTF8
-                    uint8_t const * text = (uint8_t const *)sqlite3_column_text(statement, i);
-                    // SQLite does not include the NULL terminator in size, but does
-                    // ensure all strings are NULL terminated, so increase size by
-                    // one to make sure we store the terminator.
-                    size_t size = sqlite3_column_bytes(statement, i) + 1;
-#else
                     uint8_t const * text = (uint8_t const *)sqlite3_column_text16(statement, i);
                     size_t size = sqlite3_column_bytes16(statement, i);
-#endif
                     int offset = window->alloc(size);
                     if (!offset) {
                         window->freeLastRow();
@@ -359,9 +352,7 @@ int register_android_database_SQLiteQuery(JNIEnv * env)
         LOGE("Error locating fields");
         return -1;
     }
-
-    return jniRegisterNativeMethods(env,
-        "org/spatialite/database/SQLiteQuery", sMethods, NELEM(sMethods));
+    return env->RegisterNatives(clazz, sMethods, NELEM(sMethods));
 }
 
 

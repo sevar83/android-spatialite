@@ -16,17 +16,6 @@
 
 package org.spatialite.database;
 
-
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.Map;
-import java.util.concurrent.locks.ReentrantLock;
-
-import org.spatialite.AbstractWindowedCursor;
-import org.spatialite.CursorWindow;
-import org.spatialite.SQLException;
-
-import android.database.CharArrayBuffer;
 import android.database.DataSetObserver;
 import android.os.Handler;
 import android.os.Message;
@@ -34,6 +23,15 @@ import android.os.Process;
 import android.text.TextUtils;
 import android.util.Config;
 import android.util.Log;
+
+import org.spatialite.AbstractWindowedCursor;
+import org.spatialite.CursorWindow;
+import org.spatialite.SQLException;
+
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Map;
+import java.util.concurrent.locks.ReentrantLock;
 
 /**
  * A Cursor implementation that exposes results from a query on a

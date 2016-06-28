@@ -21,13 +21,14 @@ import android.provider.BaseColumns;
 import android.text.TextUtils;
 import android.util.Log;
 
+import org.spatialite.Cursor;
+import org.spatialite.DatabaseUtils;
+
 import java.util.Iterator;
 import java.util.Map;
-import java.util.Set;
 import java.util.Map.Entry;
+import java.util.Set;
 import java.util.regex.Pattern;
-
-import org.spatialite.*;
 
 /**
  * This is a convience class that helps build SQL queries to be sent to

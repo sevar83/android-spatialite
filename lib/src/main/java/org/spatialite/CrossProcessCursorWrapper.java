@@ -16,7 +16,7 @@ public class CrossProcessCursorWrapper extends CursorWrapper implements CrossPro
 
     @Override
     public void fillWindow(int position, CursorWindow window) {
-    	DatabaseUtils.cursorFillWindow(this, position, window);
+        DatabaseUtils.cursorFillWindow(this, position, window);
     }
 
     @Override

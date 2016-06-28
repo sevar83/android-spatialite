@@ -17,14 +17,11 @@
 package org.spatialite.database;
 
 import android.content.res.AssetFileDescriptor;
-import android.os.MemoryFile;
-
 import android.database.Cursor;
+import android.os.MemoryFile;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
-
-import org.spatialite.*;
 
 /**
  * Some helper functions for using SQLite database to implement content providers.
