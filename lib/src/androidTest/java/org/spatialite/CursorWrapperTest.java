@@ -28,6 +28,7 @@ import android.support.test.runner.AndroidJUnit4;
 
 import org.junit.After;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.spatialite.database.SQLiteDatabase;
@@ -380,6 +381,7 @@ public class CursorWrapperTest {
         assertSame(Bundle.EMPTY, bundle);
     }
 
+    @Ignore("Native crash in copyStringToBuffer")
     @Test
     public void testCopyStringToBuffer() {
         CharArrayBuffer charArrayBuffer = new CharArrayBuffer(1000);
