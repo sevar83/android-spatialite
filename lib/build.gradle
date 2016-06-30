@@ -37,10 +37,12 @@ android {
 // http://blog.gaku.net/including-ndk-produced-so-file-into-apk/
 // https://github.com/twitter-university/FibonacciNativeProject/tree/master/FibonacciNative
 // http://ph0b.com/android-studio-gradle-and-ndk-integration/
+// https://github.com/googlesamples/android-ndk/issues/243#issuecomment-229697996
 task ndkBuild(type: Exec, description: 'Compile JNI sources via NDK') {
     commandLine 'ndk-build',
             'V=1',
             '-j', Runtime.runtime.availableProcessors(),
+            'NDK_DEBUG=1',
             'NDK_PROJECT_PATH=build',
             'NDK_APPLICATION_MK=src/main/jni/Application.mk',
             'APP_BUILD_SCRIPT=src/main/jni/Android.mk'
