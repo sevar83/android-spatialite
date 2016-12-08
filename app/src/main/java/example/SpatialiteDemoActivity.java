@@ -24,14 +24,14 @@ public class SpatialiteDemoActivity extends Activity {
 
         eventsData = new EventDataSQLHelper(this);
 
-        SQLiteDatabase db = eventsData.getWritableDatabase((String) null);
+        SQLiteDatabase db = eventsData.getWritableDatabase((char[]) null);
 
         for (int i = 1; i < 100; i++)
             addEvent("Hello Android Event: " + i, db);
 
         db.close();
 
-        db = eventsData.getReadableDatabase((String) null);
+        db = eventsData.getReadableDatabase((char[]) null);
 
         Cursor cursor = getEvents(db);
         showEvents(cursor);
