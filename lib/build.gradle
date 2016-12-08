@@ -1,16 +1,16 @@
 apply plugin: 'com.android.library'
-apply plugin: 'com.github.dcendents.android-maven'
+//apply plugin: 'com.github.dcendents.android-maven'
 
 group = 'org.bitbucket.buildware'
 version = '1.0.7'
 
 android {
-    compileSdkVersion 24
-    buildToolsVersion "24.0.0"
+    compileSdkVersion 25
+    buildToolsVersion '25.0.1'
 
     defaultConfig {
         minSdkVersion 15
-        targetSdkVersion 24
+        targetSdkVersion 23
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
@@ -30,6 +30,22 @@ android {
             jniLibs.srcDir 'build/libs'
         }
     }
+
+    externalNativeBuild{
+        ndkBuild{
+            path "src/main/jni/Android.mk"
+        }
+    }
+
+    defaultConfig {
+        externalNativeBuild {
+            ndkBuild {
+                //targets "target1", "target2"
+                arguments "NDK_APPLICATION_MK:=src/main/jni/Application.mk", "-j", "8", "NDK_DEBUG=1", "V=1"
+                abiFilters "x86", "armeabi-v7a", "armeabi"
+            }
+        }
+    }
 }
 
 // Howto "Using custom Android.mk with Gradle/Android Studio"
@@ -38,7 +54,7 @@ android {
 // https://github.com/twitter-university/FibonacciNativeProject/tree/master/FibonacciNative
 // http://ph0b.com/android-studio-gradle-and-ndk-integration/
 // https://github.com/googlesamples/android-ndk/issues/243#issuecomment-229697996
-task ndkBuild(type: Exec, description: 'Compile JNI sources via NDK') {
+/*task ndkBuild(type: Exec, description: 'Compile JNI sources via NDK') {
     commandLine 'ndk-build',
             'V=1',
             '-j', Runtime.runtime.availableProcessors(),
@@ -50,12 +66,12 @@ task ndkBuild(type: Exec, description: 'Compile JNI sources via NDK') {
 
 tasks.withType(JavaCompile) {
     compileTask -> compileTask.dependsOn ndkBuild
-}
+}*/
 
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
     testCompile 'junit:junit:4.12'
-    androidTestCompile 'com.android.support:support-annotations:24.0.0'
+    androidTestCompile 'com.android.support:support-annotations:25.0.1'
     androidTestCompile 'com.android.support.test:runner:0.5'
     androidTestCompile 'com.android.support.test:rules:0.5'
 }
