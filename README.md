@@ -1,14 +1,14 @@
 [![Release](https://jitpack.io/v/org.bitbucket.buildware/android-spatialite.svg)](https://jitpack.io/#org.bitbucket.buildware/android-spatialite)
 
 # android-spatialite
-
+---
 ## WHAT IS THIS?
 - The [Spatialite](https://www.gaia-gis.it/gaia-sins/) database ported for *Android*
 - 100% offline, portable and self-contained as *SQLite*.
 
 ## WHEN DO I NEED IT?
-- When you need deployment, collecting, processing and fast querying of small to huge amounts of geometry data (points, polylines, polygons, multipolygons, etc.) on Android devices.
-- When you want to be 100% independent from any server/cloud backend.
+When you need deployment, collecting, processing and fast querying of small to huge amounts of geometry data (points, polylines, polygons, multipolygons, etc.) on Android devices.
+When you want to be 100% independent from any server/cloud backend.
 
 ## GETTING STARTED
 
