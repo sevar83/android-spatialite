@@ -1,7 +1,7 @@
 [![Release](https://jitpack.io/v/org.bitbucket.buildware/android-spatialite.svg)](https://jitpack.io/#org.bitbucket.buildware/android-spatialite)
 
 # android-spatialite
----
+
 ## WHAT IS THIS?
 - The [Spatialite](https://www.gaia-gis.it/gaia-sins/) database ported for *Android*
 - 100% offline, portable and self-contained as *SQLite*.
