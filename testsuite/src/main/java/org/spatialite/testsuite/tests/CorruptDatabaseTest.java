@@ -32,7 +32,7 @@ public class CorruptDatabaseTest extends SQLCipherTest {
         try {
             SpatialiteApplication.getInstance().extractAssetToDatabaseDirectory("corrupt.db");
 
-            SQLiteDatabase database = SQLiteDatabase.openOrCreateDatabase(unencryptedDatabase, "", null);
+            SQLiteDatabase database = SQLiteDatabase.openOrCreateDatabase(unencryptedDatabase, null);
 
             // NOTE: database not expected to be null, but double-check:
             if (database == null) {

@@ -11,8 +11,7 @@ public class OpenReadOnlyDatabaseTest extends SQLCipherTest {
     public boolean execute(SQLiteDatabase database) {
         database.close();
         File databasePath = SpatialiteApplication.getInstance().getDatabasePath(SpatialiteApplication.DATABASE_NAME);
-        database = SQLiteDatabase.openDatabase(databasePath.getAbsolutePath(), SpatialiteApplication.DATABASE_PASSWORD,
-                                                null, SQLiteDatabase.OPEN_READONLY);
+        database = SQLiteDatabase.openDatabase(databasePath.getAbsolutePath(), null, SQLiteDatabase.OPEN_READONLY);
         boolean opened = database.isOpen();
         database.close();
         return opened;

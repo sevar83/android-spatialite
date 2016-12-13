@@ -23,9 +23,9 @@ public class ReadableWritableAccessTest extends SQLCipherTest {
 
         DatabaseHelper databaseHelper = new DatabaseHelper(SpatialiteApplication.getInstance());
 
-        SQLiteDatabase writableDatabase = databaseHelper.getWritableDatabase(SpatialiteApplication.DATABASE_PASSWORD);
+        SQLiteDatabase writableDatabase = databaseHelper.getWritableDatabase();
         writableDatabase.beginTransaction();
-        SQLiteDatabase readableDatabase = databaseHelper.getReadableDatabase(SpatialiteApplication.DATABASE_PASSWORD);
+        SQLiteDatabase readableDatabase = databaseHelper.getReadableDatabase();
 
         Cursor results = readableDatabase.rawQuery("select count(*) from t1", new String[]{});
         results.moveToFirst();

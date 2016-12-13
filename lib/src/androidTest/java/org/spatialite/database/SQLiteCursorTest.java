@@ -76,7 +76,7 @@ public class SQLiteCursorTest {
         if (databaseFile.exists()) {
             databaseFile.delete();
         }
-        mDatabase = SQLiteDatabase.openOrCreateDatabase(databaseFile.getPath(), (String) null, null);
+        mDatabase = SQLiteDatabase.openOrCreateDatabase(databaseFile.getPath(), null);
         assertNotNull(databaseFile);
     }
 

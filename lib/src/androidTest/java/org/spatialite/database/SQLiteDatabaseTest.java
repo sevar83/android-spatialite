@@ -99,7 +99,7 @@ public class SQLiteDatabaseTest {
             }
         };
 
-        SQLiteDatabase db = SQLiteDatabase.openDatabase(mDatabaseFilePath, (String) null,
+        SQLiteDatabase db = SQLiteDatabase.openDatabase(mDatabaseFilePath,
                 factory, SQLiteDatabase.CREATE_IF_NECESSARY);
         assertNotNull(db);
         db.close();
@@ -107,18 +107,18 @@ public class SQLiteDatabaseTest {
         File dbFile = new File(mDatabaseDir, "database_test12345678.db");
         dbFile.delete();
         assertFalse(dbFile.exists());
-        db = SQLiteDatabase.openOrCreateDatabase(dbFile.getPath(), (String) null, factory);
+        db = SQLiteDatabase.openOrCreateDatabase(dbFile.getPath(), factory);
         assertNotNull(db);
         db.close();
         dbFile.delete();
 
         dbFile = new File(mDatabaseDir, DATABASE_FILE_NAME);
-        db = SQLiteDatabase.openOrCreateDatabase(dbFile, null, factory);
+        db = SQLiteDatabase.openOrCreateDatabase(dbFile, factory);
         assertNotNull(db);
         db.close();
         dbFile.delete();
 
-        db = SQLiteDatabase.create(factory, (String) null);
+        db = SQLiteDatabase.create(factory);
         assertNotNull(db);
         db.close();
     }
@@ -315,7 +315,7 @@ public class SQLiteDatabaseTest {
         }
         SQLiteDatabase database = null;
         try {
-            database = SQLiteDatabase.openOrCreateDatabase(databaseFile.getPath(), (String) null, null);
+            database = SQLiteDatabase.openOrCreateDatabase(databaseFile.getPath(), null);
 
             long initialValue = database.getPageSize();
             // check that this does not throw an exception
@@ -650,7 +650,7 @@ public class SQLiteDatabaseTest {
 
         SQLiteDatabase database = null;
         try {
-            database = SQLiteDatabase.openDatabase(mDatabaseFilePath, (String) null, null,
+            database = SQLiteDatabase.openDatabase(mDatabaseFilePath, null,
                     SQLiteDatabase.OPEN_READONLY);
             assertTrue(database.isReadOnly());
         } finally {

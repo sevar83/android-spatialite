@@ -43,7 +43,6 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Locale;
 import java.util.Map;
-import java.util.Random;
 import java.util.Set;
 import java.util.WeakHashMap;
 import java.util.concurrent.locks.ReentrantLock;
@@ -78,44 +77,6 @@ public class SQLiteDatabase extends SQLiteClosable {
 
     public int status(int operation, boolean reset){
         return native_status(operation, reset);
-    }
-
-    /**
-     * Change the password of the open database using sqlite3_rekey().
-     *
-     * @param password new database password
-     *
-     * @throws SQLiteException if there is an issue changing the password internally
-     *                         OR if the database is not open
-     *
-     * FUTURE @todo throw IllegalStateException if the database is not open and
-     *              update the test suite
-     */
-    public void changePassword(String password) throws SQLiteException {
-        // safeguard:
-        if (!isOpen()) {
-            throw new SQLiteException("database not open");
-        }
-        native_rekey(password);
-    }
-
-    /**
-     * Change the password of the open database using sqlite3_rekey().
-     *
-     * @param password new database password (char array)
-     *
-     * @throws SQLiteException if there is an issue changing the password internally
-     *                         OR if the database is not open
-     *
-     * FUTURE @todo throw IllegalStateException if the database is not open and
-     *              update the test suite
-     */
-    public void changePassword(char[] password) throws SQLiteException {
-        // safeguard:
-        if (!isOpen()) {
-            throw new SQLiteException("database not open");
-        }
-        native_rekey(String.valueOf(password));
     }
 
     private static void loadICUData(Context context, File workingDir) {
@@ -325,7 +286,6 @@ public class SQLiteDatabase extends SQLiteClosable {
     private static int sQueryLogTimeInMillis = 0;  // lazily initialized
     private static final int QUERY_LOG_SQL_LENGTH = 64;
     private static final String COMMIT_SQL = "COMMIT;";
-    private final Random mRandom = new Random();
     private String mLastSqlStatement = null;
 
     // String prefix for slow database query EventLog records that show
@@ -929,7 +889,6 @@ public class SQLiteDatabase extends SQLiteClosable {
      * Call {@link #setLocale} if you would like something else.</p>
      *
      * @param path to database file to open and/or create
-     * @param password to use to open and/or create database file (SV: Ignored and left only for better visual resemblance with the SQLCipher's API)
      * @param factory an optional factory class that is called to instantiate a
      *            cursor when query is called, or null for default
      * @param flags to control database access mode and other options
@@ -939,30 +898,8 @@ public class SQLiteDatabase extends SQLiteClosable {
      * @throws SQLiteException if the database cannot be opened
      * @throws IllegalArgumentException if the database path is null
      */
-    public static SQLiteDatabase openDatabase(String path, String password, CursorFactory factory, int flags) {
-      return openDatabase(path, safeCharArray(password), factory, flags, null);
-    }
-
-    /**
-     * Open the database according to the flags {@link #OPEN_READWRITE}
-     * {@link #OPEN_READONLY} {@link #CREATE_IF_NECESSARY} and/or {@link #NO_LOCALIZED_COLLATORS}.
-     *
-     * <p>Sets the locale of the database to the system's current locale.
-     * Call {@link #setLocale} if you would like something else.</p>
-     *
-     * @param path to database file to open and/or create
-     * @param password to use to open and/or create database file (char array)
-     * @param factory an optional factory class that is called to instantiate a
-     *            cursor when query is called, or null for default
-     * @param flags to control database access mode and other options
-     *
-     * @return the newly opened database
-     *
-     * @throws SQLiteException if the database cannot be opened
-     * @throws IllegalArgumentException if the database path is null
-     */
-    public static SQLiteDatabase openDatabase(String path, char[] password, CursorFactory factory, int flags) {
-      return openDatabase(path, password, factory, flags, null);
+    public static SQLiteDatabase openDatabase(String path, CursorFactory factory, int flags) {
+      return openDatabase(path, factory, flags, null);
     }
 
     /**
@@ -974,31 +911,6 @@ public class SQLiteDatabase extends SQLiteClosable {
      * Call {@link #setLocale} if you would like something else.</p>
      *
      * @param path to database file to open and/or create
-     * @param password to use to open and/or create database file
-     * @param factory an optional factory class that is called to instantiate a
-     *            cursor when query is called, or null for default
-     * @param flags to control database access mode and other options
-     * @param hook to run on pre/post key events
-     *
-     * @return the newly opened database
-     *
-     * @throws SQLiteException if the database cannot be opened
-     * @throws IllegalArgumentException if the database path is null
-     */
-    public static SQLiteDatabase openDatabase(String path, String password, CursorFactory factory, int flags, SQLiteDatabaseHook hook) {
-      return openDatabase(path, safeCharArray(password), factory, flags, hook);
-    }
-
-    /**
-     * Open the database according to the flags {@link #OPEN_READWRITE}
-     * {@link #OPEN_READONLY} {@link #CREATE_IF_NECESSARY} and/or {@link #NO_LOCALIZED_COLLATORS}
-     * with optional hook to run on pre/post key events.
-     *
-     * <p>Sets the locale of the database to the  the system's current locale.
-     * Call {@link #setLocale} if you would like something else.</p>
-     *
-     * @param path to database file to open and/or create
-     * @param password to use to open and/or create database file (char array)
      * @param factory an optional factory class that is called to instantiate a
      *            cursor when query is called, or null for default
      * @param flags to control database access mode and other options
@@ -1009,8 +921,8 @@ public class SQLiteDatabase extends SQLiteClosable {
      * @throws SQLiteException if the database cannot be opened
      * @throws IllegalArgumentException if the database path is null
      */
-    public static SQLiteDatabase openDatabase(String path, char[] password, CursorFactory factory, int flags, SQLiteDatabaseHook hook) {
-        return openDatabase(path, password, factory, flags, hook, new DefaultDatabaseErrorHandler());
+    public static SQLiteDatabase openDatabase(String path, CursorFactory factory, int flags, SQLiteDatabaseHook hook) {
+        return openDatabase(path, factory, flags, hook, new DefaultDatabaseErrorHandler());
     }
 
     /**
@@ -1022,34 +934,6 @@ public class SQLiteDatabase extends SQLiteClosable {
      * Call {@link #setLocale} if you would like something else.</p>
      *
      * @param path to database file to open and/or create
-     * @param password to use to open and/or create database file
-     * @param factory an optional factory class that is called to instantiate a
-     *            cursor when query is called, or null for default
-     * @param flags to control database access mode and other options
-     * @param hook to run on pre/post key events
-     * @param errorHandler The {@link DatabaseErrorHandler} to be used when sqlite reports database
-     * corruption (or null for default).
-     *
-     * @return the newly opened database
-     *
-     * @throws SQLiteException if the database cannot be opened
-     * @throws IllegalArgumentException if the database path is null
-     */
-    public static SQLiteDatabase openDatabase(String path, String password, CursorFactory factory, int flags,
-                                              SQLiteDatabaseHook hook, DatabaseErrorHandler errorHandler) {
-      return openDatabase(path, safeCharArray(password), factory, flags, hook, errorHandler);
-    }
-
-    /**
-     * Open the database according to the flags {@link #OPEN_READWRITE}
-     * {@link #OPEN_READONLY} {@link #CREATE_IF_NECESSARY} and/or {@link #NO_LOCALIZED_COLLATORS}
-     * with optional hook to run on pre/post key events.
-     *
-     * <p>Sets the locale of the database to the  the system's current locale.
-     * Call {@link #setLocale} if you would like something else.</p>
-     *
-     * @param path to database file to open and/or create
-     * @param password to use to open and/or create database file (char array)
      * @param factory an optional factory class that is called to instantiate a
      *            cursor when query is called, or null for default
      * @param flags to control database access mode and other options
@@ -1062,14 +946,14 @@ public class SQLiteDatabase extends SQLiteClosable {
      * @throws SQLiteException if the database cannot be opened
      * @throws IllegalArgumentException if the database path is null
      */
-    public static SQLiteDatabase openDatabase(String path, char[] password, CursorFactory factory, int flags,
+    public static SQLiteDatabase openDatabase(String path, CursorFactory factory, int flags,
                                               SQLiteDatabaseHook hook, DatabaseErrorHandler errorHandler) {
         SQLiteDatabase sqliteDatabase = null;
 
         try {
             // Open the database.
             sqliteDatabase = new SQLiteDatabase(path, factory, flags, errorHandler);
-            sqliteDatabase.openDatabaseInternal(password, hook);
+            sqliteDatabase.openDatabaseInternal(hook);
         } catch (SQLiteDatabaseCorruptException e) {
             // Try to recover from this, if possible.
             // FUTURE TBD: should we consider this for other open failures?
@@ -1082,7 +966,7 @@ public class SQLiteDatabase extends SQLiteClosable {
 
             // try *once* again:
             sqliteDatabase = new SQLiteDatabase(path, factory, flags, errorHandler);
-            sqliteDatabase.openDatabaseInternal(password, hook);
+            sqliteDatabase.openDatabaseInternal(hook);
         }
 
         if (SQLiteDebug.DEBUG_SQL_STATEMENTS) {
@@ -1100,60 +984,41 @@ public class SQLiteDatabase extends SQLiteClosable {
     }
 
     /**
-     * Equivalent to openDatabase(file.getPath(), password, factory, CREATE_IF_NECESSARY, databaseHook).
+     * Equivalent to openDatabase(file.getPath(), factory, CREATE_IF_NECESSARY, databaseHook).
      */
-    public static SQLiteDatabase openOrCreateDatabase(File file, String password, CursorFactory factory, SQLiteDatabaseHook databaseHook) {
-        return openOrCreateDatabase(file.getPath(), password, factory, databaseHook);
+    public static SQLiteDatabase openOrCreateDatabase(File file, CursorFactory factory, SQLiteDatabaseHook databaseHook) {
+        return openOrCreateDatabase(file.getPath(), factory, databaseHook);
     }
 
     /**
-     * Equivalent to openDatabase(path, password, factory, CREATE_IF_NECESSARY, databaseHook).
+     * Equivalent to openDatabase(path, factory, CREATE_IF_NECESSARY, databaseHook).
      */
-    public static SQLiteDatabase openOrCreateDatabase(String path, String password, CursorFactory factory, SQLiteDatabaseHook databaseHook) {
-        return openDatabase(path, password, factory, CREATE_IF_NECESSARY, databaseHook);
-    }
-
-    /**
-     * Equivalent to openDatabase(path, password, factory, CREATE_IF_NECESSARY, databaseHook).
-     */
-    public static SQLiteDatabase openOrCreateDatabase(File file, String password, CursorFactory factory, SQLiteDatabaseHook databaseHook,
+    public static SQLiteDatabase openOrCreateDatabase(File file, CursorFactory factory, SQLiteDatabaseHook databaseHook,
                                                       DatabaseErrorHandler errorHandler) {
-        return openDatabase(file.getPath(), safeCharArray(password), factory, CREATE_IF_NECESSARY, databaseHook, errorHandler);
+        return openDatabase(file.getPath(), factory, CREATE_IF_NECESSARY, databaseHook, errorHandler);
     }
 
-    public static SQLiteDatabase openOrCreateDatabase(String path, String password, CursorFactory factory, SQLiteDatabaseHook databaseHook,
+    public static SQLiteDatabase openOrCreateDatabase(String path, CursorFactory factory, SQLiteDatabaseHook databaseHook,
                                                       DatabaseErrorHandler errorHandler) {
-        return openDatabase(path, safeCharArray(password), factory, CREATE_IF_NECESSARY, databaseHook, errorHandler);
+        return openDatabase(path, factory, CREATE_IF_NECESSARY, databaseHook, errorHandler);
     }
 
-    public static SQLiteDatabase openOrCreateDatabase(String path, char[] password, CursorFactory factory, SQLiteDatabaseHook databaseHook) {
-      return openDatabase(path, password, factory, CREATE_IF_NECESSARY, databaseHook);
-    }
-
-    public static SQLiteDatabase openOrCreateDatabase(String path, char[] password, CursorFactory factory, SQLiteDatabaseHook databaseHook,
-                                                      DatabaseErrorHandler errorHandler) {
-        return openDatabase(path, password, factory, CREATE_IF_NECESSARY, databaseHook, errorHandler);
+    public static SQLiteDatabase openOrCreateDatabase(String path, CursorFactory factory, SQLiteDatabaseHook databaseHook) {
+      return openDatabase(path, factory, CREATE_IF_NECESSARY, databaseHook);
     }
 
     /**
-     * Equivalent to openDatabase(file.getPath(), password, factory, CREATE_IF_NECESSARY).
+     * Equivalent to openDatabase(file.getPath(), factory, CREATE_IF_NECESSARY).
      */
-    public static SQLiteDatabase openOrCreateDatabase(File file, String password, CursorFactory factory) {
-        return openOrCreateDatabase(file.getPath(), password, factory, null);
+    public static SQLiteDatabase openOrCreateDatabase(File file, CursorFactory factory) {
+        return openOrCreateDatabase(file.getPath(), factory, null);
     }
 
     /**
-     * Equivalent to openDatabase(path, password, factory, CREATE_IF_NECESSARY).
+     * Equivalent to openDatabase(path, factory, CREATE_IF_NECESSARY).
      */
-    public static SQLiteDatabase openOrCreateDatabase(String path, String password, CursorFactory factory) {
-      return openDatabase(path, safeCharArray(password), factory, CREATE_IF_NECESSARY, null);
-    }
-
-    /**
-     * Equivalent to openDatabase(path, password, factory, CREATE_IF_NECESSARY).
-     */
-    public static SQLiteDatabase openOrCreateDatabase(String path, char[] password, CursorFactory factory) {
-      return openDatabase(path, password, factory, CREATE_IF_NECESSARY, null);
+    public static SQLiteDatabase openOrCreateDatabase(String path, CursorFactory factory) {
+      return openDatabase(path, factory, CREATE_IF_NECESSARY, null);
     }
 
     /**
@@ -1165,36 +1030,15 @@ public class SQLiteDatabase extends SQLiteClosable {
      *
      * @param factory an optional factory class that is called to instantiate a
      *            cursor when query is called
-     * @param password to use to open and/or create database file
      *
      * @return a SQLiteDatabase object, or null if the database can't be created
      *
      * @throws SQLiteException if the database cannot be opened
      */
-    public static SQLiteDatabase create(CursorFactory factory, String password) {
+    public static SQLiteDatabase create(CursorFactory factory) {
         // This is a magic string with special meaning for SQLite.
-      return openDatabase(":memory:", safeCharArray(password), factory, CREATE_IF_NECESSARY);
+      return openDatabase(":memory:", factory, CREATE_IF_NECESSARY);
     }
-
-    /**
-     * Create a memory backed SQLite database.  Its contents will be destroyed
-     * when the database is closed.
-     *
-     * <p>Sets the locale of the database to the  the system's current locale.
-     * Call {@link #setLocale} if you would like something else.</p>
-     *
-     * @param factory an optional factory class that is called to instantiate a
-     *            cursor when query is called
-     * @param password to use to open and/or create database file (char array)
-     *
-     * @return a SQLiteDatabase object, or null if the database can't be created
-     *
-     * @throws SQLiteException if the database cannot be opened
-     */
-    public static SQLiteDatabase create(CursorFactory factory, char[] password) {
-        return openDatabase(":memory:", password, factory, CREATE_IF_NECESSARY);
-    }
-
 
     /**
      * Close the database.
@@ -2137,7 +1981,6 @@ public class SQLiteDatabase extends SQLiteClosable {
         if (!isOpen()) {
             throw new IllegalStateException("database not open");
         }
-        logTimeStat(mLastSqlStatement, timeStart, GET_LOCK_LOG_PREFIX);
         try {
             native_execSQL(sql);
         } catch (SQLiteDatabaseCorruptException e) {
@@ -2145,15 +1988,6 @@ public class SQLiteDatabase extends SQLiteClosable {
             throw e;
         } finally {
             unlock();
-        }
-
-        // Log commit statements along with the most recently executed
-        // SQL statement for disambiguation.  Note that instance
-        // equality to COMMIT_SQL is safe here.
-        if (sql == COMMIT_SQL) {
-            logTimeStat(mLastSqlStatement, timeStart, COMMIT_SQL);
-        } else {
-            logTimeStat(sql, timeStart, null);
         }
     }
 
@@ -2163,7 +1997,6 @@ public class SQLiteDatabase extends SQLiteClosable {
         if (!isOpen()) {
             throw new IllegalStateException("database not open");
         }
-        logTimeStat(mLastSqlStatement, timeStart, GET_LOCK_LOG_PREFIX);
         try {
             native_rawExecSQL(sql);
         } catch (SQLiteDatabaseCorruptException e) {
@@ -2171,15 +2004,6 @@ public class SQLiteDatabase extends SQLiteClosable {
             throw e;
         } finally {
             unlock();
-        }
-
-        // Log commit statements along with the most recently executed
-        // SQL statement for disambiguation.  Note that instance
-        // equality to COMMIT_SQL is safe here.
-        if (sql == COMMIT_SQL) {
-            logTimeStat(mLastSqlStatement, timeStart, COMMIT_SQL);
-        } else {
-            logTimeStat(sql, timeStart, null);
         }
     }
 
@@ -2222,7 +2046,6 @@ public class SQLiteDatabase extends SQLiteClosable {
             }
             unlock();
         }
-        logTimeStat(sql, timeStart);
     }
 
     @Override
@@ -2242,7 +2065,6 @@ public class SQLiteDatabase extends SQLiteClosable {
      * Call {@link #setLocale} if you would like something else.</p>
      *
      * @param path The full path to the database
-     * @param password to use to open and/or create a database file (char array)
      * @param factory The factory to use when creating cursors, may be NULL.
      * @param flags 0 or {@link #NO_LOCALIZED_COLLATORS}.  If the database file already
      *              exists, mFlags will be updated appropriately.
@@ -2250,9 +2072,9 @@ public class SQLiteDatabase extends SQLiteClosable {
      * @throws SQLiteException if the database cannot be opened
      * @throws IllegalArgumentException if the database path is null
      */
-    public SQLiteDatabase(String path, char[] password, CursorFactory factory, int flags) {
-        this(path, factory, flags, null);
-        this.openDatabaseInternal(password, null);
+    public SQLiteDatabase(String path, CursorFactory factory, int flags) {
+        this(path, factory, flags, (DatabaseErrorHandler) null);
+        this.openDatabaseInternal(null);
     }
 
     /**
@@ -2262,7 +2084,6 @@ public class SQLiteDatabase extends SQLiteClosable {
      * Call {@link #setLocale} if you would like something else.</p>
      *
      * @param path The full path to the database
-     * @param password to use to open and/or create a database file (char array)
      * @param factory The factory to use when creating cursors, may be NULL.
      * @param flags 0 or {@link #NO_LOCALIZED_COLLATORS}.  If the database file already
      *              exists, mFlags will be updated appropriately.
@@ -2271,13 +2092,13 @@ public class SQLiteDatabase extends SQLiteClosable {
      * @throws SQLiteException if the database cannot be opened
      * @throws IllegalArgumentException if the database path is null
      */
-    public SQLiteDatabase(String path, char[] password, CursorFactory factory, int flags, SQLiteDatabaseHook databaseHook) {
-        this(path, factory, flags, null);
-        this.openDatabaseInternal(password, databaseHook);
+    public SQLiteDatabase(String path, CursorFactory factory, int flags, SQLiteDatabaseHook databaseHook) {
+        this(path, factory, flags, (DatabaseErrorHandler) null);
+        this.openDatabaseInternal(databaseHook);
     }
 
     /**
-     * Private constructor (without database password) which DOES NOT attempt to open the database.
+     * Private constructor which DOES NOT attempt to open the database.
      *
      * @param path The full path to the database
      * @param factory The factory to use when creating cursors, may be NULL.
@@ -2303,14 +2124,12 @@ public class SQLiteDatabase extends SQLiteClosable {
         mErrorHandler = errorHandler;
     }
 
-    private void openDatabaseInternal(char[] password, SQLiteDatabaseHook databaseHook) {
+    private void openDatabaseInternal(SQLiteDatabaseHook databaseHook) {
         dbopen(mPath, mFlags);
 
         if(databaseHook != null) {
             databaseHook.preKey(this);
         }
-
-        native_key(password);
 
         if(databaseHook != null){
             databaseHook.postKey(this);
@@ -2368,67 +2187,6 @@ public class SQLiteDatabase extends SQLiteClosable {
      */
     public final String getPath() {
         return mPath;
-    }
-
-    /* package */ void logTimeStat(String sql, long beginMillis) {
-        logTimeStat(sql, beginMillis, null);
-    }
-
-    /* package */ void logTimeStat(String sql, long beginMillis, String prefix) {
-        // Keep track of the last statement executed here, as this is
-        // the common funnel through which all methods of hitting
-        // libsqlite eventually flow.
-        mLastSqlStatement = sql;
-
-        // Sample fast queries in proportion to the time taken.
-        // Quantize the % first, so the logged sampling probability
-        // exactly equals the actual sampling rate for this query.
-
-        int samplePercent;
-        long durationMillis = SystemClock.uptimeMillis() - beginMillis;
-        if (durationMillis == 0 && prefix == GET_LOCK_LOG_PREFIX) {
-            // The common case is locks being uncontended.  Don't log those,
-            // even at 1%, which is our default below.
-            return;
-        }
-        if (sQueryLogTimeInMillis == 0) {
-            sQueryLogTimeInMillis = 500;//SystemProperties.getInt("db.db_operation.threshold_ms", 500);
-        }
-        if (durationMillis >= sQueryLogTimeInMillis) {
-            samplePercent = 100;
-        } else {
-            samplePercent = (int) (100 * durationMillis / sQueryLogTimeInMillis) + 1;
-            if (mRandom.nextInt(100) >= samplePercent) return;
-        }
-
-        // Note: the prefix will be "COMMIT;" or "GETLOCK:" when non-null.  We wait to do
-        // it here so we avoid allocating in the common case.
-        if (prefix != null) {
-            sql = prefix + sql;
-        }
-
-        if (sql.length() > QUERY_LOG_SQL_LENGTH) sql = sql.substring(0, QUERY_LOG_SQL_LENGTH);
-
-        // ActivityThread.currentPackageName() only returns non-null if the
-        // current thread is an application main thread.  This parameter tells
-        // us whether an event loop is blocked, and if so, which app it is.
-        //
-        // Sadly, there's no fast way to determine app name if this is *not* a
-        // main thread, or when we are invoked via Binder (e.g. ContentProvider).
-        // Hopefully the full path to the database will be informative enough.
-
-        //TODO get the current package name
-        String blockingPackage = "unknown";//ActivityThread.currentPackageName();
-        if (blockingPackage == null) blockingPackage = "";
-
-        /*
-          EventLog.writeEvent(
-          EVENT_DB_OPERATION,
-          getPathForLogs(),
-          sql,
-          durationMillis,
-          blockingPackage,
-          samplePercent);*/
     }
 
     /**
@@ -2805,8 +2563,4 @@ public class SQLiteDatabase extends SQLiteClosable {
     private native void native_key(char[] key) throws SQLException;
 
     private native void native_rekey(String key) throws SQLException;
-
-    private static char[] safeCharArray(String str) {
-        return str != null ? str.toCharArray() : null;
-    }
 }

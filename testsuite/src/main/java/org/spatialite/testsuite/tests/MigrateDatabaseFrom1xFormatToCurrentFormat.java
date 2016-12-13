@@ -23,7 +23,7 @@ public class MigrateDatabaseFrom1xFormatToCurrentFormat extends SQLCipherTest {
                     database.rawExecSQL("PRAGMA cipher_migrate;");
                 }
             };
-            SQLiteDatabase source = SQLiteDatabase.openOrCreateDatabase(sourceDatabase.getPath(), password, null, hook);
+            SQLiteDatabase source = SQLiteDatabase.openOrCreateDatabase(sourceDatabase.getPath(), null, hook);
             Cursor result = source.rawQuery("select * from t1", new String[]{});
             if(result != null){
                 result.moveToFirst();

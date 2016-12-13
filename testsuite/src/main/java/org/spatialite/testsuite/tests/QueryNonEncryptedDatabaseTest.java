@@ -29,14 +29,14 @@ public class QueryNonEncryptedDatabaseTest extends SQLCipherTest {
         // XXX CRASHING:
         try {
             char[] nullPassword = null;
-            database = SQLiteDatabase.openOrCreateDatabase(unencryptedDatabase.getPath(), nullPassword, null, null);
+            database = SQLiteDatabase.openOrCreateDatabase(unencryptedDatabase.getPath(), null, null);
         } catch (Exception e) {
             Log.e(SpatialiteApplication.TAG, "NOT EXPECTED: exception", e);
             return false;
         }
 
         try {
-            database = SQLiteDatabase.openOrCreateDatabase(unencryptedDatabase, "", null);
+            database = SQLiteDatabase.openOrCreateDatabase(unencryptedDatabase, null);
             Cursor cursor = database.rawQuery("select * from t1", new String[]{});
             cursor.moveToFirst();
             String a = cursor.getString(0);

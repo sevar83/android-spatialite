@@ -349,7 +349,7 @@ public class MergeCursorTest {
         if (mDatabaseFile.exists()) {
             mDatabaseFile.delete();
         }
-        mDatabase = SQLiteDatabase.openOrCreateDatabase(mDatabaseFile.getPath(), (String) null, null);
+        mDatabase = SQLiteDatabase.openOrCreateDatabase(mDatabaseFile.getPath(), null);
         assertNotNull(mDatabaseFile);
         createTable(TABLE1_NAME, TABLE1_COLUMNS);
         createTable(TABLE2_NAME, TABLE2_COLUMNS);

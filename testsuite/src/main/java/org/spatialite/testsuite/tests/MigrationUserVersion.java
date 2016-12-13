@@ -16,18 +16,16 @@ public class MigrationUserVersion extends SQLCipherTest {
                 database.execSQL("PRAGMA cipher_default_kdf_iter = 4000;");
             }
         };
-        return SQLiteDatabase.openOrCreateDatabase(databasePath,
-                SpatialiteApplication.DATABASE_PASSWORD, null, hook);
+        return SQLiteDatabase.openOrCreateDatabase(databasePath, null, hook);
     }
 
     @Override
     public boolean execute(SQLiteDatabase database) {
 
         try {
-            String password = SpatialiteApplication.DATABASE_PASSWORD;
             SpatialiteApplication.getInstance().extractAssetToDatabaseDirectory(SpatialiteApplication.ONE_X_USER_VERSION_DATABASE);
             File sourceDatabase = SpatialiteApplication.getInstance().getDatabasePath(SpatialiteApplication.ONE_X_USER_VERSION_DATABASE);
-            SQLiteDatabase originalDatabase = SQLiteDatabase.openOrCreateDatabase(sourceDatabase, password, null, new SQLiteDatabaseHook() {
+            SQLiteDatabase originalDatabase = SQLiteDatabase.openOrCreateDatabase(sourceDatabase, null, new SQLiteDatabaseHook() {
                 public void preKey(SQLiteDatabase database) {
                 }
                 public void postKey(SQLiteDatabase database) {

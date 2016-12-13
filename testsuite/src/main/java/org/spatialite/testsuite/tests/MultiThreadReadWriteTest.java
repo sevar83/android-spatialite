@@ -14,7 +14,6 @@ import java.util.List;
 public class MultiThreadReadWriteTest extends SQLCipherTest {
 
     final File databaseFile = SpatialiteApplication.getInstance().getDatabasePath(SpatialiteApplication.DATABASE_NAME);
-    final String password = SpatialiteApplication.DATABASE_PASSWORD;
     private static SQLiteDatabase instance;
     ThreadExecutor executor;
     int recordsPerThread = 20;
@@ -29,10 +28,10 @@ public class MultiThreadReadWriteTest extends SQLCipherTest {
 
     synchronized SQLiteDatabase getDatabase(DatabaseAccessType accessType) {
         if (accessType == DatabaseAccessType.InstancePerRequest) {
-            return SQLiteDatabase.openOrCreateDatabase(databaseFile, password, null);
+            return SQLiteDatabase.openOrCreateDatabase(databaseFile, null);
         } else if (accessType == DatabaseAccessType.Singleton) {
             if (instance == null) {
-                instance = SQLiteDatabase.openOrCreateDatabase(databaseFile, password, null);
+                instance = SQLiteDatabase.openOrCreateDatabase(databaseFile, null);
             }
             return instance;
         }

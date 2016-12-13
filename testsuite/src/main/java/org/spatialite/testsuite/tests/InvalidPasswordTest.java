@@ -4,7 +4,6 @@ import org.spatialite.database.SQLiteDatabase;
 import org.spatialite.testsuite.SpatialiteApplication;
 
 import java.io.File;
-import java.util.UUID;
 
 public class InvalidPasswordTest extends SQLCipherTest {
     @Override
@@ -14,12 +13,11 @@ public class InvalidPasswordTest extends SQLCipherTest {
         database.rawExecSQL("create table t1(a,b);");
         database.close();
         File databaseFile = SpatialiteApplication.getInstance().getDatabasePath(SpatialiteApplication.DATABASE_NAME);
-        String password = SpatialiteApplication.DATABASE_PASSWORD;
         try{
-            SQLiteDatabase.openOrCreateDatabase(databaseFile, UUID.randomUUID().toString(), null);
+            SQLiteDatabase.openOrCreateDatabase(databaseFile, null);
         } catch (Exception e){
             try {
-                database = SQLiteDatabase.openOrCreateDatabase(databaseFile, password, null);
+                database = SQLiteDatabase.openOrCreateDatabase(databaseFile, null);
                 database.execSQL("insert into t1(a,b) values(?, ?)", new Object[]{"testing", "123"});
                 status = true;
             } catch (Exception ex){}

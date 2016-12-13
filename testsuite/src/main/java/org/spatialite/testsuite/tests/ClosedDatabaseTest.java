@@ -32,7 +32,7 @@ public class ClosedDatabaseTest extends SQLCipherTest {
         boolean status = false;
 
         try {
-            SQLiteDatabase database = SQLiteDatabase.openOrCreateDatabase(closedDatabasePath, "", null);
+            SQLiteDatabase database = SQLiteDatabase.openOrCreateDatabase(closedDatabasePath, null);
 
             database.close();
 
@@ -60,7 +60,7 @@ public class ClosedDatabaseTest extends SQLCipherTest {
             final boolean[] inner_status_slot = new boolean[1];
 
             // on a database object that was NEVER actually opened (due to a corrupt database file):
-            SQLiteDatabase database = SQLiteDatabase.openDatabase(corruptDatabase.getPath(), "", null, SQLiteDatabase.CREATE_IF_NECESSARY, null, new DatabaseErrorHandler() {
+            SQLiteDatabase database = SQLiteDatabase.openDatabase(corruptDatabase.getPath(), null, SQLiteDatabase.CREATE_IF_NECESSARY, null, new DatabaseErrorHandler() {
                 @Override
                 public void onCorruption(SQLiteDatabase db) {
                     try {
@@ -273,6 +273,7 @@ public class ClosedDatabaseTest extends SQLCipherTest {
 //                Log.v(SpatialiteApplication.TAG, "SQLiteDatabase.setLocale() did throw exception on closed database OK", e);
 //            }
 
+            /* SV
             try {
                 // [should] throw an exception on a closed database:
                 database.changePassword("new-password");
@@ -293,7 +294,7 @@ public class ClosedDatabaseTest extends SQLCipherTest {
                 return false;
             } catch (SQLiteException e) {
                 Log.v(SpatialiteApplication.TAG, "SQLiteDatabase.changePassword(char []) did throw exception on closed database OK", e);
-            }
+            }*/
 
             try {
                 // [should] throw an exception on a closed database:

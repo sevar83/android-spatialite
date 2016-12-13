@@ -24,7 +24,7 @@ public class ExportToUnencryptedDatabase extends SQLCipherTest {
             }
             public void postKey(SQLiteDatabase sqLiteDatabase) {}
         };
-        database = SQLiteDatabase.openOrCreateDatabase(databaseFile, SpatialiteApplication.DATABASE_PASSWORD, null, hook);
+        database = SQLiteDatabase.openOrCreateDatabase(databaseFile, null, hook);
 
         database.rawExecSQL("create table t1(a,b);");
         database.execSQL("insert into t1(a,b) values(?, ?);", new Object[]{"one for the money", "two for the show"});
@@ -34,7 +34,7 @@ public class ExportToUnencryptedDatabase extends SQLCipherTest {
         database.rawExecSQL("SELECT sqlcipher_export('plaintext');");
         database.rawExecSQL("DETACH DATABASE plaintext;");
 
-        SQLiteDatabase unencryptedDatabase = SQLiteDatabase.openOrCreateDatabase(unencryptedFile, "", null, hook);
+        SQLiteDatabase unencryptedDatabase = SQLiteDatabase.openOrCreateDatabase(unencryptedFile, null, hook);
         Cursor cursor = unencryptedDatabase.rawQuery("select * from t1;", new String[]{});
         String a = "";
         String b = "";

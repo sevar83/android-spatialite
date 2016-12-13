@@ -20,15 +20,14 @@ public class ImportUnencryptedDatabaseTest extends SQLCipherTest {
             SpatialiteApplication.getInstance().extractAssetToDatabaseDirectory("unencrypted.db");
 
             database.close();
-            database = SQLiteDatabase.openOrCreateDatabase(unencryptedDatabase, "", null);
+            database = SQLiteDatabase.openOrCreateDatabase(unencryptedDatabase, null);
             database.rawExecSQL(String.format("ATTACH DATABASE '%s' AS encrypted KEY '%s'",
                                 encryptedDatabase.getAbsolutePath(), SpatialiteApplication.DATABASE_PASSWORD));
             database.rawExecSQL("select sqlcipher_export('encrypted')");
             database.rawExecSQL("DETACH DATABASE encrypted");
             database.close();
 
-            database = SQLiteDatabase.openOrCreateDatabase(encryptedDatabase, SpatialiteApplication.DATABASE_PASSWORD,
-                                                           null);
+            database = SQLiteDatabase.openOrCreateDatabase(encryptedDatabase, null);
             Cursor cursor = database.rawQuery("select * from t1", new String[]{});
             cursor.moveToFirst();
             String a = cursor.getString(0);
