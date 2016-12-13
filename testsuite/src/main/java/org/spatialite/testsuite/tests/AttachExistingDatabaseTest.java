@@ -19,8 +19,7 @@ public class AttachExistingDatabaseTest extends SQLCipherTest {
                 database.execSQL("PRAGMA cipher_default_kdf_iter = 4000;");
             }
         };
-        return SQLiteDatabase.openOrCreateDatabase(databasePath,
-                SpatialiteApplication.DATABASE_PASSWORD, null, hook);
+        return SQLiteDatabase.openOrCreateDatabase(databasePath, null, hook);
     }
 
     @Override

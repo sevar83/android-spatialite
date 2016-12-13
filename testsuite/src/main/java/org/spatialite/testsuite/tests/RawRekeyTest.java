@@ -18,7 +18,7 @@ public class RawRekeyTest extends SQLCipherTest {
         database.execSQL("insert into t1(a,b) values(?,?)", new Object[]{"one for the money", "two for the show"});
         database.rawExecSQL(rekeyCommand);
         database.close();
-        database = SQLiteDatabase.openOrCreateDatabase(databaseFile, password, null);
+        database = SQLiteDatabase.openOrCreateDatabase(databaseFile, null);
         int count = QueryHelper.singleIntegerValueFromQuery(database, "select count(*) from t1;");
         boolean status = count == 1;
         database.close();

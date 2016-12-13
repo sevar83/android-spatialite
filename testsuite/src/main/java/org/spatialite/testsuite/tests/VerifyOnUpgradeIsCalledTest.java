@@ -13,10 +13,10 @@ public class VerifyOnUpgradeIsCalledTest extends SQLCipherTest {
 
         SpatialiteApplication.getInstance().deleteDatabaseFileAndSiblings(SpatialiteApplication.DATABASE_NAME);
         DatabaseHelper firstRun = new DatabaseHelper(SpatialiteApplication.getInstance(), 1);
-        SQLiteDatabase db = firstRun.getWritableDatabase(SpatialiteApplication.DATABASE_PASSWORD);
+        SQLiteDatabase db = firstRun.getWritableDatabase();
         db.close();
         DatabaseHelper secondRun = new DatabaseHelper(SpatialiteApplication.getInstance(), 2);
-        SQLiteDatabase db2 = secondRun.getWritableDatabase(SpatialiteApplication.DATABASE_PASSWORD);
+        SQLiteDatabase db2 = secondRun.getWritableDatabase();
         db2.close();
         return secondRun.OnUpgradeCalled;
     }

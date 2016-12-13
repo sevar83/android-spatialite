@@ -20,7 +20,7 @@ public class ReadableDatabaseTest extends SQLCipherTest {
             file.delete();
         }
         ReadableDatabaseHelper helper = new ReadableDatabaseHelper(SpatialiteApplication.getInstance());
-        SQLiteDatabase readableDatabase = helper.getReadableDatabase(SpatialiteApplication.DATABASE_PASSWORD);
+        SQLiteDatabase readableDatabase = helper.getReadableDatabase();
         Cursor results = readableDatabase.rawQuery("select * from t1", new String[]{});
         int resultCount = 0;
         while (results.moveToNext()){

@@ -26,8 +26,7 @@ public class CipherMigrateTest extends SQLCipherTest {
                     status[0] = Integer.valueOf(value) == 0;
                 }
             };
-            database = SQLiteDatabase.openOrCreateDatabase(olderFormatDatabase,
-                    SpatialiteApplication.DATABASE_PASSWORD, null, hook);
+            database = SQLiteDatabase.openOrCreateDatabase(olderFormatDatabase, null, hook);
             if(database != null){
                 database.close();
             }

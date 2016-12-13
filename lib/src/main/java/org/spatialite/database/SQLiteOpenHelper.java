@@ -124,12 +124,7 @@ public abstract class SQLiteOpenHelper {
      * @throws SQLiteException if the database cannot be opened for writing
      * @return a read/write database object valid until {@link #close} is called
      */
-
-    public synchronized SQLiteDatabase getWritableDatabase(String password) {
-      return getWritableDatabase(password.toCharArray());
-    }
-
-    public synchronized SQLiteDatabase getWritableDatabase(char[] password) {
+    public synchronized SQLiteDatabase getWritableDatabase() {
         if (mDatabase != null && mDatabase.isOpen() && !mDatabase.isReadOnly()) {
             return mDatabase;  // The database is already open for business
         }
@@ -150,7 +145,7 @@ public abstract class SQLiteOpenHelper {
         try {
             mIsInitializing = true;
             if (mName == null) {
-                db = SQLiteDatabase.create(null, password);
+                db = SQLiteDatabase.create(null);
                 
             } else {
                 String path = mContext.getDatabasePath(mName).getPath();
@@ -159,7 +154,7 @@ public abstract class SQLiteOpenHelper {
                 if (!dbPathFile.exists())
                 	dbPathFile.getParentFile().mkdirs();
 
-                db = SQLiteDatabase.openOrCreateDatabase(path, password, mFactory, mHook, mErrorHandler);
+                db = SQLiteDatabase.openOrCreateDatabase(path, mFactory, mHook, mErrorHandler);
             }
             
 
@@ -210,11 +205,7 @@ public abstract class SQLiteOpenHelper {
      * @return a database object valid until {@link #getWritableDatabase}
      *     or {@link #close} is called.
      */
-    public synchronized SQLiteDatabase getReadableDatabase(String password) {
-      return getReadableDatabase(password != null ? password.toCharArray() : null);
-    }
-
-    public synchronized SQLiteDatabase getReadableDatabase(char[] password) {
+    public synchronized SQLiteDatabase getReadableDatabase() {
         if (mDatabase != null && mDatabase.isOpen()) {
             return mDatabase;  // The database is already open for business
         }
@@ -224,7 +215,7 @@ public abstract class SQLiteOpenHelper {
         }
 
         try {
-            return getWritableDatabase(password);
+            return getWritableDatabase();
         } catch (SQLiteException e) {
             if (mName == null) throw e;  // Can't open a temp database read-only!
             Log.e(TAG, "Couldn't open " + mName + " for writing (will try read-only):", e);
@@ -242,11 +233,11 @@ public abstract class SQLiteOpenHelper {
             }
             if(!databasePath.exists()){
                 mIsInitializing = false;
-                db = getWritableDatabase(password);
+                db = getWritableDatabase();
                 mIsInitializing = true;
                 db.close();
             }
-            db = SQLiteDatabase.openDatabase(path, password, mFactory, SQLiteDatabase.OPEN_READONLY);
+            db = SQLiteDatabase.openDatabase(path, mFactory, SQLiteDatabase.OPEN_READONLY);
             if (db.getVersion() != mNewVersion) {
                 throw new SQLiteException("Can't upgrade read-only database from version " +
                         db.getVersion() + " to " + mNewVersion + ": " + path);

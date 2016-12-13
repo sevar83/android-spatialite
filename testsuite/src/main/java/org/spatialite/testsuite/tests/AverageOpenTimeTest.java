@@ -31,7 +31,7 @@ public class AverageOpenTimeTest extends SQLCipherTest {
         File databasePath = SpatialiteApplication.getInstance().getDatabasePath(SpatialiteApplication.DATABASE_NAME);
         for (int attempt = 0; attempt < MAX_ATTEMPTS; attempt++) {
             Date start = new Date();
-            database = SQLiteDatabase.openOrCreateDatabase(databasePath, SpatialiteApplication.DATABASE_PASSWORD, null, hook);
+            database = SQLiteDatabase.openOrCreateDatabase(databasePath, null, hook);
             Date end = new Date();
             String kdf = QueryHelper.singleValueFromQuery(database, "PRAGMA kdf_iter;");
             Log.i(TAG, String.format("KDF value:%s", kdf));
@@ -46,7 +46,7 @@ public class AverageOpenTimeTest extends SQLCipherTest {
 
     @Override
     protected SQLiteDatabase createDatabase(File databasePath) {
-        return SQLiteDatabase.openOrCreateDatabase(databasePath, SpatialiteApplication.DATABASE_PASSWORD, null, hook);
+        return SQLiteDatabase.openOrCreateDatabase(databasePath, null, hook);
     }
 
     @Override

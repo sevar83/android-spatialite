@@ -24,7 +24,7 @@ public class CursorAccessTest extends SQLCipherTest {
 
         MyHelper databaseHelper = new MyHelper(SpatialiteApplication.getInstance());
 
-        SQLiteDatabase db = databaseHelper.getWritableDatabase(SpatialiteApplication.DATABASE_PASSWORD);
+        SQLiteDatabase db = databaseHelper.getWritableDatabase();
 
         Cursor results = db.rawQuery("select * from t1", new String[]{});
         results.moveToFirst();

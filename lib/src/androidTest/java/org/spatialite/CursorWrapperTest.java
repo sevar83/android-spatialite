@@ -497,7 +497,7 @@ public class CursorWrapperTest {
             mDatabaseFile.delete();
         }
         SQLiteDatabase.loadLibs(getInstrumentation().getTargetContext());
-        mDatabase = SQLiteDatabase.openOrCreateDatabase(mDatabaseFile.getPath(), (char[]) null, null);
+        mDatabase = SQLiteDatabase.openOrCreateDatabase(mDatabaseFile.getPath(), null);
         assertNotNull(mDatabase);
         mDatabase.setVersion(CURRENT_DATABASE_VERSION);
         mDatabase.execSQL("CREATE TABLE test1 (_id INTEGER PRIMARY KEY, number TEXT);");

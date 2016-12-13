@@ -76,7 +76,7 @@ public class SQLiteOpenHelperTest {
         SQLiteDatabase database = null;
         assertFalse(mOpenHelper.hasCalledOnOpen());
         // Test getReadableDatabase.
-        database = mOpenHelper.getReadableDatabase((String) null);
+        database = mOpenHelper.getReadableDatabase();
         assertNotNull(database);
         assertTrue(database.isOpen());
         assertTrue(mOpenHelper.hasCalledOnOpen());
@@ -85,7 +85,7 @@ public class SQLiteOpenHelperTest {
         mOpenHelper.resetStatus();
         assertFalse(mOpenHelper.hasCalledOnOpen());
         // Test getWritableDatabase.
-        SQLiteDatabase database2 = mOpenHelper.getWritableDatabase((String) null);
+        SQLiteDatabase database2 = mOpenHelper.getWritableDatabase();
         assertSame(database, database2);
         assertTrue(database.isOpen());
         assertFalse(mOpenHelper.hasCalledOnOpen());
@@ -96,7 +96,7 @@ public class SQLiteOpenHelperTest {
         // After close(), onOpen() will be invoked by getWritableDatabase.
         mOpenHelper.resetStatus();
         assertFalse(mOpenHelper.hasCalledOnOpen());
-        SQLiteDatabase database3 = mOpenHelper.getWritableDatabase((String) null);
+        SQLiteDatabase database3 = mOpenHelper.getWritableDatabase();
         assertNotNull(database);
         assertNotSame(database, database3);
         assertTrue(mOpenHelper.hasCalledOnOpen());

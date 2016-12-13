@@ -40,7 +40,7 @@ public class CustomCorruptionHandlerTest extends SQLCipherTest {
             SpatialiteApplication.getInstance().extractAssetToDatabaseDirectory("corrupt.db");
 
             // make sure custom onCorruption() function is called:
-            SQLiteDatabase database = SQLiteDatabase.openDatabase(corruptDatabase.getPath(), "", null, SQLiteDatabase.CREATE_IF_NECESSARY, null, new DatabaseErrorHandler() {
+            SQLiteDatabase database = SQLiteDatabase.openDatabase(corruptDatabase.getPath(), null, SQLiteDatabase.CREATE_IF_NECESSARY, null, new DatabaseErrorHandler() {
                 @Override
                 public void onCorruption(SQLiteDatabase db) {
                     try {
@@ -88,7 +88,7 @@ public class CustomCorruptionHandlerTest extends SQLCipherTest {
             SpatialiteApplication.getInstance().extractAssetToDatabaseDirectory("corrupt.db");
 
             // make sure custom onCorruption() function is called:
-            SQLiteDatabase database = SQLiteDatabase.openDatabase(corruptDatabase.getPath(), "", null, 0, null, new DatabaseErrorHandler() {
+            SQLiteDatabase database = SQLiteDatabase.openDatabase(corruptDatabase.getPath(), null, 0, null, new DatabaseErrorHandler() {
                 @Override
                 public void onCorruption(SQLiteDatabase db) {
                     try {
@@ -133,7 +133,7 @@ public class CustomCorruptionHandlerTest extends SQLCipherTest {
             SpatialiteApplication.getInstance().extractAssetToDatabaseDirectory("corrupt.db");
 
             // make sure custom onCorruption() function is called:
-            SQLiteDatabase database = SQLiteDatabase.openDatabase(corruptDatabase.getPath(), "", null, SQLiteDatabase.CREATE_IF_NECESSARY, null, new DatabaseErrorHandler() {
+            SQLiteDatabase database = SQLiteDatabase.openDatabase(corruptDatabase.getPath(), null, SQLiteDatabase.CREATE_IF_NECESSARY, null, new DatabaseErrorHandler() {
                 @Override
                 public void onCorruption(SQLiteDatabase db) {
                     try {
@@ -167,7 +167,7 @@ public class CustomCorruptionHandlerTest extends SQLCipherTest {
             SpatialiteApplication.getInstance().extractAssetToDatabaseDirectory("corrupt.db");
 
             // make sure custom onCorruption() function is called:
-            SQLiteDatabase database = SQLiteDatabase.openDatabase(corruptDatabase.getPath(), "", null, SQLiteDatabase.CREATE_IF_NECESSARY, null, new DatabaseErrorHandler() {
+            SQLiteDatabase database = SQLiteDatabase.openDatabase(corruptDatabase.getPath(), null, SQLiteDatabase.CREATE_IF_NECESSARY, null, new DatabaseErrorHandler() {
                 @Override
                 public void onCorruption(SQLiteDatabase db) {
                     try {
@@ -206,7 +206,7 @@ public class CustomCorruptionHandlerTest extends SQLCipherTest {
             SpatialiteApplication.getInstance().extractAssetToDatabaseDirectory("corrupt.db");
 
             // make sure custom onCorruption() function is called:
-            SQLiteDatabase database = SQLiteDatabase.openDatabase(corruptDatabase.getPath(), "", null, SQLiteDatabase.CREATE_IF_NECESSARY, null, new DatabaseErrorHandler() {
+            SQLiteDatabase database = SQLiteDatabase.openDatabase(corruptDatabase.getPath(), null, SQLiteDatabase.CREATE_IF_NECESSARY, null, new DatabaseErrorHandler() {
                 @Override
                 public void onCorruption(SQLiteDatabase db) {
                     try {
@@ -307,7 +307,7 @@ public class CustomCorruptionHandlerTest extends SQLCipherTest {
             SpatialiteApplication.getInstance().extractAssetToDatabaseDirectory("corrupt.db");
 
             // make sure custom onCorruption() function is called:
-            SQLiteDatabase database = SQLiteDatabase.openDatabase(corruptDatabase.getPath(), "", null, SQLiteDatabase.CREATE_IF_NECESSARY, null, new DatabaseErrorHandler() {
+            SQLiteDatabase database = SQLiteDatabase.openDatabase(corruptDatabase.getPath(), null, SQLiteDatabase.CREATE_IF_NECESSARY, null, new DatabaseErrorHandler() {
                 @Override
                 public void onCorruption(SQLiteDatabase db) {
                     try {

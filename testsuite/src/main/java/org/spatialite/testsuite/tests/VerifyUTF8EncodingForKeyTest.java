@@ -22,10 +22,10 @@ public class VerifyUTF8EncodingForKeyTest extends SQLCipherTest {
             File sourceDatabaseFile = SpatialiteApplication.getInstance().getDatabasePath("hello.db");
             database.close();
             try {
-                sourceDatabase = SQLiteDatabase.openDatabase(sourceDatabaseFile.getPath(), invalidPassword, null, SQLiteDatabase.OPEN_READWRITE);
+                sourceDatabase = SQLiteDatabase.openDatabase(sourceDatabaseFile.getPath(), null, SQLiteDatabase.OPEN_READWRITE);
                 if(queryContent(sourceDatabase)){
                     sourceDatabase.close();
-                    setMessage(String.format("Database should not open with password:%s", invalidPassword));
+                    setMessage(String.format("Database should not open with password:%s"));
                     return false;
                 }
             } catch (SQLiteException ex){}
@@ -36,7 +36,7 @@ public class VerifyUTF8EncodingForKeyTest extends SQLCipherTest {
                 }
             };
             sourceDatabase = SQLiteDatabase.openDatabase(sourceDatabaseFile.getPath(),
-                    password, null, SQLiteDatabase.OPEN_READWRITE, hook);
+                    null, SQLiteDatabase.OPEN_READWRITE, hook);
             return queryContent(sourceDatabase);
         } catch (Exception e) {
             return false;

@@ -56,7 +56,7 @@ public class DatabaseUtils_InsertHelperTest {
         if (databaseFile.exists()) {
             databaseFile.delete();
         }
-        mDatabase = SQLiteDatabase.openOrCreateDatabase(databaseFile.getPath(), (String) null, null);
+        mDatabase = SQLiteDatabase.openOrCreateDatabase(databaseFile.getPath(), null);
         assertNotNull(mDatabase);
         mInsertHelper = new DatabaseUtils.InsertHelper(mDatabase, TEST_TABLE_NAME);
     }

@@ -34,7 +34,7 @@ public class AES128CipherTest extends SQLCipherTest {
     protected SQLiteDatabase createDatabase(File databasePath) {
 
         String password = SpatialiteApplication.DATABASE_PASSWORD;
-        return SQLiteDatabase.openOrCreateDatabase(databasePath, password, null, new SQLiteDatabaseHook() {
+        return SQLiteDatabase.openOrCreateDatabase(databasePath, null, new SQLiteDatabaseHook() {
 
             @Override
             public void preKey(SQLiteDatabase database) {}
