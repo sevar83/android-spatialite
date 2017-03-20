@@ -241,7 +241,7 @@ public class CursorWindowTest {
         assertEquals(0, cursorWindow.getLong(0, 0));
         assertEquals(0, cursorWindow.getInt(0, 0));
         assertEquals(0, cursorWindow.getShort(0, 0));
-        assertEquals(0.0, cursorWindow.getDouble(0, 0));
+        assertEquals(0.0, cursorWindow.getDouble(0, 0), EPSILON);
         assertEquals(0.0f, cursorWindow.getFloat(0, 0), 0.00000001f);
         assertFalse(cursorWindow.isNull(0, 0));
         assertFalse(cursorWindow.isBlob(0, 0));
