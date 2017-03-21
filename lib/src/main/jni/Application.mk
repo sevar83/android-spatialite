@@ -5,3 +5,4 @@ APP_STL := c++_static
 # Warning: other than android-15 causes java.lang.UnsatisfiedLinkError: Cannot load library: reloc_library[1306]:   793 cannot locate '__ctype_get_mb_cur_max'...
 # when running on API 16
 APP_PLATFORM := android-15
+NDK_TOOLCHAIN_VERSION := 4.9
