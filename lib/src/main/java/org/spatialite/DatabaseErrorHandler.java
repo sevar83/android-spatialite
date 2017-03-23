@@ -13,22 +13,21 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+// modified from original source see README at the top level of this project
 
 package org.spatialite;
 
 import org.spatialite.database.SQLiteDatabase;
 
 /**
- * An interface to let the apps define the actions to take when the following errors are detected
- * database corruption
+ * An interface to let apps define an action to take when database corruption is detected.
  */
 public interface DatabaseErrorHandler {
 
     /**
-     * defines the method to be invoked when database corruption is detected.
-     *
+     * The method invoked when database corruption is detected.
      * @param dbObj the {@link SQLiteDatabase} object representing the database on which corruption
-     *              is detected.
+     * is detected.
      */
     void onCorruption(SQLiteDatabase dbObj);
 }

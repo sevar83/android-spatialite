@@ -1,20 +1,22 @@
 /* config.h.  Generated from config.h.in by configure.  */
 /* config.h.in.  Generated from configure.ac by autoheader.  */
 
+// SV: Flags values are set in Spatialite's Android.mk
+
 /* Should be defined in order to enable GCP support. */
-#define ENABLE_GCP 1
+/* #undef ENABLE_GCP */
 
 /* Should be defined in order to enable GeoPackage support. */
 /* #define ENABLE_GEOPACKAGE */
 
 /* Should be defined in order to enable LIBXML2 support. */
-#define ENABLE_LIBXML2 1
+/* #undef ENABLE_LIBXML2 */
 
 /* Should be defined in order to enable LWGEOM support. */
 /* #undef ENABLE_LWGEOM */
 
 /* Should be defined in order to enable GEOS_ADVANCED support. */
-#define GEOS_ADVANCED 1
+/* #define GEOS_ADVANCED */
 
 /* Should be defined in order to enable GEOS_TRUNK experimental support. */
 /* #undef GEOS_TRUNK */
@@ -59,7 +61,7 @@
 #define HAVE_LIBSQLITE3 1
 
 /* Define to 1 if you have the `z' library (-lz). */
-#define HAVE_LIBZ 1
+/* #undef HAVE_LIBZ */
 
 /* Define to 1 if you have the `localtime_r' function. */
 #define HAVE_LOCALTIME_R 1
@@ -159,7 +161,7 @@
 /* #undef OMIT_EPSG */
 
 /* Should be defined in order to disable FREEXL support. */
-// #define OMIT_FREEXL 1
+/* #undef OMIT_FREEXL */
 
 /* Should be defined in order to disable GEOCALLBACKS support. */
 /* #undef OMIT_GEOCALLBACKS */
@@ -168,7 +170,7 @@
 /* #undef OMIT_GEOS */
 
 /* Should be defined in order to disable ICONV support. */
-/* SV #define OMIT_ICONV 1 */
+/* #define OMIT_ICONV 1 */
 
 /* Should be defined in order to disable MATHSQL support. */
 /* #undef OMIT_MATHSQL */
