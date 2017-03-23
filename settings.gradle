@@ -1,1 +1,1 @@
-include ':app', ':lib', ':testsuite'
+include ':lib'
