@@ -1,8 +1,0 @@
-RegisterRasterStyledLayer - BLOB style_id
-:memory: #use in-memory database
-SELECT RegisterRasterStyledLayer('alpha', zeroblob(4), zeroblob(4));
-1 # rows (not including the header row)
-1 # columns
-RegisterRasterStyledLayer('alpha', zeroblob(4), zeroblob(4));
--1
-

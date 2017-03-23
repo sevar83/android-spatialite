@@ -1,8 +1,0 @@
-RegisterRasterStyledLayer - TEXT style
-:memory: #use in-memory database
-SELECT RegisterRasterStyledLayer('alpha', 1, 'beta');
-1 # rows (not including the header row)
-1 # columns
-RegisterRasterStyledLayer('alpha', 1, 'beta');
--1
-

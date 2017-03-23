@@ -1,8 +1,0 @@
-RegisterVectorStyledLayer - INTEGER f_geometry_column
-:memory: #use in-memory database
-SELECT RegisterVectorStyledLayer('alpha', 1, NULL);
-1 # rows (not including the header row)
-1 # columns
-RegisterVectorStyledLayer('alpha', 1, NULL)
--1
-

@@ -1,8 +1,0 @@
-RegisterExternalGraphic - NULL filename
-:memory: #use in-memory database
-SELECT RegisterExternalGraphic('resource.png', zeroblob(4), 'alpha', 'beta', NULL);
-1 # rows (not including the header row)
-1 # columns
-RegisterExternalGraphic('resource.png', zeroblob(4), 'alpha', 'beta', NULL);
--1
-
