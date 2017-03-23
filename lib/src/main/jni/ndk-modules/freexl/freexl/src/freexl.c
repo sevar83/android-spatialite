@@ -79,6 +79,16 @@ extern const char *locale_charset (void);
 #include "freexl.h"
 #include "freexl_internals.h"
 
+
+const char *freexlversion = VERSION;
+
+FREEXL_DECLARE const char *
+freexl_version (void)
+{
+/* return the library version number */
+    return freexlversion;
+}
+
 #if defined(_WIN32) && !defined(__MINGW32__)
 /* MSVC compiler doesn't support lround() at all */
 static double
@@ -1066,7 +1076,21 @@ allocate_cells (biff_workbook * workbook)
 /* allocating the rows and cells for the active Worksheet */
     unsigned int row;
     unsigned int col;
+    double dsize;
     biff_cell_value *p_cell;
+
+    if (workbook == NULL)
+	return FREEXL_NULL_ARGUMENT;
+    if (workbook->active_sheet == NULL)
+	return FREEXL_NULL_ARGUMENT;
+
+/* testing for an unrealistically high memory size > 256MB */
+    dsize =
+	(double) sizeof (biff_cell_value) *
+	(double) (workbook->active_sheet->rows) *
+	(double) (workbook->active_sheet->columns);
+    if (dsize > 256.0 * 1024.0 * 1024.0)
+	return FREEXL_INSUFFICIENT_MEMORY;
 
 /* allocating the cell values array */
     workbook->active_sheet->cell_values =
@@ -1713,8 +1737,15 @@ parse_SST (biff_workbook * workbook, int swap)
 	      swap32 (&n_strings);
 	  p_string = workbook->record + 8;
 	  workbook->shared_strings.string_count = n_strings.value;
+	  if (workbook->shared_strings.string_count > 1024 * 1024)
+	    {
+		/* unexpected huge count ... cowardly giving up ... */
+		return FREEXL_INSUFFICIENT_MEMORY;
+	    }
 	  workbook->shared_strings.utf8_strings =
 	      malloc (sizeof (char **) * workbook->shared_strings.string_count);
+	  if (workbook->shared_strings.utf8_strings == NULL)
+	      return FREEXL_INSUFFICIENT_MEMORY;
 	  for (i_string = 0; i_string < workbook->shared_strings.string_count;
 	       i_string++)
 	      *(workbook->shared_strings.utf8_strings + i_string) = NULL;
@@ -3749,6 +3780,8 @@ read_biff_next_record (biff_workbook * workbook, int swap, int *errcode)
 	  unsigned int already_done;
 	  unsigned int chunk =
 	      workbook->sector_end - (workbook->p_in - workbook->sector_buf);
+	  if (workbook->sector_end < (workbook->p_in - workbook->sector_buf))
+	      return -1;
 	  memcpy (workbook->record, workbook->p_in, chunk);
 	  workbook->p_in += chunk;
 	  already_done = chunk;
@@ -3824,6 +3857,10 @@ read_mini_biff_next_record (biff_workbook * workbook, int swap, int *errcode)
 /* saving the current record */
     workbook->record_type = record_type.value;
     workbook->record_size = record_size.value;
+
+    if ((workbook->p_in - workbook->fat->miniStream) + workbook->record_size >
+	(int) workbook->size)
+	return 0;		/* unexpected EOF */
 
     memcpy (workbook->record, workbook->p_in, workbook->record_size);
     workbook->p_in += record_size.value;
@@ -4062,7 +4099,10 @@ common_open (const char *path, const void **xls_handle, int magic)
 		p_sheet->columns += 1;
 		ret = allocate_cells (workbook);
 		if (ret != FREEXL_OK)
-		    return ret;
+		  {
+		      errcode = ret;
+		      goto stop;
+		  }
 		p_sheet->valid_dimension = 1;
 		workbook->second_pass = 1;
 	    }

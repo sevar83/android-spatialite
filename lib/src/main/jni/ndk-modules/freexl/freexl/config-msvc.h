@@ -86,7 +86,7 @@
 #define PACKAGE_NAME "FreeXL"
 
 /* Define to the full name and version of this package. */
-#define PACKAGE_STRING "FreeXL 1.0.0e"
+#define PACKAGE_STRING "FreeXL 1.0.1"
 
 /* Define to the one symbol short name of this package. */
 #define PACKAGE_TARNAME "freexl"
@@ -107,7 +107,7 @@
 /* #undef TM_IN_SYS_TIME */
 
 /* Version number of package */
-#define VERSION "1.0.0e"
+#define VERSION "1.0.1"
 
 /* Define to empty if `const' does not conform to ANSI C. */
 /* #undef const */

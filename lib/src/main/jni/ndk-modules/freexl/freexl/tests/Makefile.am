@@ -39,4 +39,5 @@ EXTRA_DIST = testdata/oocalc_empty95.xls \
        testdata/simple2003_5WB.xls \
        testdata/datetime2003.xls \
        testdata/testcase1.xls \
-       testdata/testbool.xls
+       testdata/testbool.xls \
+       test_under_valgrind.sh
