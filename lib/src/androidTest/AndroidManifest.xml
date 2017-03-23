@@ -1,0 +1,13 @@
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+          package="org.spatialite">
+
+    <application>
+        <provider
+            android:name="org.spatialite.sqlcipher.SpatialiteContentProvider"
+            android:authorities="org.spatialite.testsuite.provider" />
+        <provider
+            android:name="org.spatialite.sqlcipher.SpatialiteContentProvider2"
+            android:authorities="org.spatialite.testsuite.provider2"
+            android:process=":provider" />
+    </application>
+</manifest>
