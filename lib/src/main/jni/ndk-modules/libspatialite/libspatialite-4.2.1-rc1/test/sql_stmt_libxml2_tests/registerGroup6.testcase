@@ -1,8 +1,0 @@
-RegisterStyledGroup - INTEGER coverage_name
-:memory: #use in-memory database
-SELECT RegisterStyledGroup('alpha', 1, NULL);
-1 # rows (not including the header row)
-1 # columns
-RegisterStyledGroup('alpha', 1, NULL)
--1
-

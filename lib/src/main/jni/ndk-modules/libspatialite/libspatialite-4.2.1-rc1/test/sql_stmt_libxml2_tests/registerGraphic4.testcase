@@ -1,8 +1,0 @@
-RegisterExternalGraphic - BLOB URL
-:memory: #use in-memory database
-SELECT RegisterExternalGraphic(zeroblob(4), NULL);
-1 # rows (not including the header row)
-1 # columns
-RegisterExternalGraphic(zeroblob(4), NULL)
--1
-

@@ -1,8 +1,0 @@
-RegisterGroupStyle - INTEGER style
-:memory: #use in-memory database
-SELECT RegisterGroupStyle('alpha', 1);
-1 # rows (not including the header row)
-1 # columns
-RegisterGroupStyle('alpha', 1)
--1
-

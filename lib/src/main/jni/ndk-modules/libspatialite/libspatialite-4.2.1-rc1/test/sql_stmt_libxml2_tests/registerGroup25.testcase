@@ -1,8 +1,0 @@
-RegisterStyledGroup - vector NULL paint_order
-:memory: #use in-memory database
-SELECT RegisterStyledGroup('alpha', 'beta', 'gamma', NULL);
-1 # rows (not including the header row)
-1 # columns
-RegisterStyledGroup('alpha', 'beta', 'gamma', NULL)
--1
-
