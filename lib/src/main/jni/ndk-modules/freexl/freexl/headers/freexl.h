@@ -358,7 +358,7 @@ extern "C"
 	} value; /**< The value of the data stored in the cell. Which part of
 	              the union is valid is determined by the type value. */
     };
-    
+
     /**
      Typedef for cell value structure.
      
@@ -366,6 +366,13 @@ extern "C"
      */
     typedef struct FreeXL_CellValue_str FreeXL_CellValue;
 
+
+    /**
+     Return the current library version.
+     
+     \return the version string.
+     */
+    FREEXL_DECLARE const char *freexl_version (void);
 
     /**
      Open the .xls file, preparing for future functions
@@ -401,7 +408,7 @@ extern "C"
      */
     FREEXL_DECLARE int freexl_open_info (const char *path,
 					 const void **xls_handle);
-    
+
     /** 
      Close the .xls file and releasing any allocated resource
 
@@ -413,7 +420,7 @@ extern "C"
     and the handle will no longer be valid.
     */
     FREEXL_DECLARE int freexl_close (const void *xls_handle);
-    
+
     /**
      Query general information about the Workbook and Worksheets
 
@@ -480,7 +487,7 @@ extern "C"
     FREEXL_DECLARE int freexl_select_active_worksheet (const void *xls_handle,
 						       unsigned short
 						       sheet_index);
-    
+
     /**
      Query the currently active worksheet index
      
@@ -534,7 +541,7 @@ extern "C"
     FREEXL_DECLARE int freexl_get_SST_string (const void *xls_handle,
 					      unsigned short string_index,
 					      const char **string);
-    
+
     /**
      Retrieve FAT entries from FAT chain
 
@@ -559,7 +566,7 @@ extern "C"
     FREEXL_DECLARE int freexl_get_FAT_entry (const void *xls_handle,
 					     unsigned int sector_index,
 					     unsigned int *next_sector_index);
-    
+
     /**
      Retrieve individual cell values from the currently active worksheet 
 
