@@ -13,180 +13,75 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+// modified from original source see README at the top level of this project
 
 package org.spatialite.database;
-import android.os.SystemClock;
+
+import android.database.sqlite.SQLiteDatabaseCorruptException;
+import android.database.sqlite.SQLiteException;
+import android.support.v4.os.CancellationSignal;
+import android.support.v4.os.OperationCanceledException;
 import android.util.Log;
 
 import org.spatialite.CursorWindow;
 
 /**
- * A SQLite program that represents a query that reads the resulting rows into a CursorWindow.
- * This class is used by SQLiteCursor and isn't useful itself.
- *
- * SQLiteQuery is not internally synchronized so code using a SQLiteQuery from multiple
- * threads should perform its own synchronization when using the SQLiteQuery.
+ * Represents a query that reads the resulting rows into a {@link SQLiteQuery}.
+ * This class is used by {@link SQLiteCursor} and isn't useful itself.
+ * <p>
+ * This class is not thread-safe.
+ * </p>
  */
-public class SQLiteQuery extends SQLiteProgram {
-    private static final String TAG = "Cursor";
+public final class SQLiteQuery extends SQLiteProgram {
+    private static final String TAG = "SQLiteQuery";
 
-    /** The index of the unbound OFFSET parameter */
-    private int mOffsetIndex;
-    
-    /** Args to bind on requery */
-    private String[] mBindArgs;
+    private final CancellationSignal mCancellationSignal;
 
-    private boolean mClosed = false;
-
-    /**
-     * Create a persistent query object.
-     * 
-     * @param db The database that this query object is associated with
-     * @param query The SQL string for this query. 
-     * @param offsetIndex The 1-based index to the OFFSET parameter, 
-     */
-    /* package */ SQLiteQuery(SQLiteDatabase db, String query, int offsetIndex, String[] bindArgs) {
-        super(db, query);
-
-        mOffsetIndex = offsetIndex;
-        mBindArgs = bindArgs;
+    SQLiteQuery(SQLiteDatabase db, String query, Object[] bindArgs,
+                CancellationSignal cancellationSignal) {
+        super(db, query, bindArgs, cancellationSignal);
+        mCancellationSignal = cancellationSignal;
     }
 
     /**
-     * Reads rows into a buffer. This method acquires the database lock.
+     * Reads rows into a buffer.
      *
      * @param window The window to fill into
-     * @return number of total rows in the query
+     * @param startPos The start position for filling the window.
+     * @param requiredPos The position of a row that MUST be in the window.
+     * If it won't fit, then the query should discard part of what it filled.
+     * @param countAllRows True to count all rows that the query would
+     * return regardless of whether they fit in the window.
+     * @return Number of rows that were enumerated.  Might not be all rows
+     * unless countAllRows is true.
+     *
+     * @throws SQLiteException if an error occurs.
+     * @throws OperationCanceledException if the operation was canceled.
      */
-    /* package */ int fillWindow(CursorWindow window,
-            int maxRead, int lastPos) {
-        long timeStart = SystemClock.uptimeMillis();
-        mDatabase.lock();
+    int fillWindow(CursorWindow window, int startPos, int requiredPos, boolean countAllRows) {
+        acquireReference();
         try {
-            acquireReference();
+            window.acquireReference();
             try {
-                window.acquireReference();
-                // if the start pos is not equal to 0, then most likely window is
-                // too small for the data set, loading by another thread
-                // is not safe in this situation. the native code will ignore maxRead
-                int numRows = native_fill_window(window, window.getStartPosition(), mOffsetIndex,
-                        maxRead, lastPos);
-
-                // Logging
-                if (SQLiteDebug.DEBUG_SQL_STATEMENTS) {
-                    Log.d(TAG, "fillWindow(): " + mSql);
-                }
-                return numRows;
-            } catch (IllegalStateException e){
-                // simply ignore it
-                return 0;
-            } catch (SQLiteDatabaseCorruptException e) {
-                mDatabase.onCorruption();
-                throw e;
+                return getSession().executeForCursorWindow(getSql(), getBindArgs(),
+                        window, startPos, requiredPos, countAllRows, getConnectionFlags(),
+                        mCancellationSignal);
+            } catch (SQLiteDatabaseCorruptException ex) {
+                onCorruption();
+                throw ex;
+            } catch (SQLiteException ex) {
+                Log.e(TAG, "exception: " + ex.getMessage() + "; query: " + getSql());
+                throw ex;
             } finally {
                 window.releaseReference();
             }
         } finally {
             releaseReference();
-            mDatabase.unlock();
         }
     }
 
-    /**
-     * Get the column count for the statement. Only valid on query based
-     * statements. The database must be locked
-     * when calling this method.
-     * 
-     * @return The number of column in the statement's result set.
-     */
-    /* package */ int columnCountLocked() {
-        acquireReference();
-        try {
-            return native_column_count();
-        } finally {
-            releaseReference();
-        }
-    }
-
-    /**
-     * Retrieves the column name for the given column index. The database must be locked
-     * when calling this method.
-     * 
-     * @param columnIndex the index of the column to get the name for
-     * @return The requested column's name
-     */
-    /* package */ String columnNameLocked(int columnIndex) {
-        acquireReference();
-        try {
-            return native_column_name(columnIndex);
-        } finally {
-            releaseReference();
-        }
-    }
-    
     @Override
     public String toString() {
-        return "SQLiteQuery: " + mSql;
+        return "SQLiteQuery: " + getSql();
     }
-    
-    @Override
-    public void close() {
-        super.close();
-        mClosed = true;
-    }
-
-    /**
-     * Called by SQLiteCursor when it is requeried.
-     */
-    /* package */ void requery() {
-        if (mBindArgs != null) {
-            int len = mBindArgs.length;
-            try {
-                for (int i = 0; i < len; i++) {
-                    super.bindString(i + 1, mBindArgs[i]);
-                }
-            } catch (SQLiteMisuseException e) {
-                StringBuilder errMsg = new StringBuilder("mSql " + mSql);
-                for (int i = 0; i < len; i++) {
-                    errMsg.append(" ");
-                    errMsg.append(mBindArgs[i]);
-                }
-                errMsg.append(" ");
-                IllegalStateException leakProgram = new IllegalStateException(
-                        errMsg.toString(), e);
-                throw leakProgram;                
-            }
-        }
-    }
-
-    @Override
-    public void bindNull(int index) {
-        mBindArgs[index - 1] = null;
-        if (!mClosed) super.bindNull(index);
-    }
-
-    @Override
-    public void bindLong(int index, long value) {
-        mBindArgs[index - 1] = Long.toString(value);
-        if (!mClosed) super.bindLong(index, value);
-    }
-
-    @Override
-    public void bindDouble(int index, double value) {
-        mBindArgs[index - 1] = Double.toString(value);
-        if (!mClosed) super.bindDouble(index, value);
-    }
-
-    @Override
-    public void bindString(int index, String value) {
-        mBindArgs[index - 1] = value;
-        if (!mClosed) super.bindString(index, value);
-    }
-
-    private final native int native_fill_window(CursorWindow window, 
-            int startPos, int offsetParam, int maxRead, int lastPos);
-
-    private final native int native_column_count();
-
-    private final native String native_column_name(int columnIndex);
 }

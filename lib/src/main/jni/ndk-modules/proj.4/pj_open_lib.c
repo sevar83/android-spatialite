@@ -36,7 +36,8 @@
 #include <string.h>
 #include <errno.h>
 #ifdef __ANDROID__
-#include <android/log.h>
+#define LOG_TAG "JNIHelp"
+#include "ALog-priv.h"
 #endif
 
 PJ_CVSID("$Id: pj_open_lib.c 2130 2011-12-15 01:20:23Z warmerdam $");
@@ -150,7 +151,7 @@ pj_open_lib(projCtx ctx, char *name, char *mode) {
         sysname = name;
 
 #ifdef __ANDROID__
-    __android_log_write(ANDROID_LOG_INFO,"Proj4",sysname);
+    ALOGI("%s", sysname);
 #endif
     if ((fid = fopen(sysname, mode)) != NULL)
         errno = 0;
@@ -166,9 +167,9 @@ pj_open_lib(projCtx ctx, char *name, char *mode) {
 
 #ifdef __ANDROID__
             if (fid != NULL)
-            	__android_log_write(ANDROID_LOG_INFO, "Proj4", "fopen() succeeded with: ");
+            	ALOGI("fopen() succeeded with: ");
             else
-            	__android_log_write(ANDROID_LOG_INFO, "Proj4", "fopen() failed with: ");
+            	ALOGI("fopen() failed with: ");
             __android_log_write(ANDROID_LOG_INFO, "Proj4", sysname);
 #endif
         }

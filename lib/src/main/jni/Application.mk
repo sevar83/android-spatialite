@@ -1,8 +1,6 @@
-APP_PROJECT_PATH := $(shell pwd)
-APP_ABI := armeabi-v7a armeabi x86
-NDK_MODULE_PATH=$(APP_PROJECT_PATH):$(APP_PROJECT_PATH)/src/main/jni/ndk-modules
-APP_STL := c++_static
-# Warning: other than android-15 causes java.lang.UnsatisfiedLinkError: Cannot load library: reloc_library[1306]:   793 cannot locate '__ctype_get_mb_cur_max'...
-# when running on API 16
+APP_STL := stlport_static
+APP_OPTIM := release
+APP_ABI := armeabi-v7a,arm64-v8a,x86,x86_64
 APP_PLATFORM := android-15
-NDK_TOOLCHAIN_VERSION := 4.9
+NDK_TOOLCHAIN_VERSION := clang
+NDK_APP_LIBS_OUT=../jniLibs

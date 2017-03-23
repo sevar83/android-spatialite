@@ -1,8 +1,22 @@
-apply plugin: 'com.android.library'
-//apply plugin: 'com.github.dcendents.android-maven'
+plugins {
+    id 'de.undercouch.download' version '2.1.0'
+}
 
-group = 'com.github.sevar83'
-version = '1.0.7'
+apply plugin: 'com.android.library'
+apply plugin: 'maven-publish'
+apply plugin: 'de.undercouch.download'
+apply plugin: 'com.jfrog.bintray'
+
+import de.undercouch.gradle.tasks.download.Download
+
+group = 'org.spatialite'
+artifactId = 'android-spatialite'
+version = '2.0.0-RC2'
+description = 'Spatialite Database ported for Android'
+
+gradle.projectsEvaluated {
+    preBuild.dependsOn(buildSqlite)
+}
 
 android {
     compileSdkVersion 25
@@ -12,99 +26,146 @@ android {
         minSdkVersion 15
         targetSdkVersion 25
         versionCode 1
-        versionName "1.0"
+        versionName project.version
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        consumerProguardFiles 'proguard-rules.pro'
     }
     buildTypes {
         release {
             minifyEnabled false
-            //consumerProguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
-
-    // This tricks Gradle that there is no native source code to build,
-    // so we can build it with our custom task "ndkBuild"
-    sourceSets {
-        main {
-            jni.srcDirs = []
-            jniLibs.srcDir 'build/libs'
-        }
+    lintOptions {
+        abortOnError false
     }
-
-    externalNativeBuild{
-        ndkBuild{
-            path "src/main/jni/Android.mk"
-        }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_7
+        targetCompatibility JavaVersion.VERSION_1_7
     }
+    // ndk gradle support is still very bad so it's built with the regular ndk-build
+    sourceSets.main.jni.srcDirs = ['src/main/none']
+}
 
-    defaultConfig {
-        externalNativeBuild {
-            ndkBuild {
-                //targets "target1", "target2"
-                arguments "NDK_APPLICATION_MK:=src/main/jni/Application.mk", "-j", "8", "NDK_DEBUG=1", "V=1"
-                abiFilters "x86", "armeabi-v7a", "armeabi"
+dependencies {
+    compile 'com.android.support:support-core-utils:25.3.0'
+    androidTestCompile 'com.android.support.test:runner:0.5'
+    androidTestCompile 'com.android.support.test:rules:0.5'
+}
+
+publish.dependsOn "assembleRelease"
+bintrayUpload.dependsOn "assembleRelease"
+
+ext {
+    sqliteDistributionUrl = 'http://sqlite.org/2016/sqlite-amalgamation-3150100.zip'
+    pomXml = {
+        resolveStrategy = Closure.DELEGATE_FIRST
+        name project.name
+        description project.description
+        url 'https://github.com/sevar83/android-spatialite'
+        scm {
+            url 'https://github.com/sevar83/sqlite-android.git'
+            connection 'scm:git:git://github.com/sevar83/android-spatialite.git'
+            developerConnection 'scm:git:git@github.com/sevar83/android-spatialite.git'
+        }
+        licenses {
+            license {
+                name 'The Apache Software License, Version 2.0'
+                url 'http://www.apache.org/license/LICENSE-2.0.txt'
+                distribution 'repo'
+            }
+        }
+        developers {
+            developer {
+                id 'sevar83'
+                name 'Svetlozar Kostadinov'
             }
         }
     }
 }
 
-// Howto "Using custom Android.mk with Gradle/Android Studio"
-// http://blog.gaku.net/ndk/
-// http://blog.gaku.net/including-ndk-produced-so-file-into-apk/
-// https://github.com/twitter-university/FibonacciNativeProject/tree/master/FibonacciNative
-// http://ph0b.com/android-studio-gradle-and-ndk-integration/
-// https://github.com/googlesamples/android-ndk/issues/243#issuecomment-229697996
-/*task ndkBuild(type: Exec, description: 'Compile JNI sources via NDK') {
-    commandLine 'ndk-build',
-            'V=1',
-            '-j', Runtime.runtime.availableProcessors(),
-            'NDK_DEBUG=1',
-            'NDK_PROJECT_PATH=build',
-            'NDK_APPLICATION_MK=src/main/jni/Application.mk',
-            'APP_BUILD_SCRIPT=src/main/jni/Android.mk'
+android.libraryVariants
+publishing {
+    publications {
+        maven(MavenPublication) {
+            groupId project.group
+            artifactId project.artifactId
+            version project.version
+            artifact "build/outputs/aar/${project.name}-release.aar"
+            artifact sourcesJar
+            artifact javadocJar
+            pom.withXml {
+                asNode().children().last() + project.pomXml
+                def dependencies = asNode().appendNode('dependencies')
+                configurations.compile.allDependencies.each {
+                    def dependency = dependencies.appendNode('dependency')
+                    dependency.appendNode('groupId', it.group)
+                    dependency.appendNode('artifactId', it.name)
+                    dependency.appendNode('version', it.version)
+                    dependency.appendNode('scope', 'compile')
+                }
+            }
+        }
+    }
 }
 
-tasks.withType(JavaCompile) {
-    compileTask -> compileTask.dependsOn ndkBuild
-}*/
-
-dependencies {
-    compile fileTree(dir: 'libs', include: ['*.jar'])
-    testCompile 'junit:junit:4.12'
-    androidTestCompile 'com.android.support:support-annotations:25.2.0'
-    androidTestCompile 'com.android.support.test:runner:0.5'
-    androidTestCompile 'com.android.support.test:rules:0.5'
+Properties properties = new Properties()
+File localProperties = project.rootProject.file('local.properties')
+if (localProperties.exists()) {
+    properties.load(localProperties.newDataInputStream())
 }
 
-// build a jar with source files
+bintray {
+    user = properties.getProperty('bintray.user')
+    key = properties.getProperty('bintray.apikey')
+    publications = ['maven']
+    pkg {
+        repo = 'maven'
+        name = 'android-spatialite'
+        userOrg = 'windrider'
+        licenses = ['Apache-2.0']
+        vcsUrl = 'https://github.com/sevar83/android-spatialite.git'
+        version {
+            name = project.version
+            desc = project.description
+            released = new Date()
+        }
+    }
+}
+
 task sourcesJar(type: Jar) {
-    from android.sourceSets.main.java.srcDirs
     classifier = 'sources'
+    from android.sourceSets.main.java.srcDirs
 }
 
 task javadoc(type: Javadoc) {
-    failOnError  false
-    source = android.sourceSets.main.java.sourceFiles
+    source = android.sourceSets.main.java.srcDirs
     classpath += project.files(android.getBootClasspath().join(File.pathSeparator))
     classpath += configurations.compile
+    failOnError false;
 }
 
-// build a jar with javadoc
 task javadocJar(type: Jar, dependsOn: javadoc) {
     classifier = 'javadoc'
     from javadoc.destinationDir
 }
 
-artifacts {
-    archives sourcesJar
-    archives javadocJar
+task downloadSqlite(type: Download) {
+    src project.sqliteDistributionUrl
+    dest 'src/main/jni/sqlite.zip'
 }
 
-// uncomment to build a jar file in addition to the default aar file
-//android.libraryVariants.all { variant ->
-//    def name = variant.buildType.name
-//    def task = project.tasks.create "jar${name.capitalize()}", Jar
-//    task.dependsOn variant.javaCompile
-//    task.from variant.javaCompile.destinationDir
-//    artifacts.add('archives', task);
-//}
+task installSqlite(dependsOn: downloadSqlite, type: Copy) {
+    from zipTree(downloadSqlite.dest).matching {
+        include '*/sqlite3.*'
+        eachFile { it.setPath(it.getName()) }
+    }
+    into 'src/main/jni/sqlite'
+}
+
+def ndkDir = System.getenv('ANDROID_NDK_HOME') ?: properties.getProperty('ndk.dir')
+
+task buildSqlite(dependsOn: installSqlite, type: Exec) {
+    workingDir 'src/main/jni'
+    commandLine ndkDir + '/ndk-build', '-j8'   // Add NDK_DEBUG=1 for debug symbols or V=1 for verbose building output
+}

@@ -13,43 +13,35 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+// modified from original source see README at the top level of this project
 
 package org.spatialite;
 
+import android.annotation.TargetApi;
 import android.content.ContentValues;
 import android.content.Context;
-import android.database.DataSetObserver;
-import android.os.Looper;
-import android.support.test.filters.LargeTest;
-import android.support.test.filters.MediumTest;
-import android.support.test.runner.AndroidJUnit4;
+import android.database.Cursor;
+import android.database.CursorIndexOutOfBoundsException;
+import android.os.Build;
+import android.test.AndroidTestCase;
 import android.test.PerformanceTestCase;
+import android.test.suitebuilder.annotation.LargeTest;
+import android.test.suitebuilder.annotation.MediumTest;
 import android.util.Log;
 
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
 import org.spatialite.database.SQLiteCursor;
 import org.spatialite.database.SQLiteCursorDriver;
 import org.spatialite.database.SQLiteDatabase;
 import org.spatialite.database.SQLiteQuery;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Random;
 
-import static android.support.test.InstrumentationRegistry.getInstrumentation;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertSame;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
-import static org.spatialite.TestConstants.EPSILON;
+@SuppressWarnings({"deprecation", "ResultOfMethodCallIgnored"})
+public class DatabaseCursorTest extends AndroidTestCase implements PerformanceTestCase {
 
-@RunWith(AndroidJUnit4.class)
-@LargeTest
-public class DatabaseCursorTest implements PerformanceTestCase {
     private static final String sString1 = "this is a test";
     private static final String sString2 = "and yet another test";
     private static final String sString3 = "this string is a little longer, but still a test";
@@ -57,16 +49,13 @@ public class DatabaseCursorTest implements PerformanceTestCase {
     private static final int CURRENT_DATABASE_VERSION = 42;
     private SQLiteDatabase mDatabase;
     private File mDatabaseFile;
-    protected static final int TYPE_CURSOR = 0;
-    protected static final int TYPE_CURSORWRAPPER = 1;
-    private int  mTestType = TYPE_CURSOR;
 
-    @Before
-    public void setUp() throws Exception {
-        Context targetContext = getInstrumentation().getTargetContext();
-        SQLiteDatabase.loadLibs(targetContext);
-        File dbDir = targetContext.getDir("tests", Context.MODE_PRIVATE);
+    @Override
+    protected void setUp() throws Exception {
+        super.setUp();
+        File dbDir = getContext().getDir("tests", Context.MODE_PRIVATE);
         mDatabaseFile = new File(dbDir, "database_test.db");
+
         if (mDatabaseFile.exists()) {
             mDatabaseFile.delete();
         }
@@ -75,24 +64,11 @@ public class DatabaseCursorTest implements PerformanceTestCase {
         mDatabase.setVersion(CURRENT_DATABASE_VERSION);
     }
 
-    @After
-    public void tearDown() throws Exception {
+    @Override
+    protected void tearDown() throws Exception {
         mDatabase.close();
         mDatabaseFile.delete();
-    }
-
-    public void setupTestType(int testType) {
-        mTestType = testType;
-    }
-
-    private Cursor getTestCursor(Cursor cursor) {
-        switch (mTestType) {
-        case TYPE_CURSORWRAPPER:
-            return new CursorWrapper(cursor);
-        case TYPE_CURSOR:
-        default:
-            return cursor;
-        }
+        super.tearDown();
     }
 
     public boolean isPerformanceOnly() {
@@ -112,7 +88,7 @@ public class DatabaseCursorTest implements PerformanceTestCase {
         mDatabase.execSQL("INSERT INTO test (data) VALUES ('" + sString3 + "');");
     }
 
-    @Test
+    @TargetApi(Build.VERSION_CODES.HONEYCOMB)
     @MediumTest
     public void testBlob() throws Exception {
         // create table
@@ -126,7 +102,7 @@ public class DatabaseCursorTest implements PerformanceTestCase {
         Arrays.fill(blob, value);
         args[3] = blob;
 
-        String s = new String("text");
+        String s = "text";
         args[0] = s;
         Double d = 99.9;
         args[1] = d;
@@ -136,25 +112,32 @@ public class DatabaseCursorTest implements PerformanceTestCase {
         String sql = "INSERT INTO test (s, d, l, b) VALUES (?,?,?,?)";
         mDatabase.execSQL(sql, args);
         // use cursor to access blob
-
-        Cursor testCursor = mDatabase.query("test", null, null, null, null, null, null);
-
-        testCursor.moveToNext();
+        Cursor c = mDatabase.query("test", null, null, null, null, null, null);
+        c.moveToNext();
         ContentValues cv = new ContentValues();
-        DatabaseUtils.cursorRowToContentValues(testCursor, cv);
+        //DatabaseUtils.cursorRowToContentValues(c, cv);
+        String[] columns = c.getColumnNames();
+        int length = columns.length;
+        for (int i = 0; i < length; i++) {
+            if (c.getType(i) == Cursor.FIELD_TYPE_BLOB) {
+                cv.put(columns[i], c.getBlob(i));
+            } else {
+                cv.put(columns[i], c.getString(i));
+            }
+        }
 
-        int bCol = testCursor.getColumnIndexOrThrow("b");
-        int sCol = testCursor.getColumnIndexOrThrow("s");
-        int dCol = testCursor.getColumnIndexOrThrow("d");
-        int lCol = testCursor.getColumnIndexOrThrow("l");
-        byte[] cBlob = testCursor.getBlob(bCol);
+        int bCol = c.getColumnIndexOrThrow("b");
+        int sCol = c.getColumnIndexOrThrow("s");
+        int dCol = c.getColumnIndexOrThrow("d");
+        int lCol = c.getColumnIndexOrThrow("l");
+        byte[] cBlob = c.getBlob(bCol);
         assertTrue(Arrays.equals(blob, cBlob));
-        assertEquals(s, testCursor.getString(sCol));
-        assertEquals(d, testCursor.getDouble(dCol), EPSILON);
-        assertEquals((long) l, testCursor.getLong(lCol));
+        assertEquals(s, c.getString(sCol));
+        assertEquals(d, c.getDouble(dCol));
+        assertEquals((long) l, c.getLong(lCol));
+        c.close();
     }
 
-    @Test
     @MediumTest
     public void testRealColumns() throws Exception {
         mDatabase.execSQL("CREATE TABLE test (_id INTEGER PRIMARY KEY, data REAL);");
@@ -162,113 +145,106 @@ public class DatabaseCursorTest implements PerformanceTestCase {
         values.put("data", 42.11);
         long id = mDatabase.insert("test", "data", values);
         assertTrue(id > 0);
-        Cursor testCursor = getTestCursor(mDatabase.rawQuery("SELECT data FROM test", null));
-        assertNotNull(testCursor);
-        assertTrue(testCursor.moveToFirst());
-        assertEquals(42.11, testCursor.getDouble(0), EPSILON);
-        testCursor.close();
+        Cursor c = mDatabase.rawQuery("SELECT data FROM test", null);
+        assertNotNull(c);
+        assertTrue(c.moveToFirst());
+        assertEquals(42.11, c.getDouble(0));
+        c.close();
     }
 
-    @Test
     @MediumTest
     public void testCursor1() throws Exception {
         populateDefaultTable();
 
-        Cursor testCursor = getTestCursor(mDatabase.query("test", null, null, null, null, null,
-                null));
+        Cursor c = mDatabase.query("test", null, null, null, null, null, null);
 
-        int dataColumn = testCursor.getColumnIndexOrThrow("data");
+        int dataColumn = c.getColumnIndexOrThrow("data");
 
         // The cursor should ignore text before the last period when looking for a column. (This
         // is a temporary hack in all implementations of getColumnIndex.)
-        int dataColumn2 = testCursor.getColumnIndexOrThrow("junk.data");
+        int dataColumn2 = c.getColumnIndexOrThrow("junk.data");
         assertEquals(dataColumn, dataColumn2);
 
-        assertSame(3, testCursor.getCount());
+        assertSame(3, c.getCount());
 
-        assertTrue(testCursor.isBeforeFirst());
+        assertTrue(c.isBeforeFirst());
 
         try {
-            testCursor.getInt(0);
+            c.getInt(0);
             fail("CursorIndexOutOfBoundsException expected");
         } catch (CursorIndexOutOfBoundsException ex) {
             // expected
         }
 
-        testCursor.moveToNext();
-        assertEquals(1, testCursor.getInt(0));
+        c.moveToNext();
+        assertEquals(1, c.getInt(0));
 
-        String s = testCursor.getString(dataColumn);
+        String s = c.getString(dataColumn);
         assertEquals(sString1, s);
 
-        testCursor.moveToNext();
-        s = testCursor.getString(dataColumn);
+        c.moveToNext();
+        s = c.getString(dataColumn);
         assertEquals(sString2, s);
 
-        testCursor.moveToNext();
-        s = testCursor.getString(dataColumn);
+        c.moveToNext();
+        s = c.getString(dataColumn);
         assertEquals(sString3, s);
 
-        testCursor.moveToPosition(-1);
-        testCursor.moveToNext();
-        s = testCursor.getString(dataColumn);
+        c.moveToPosition(-1);
+        c.moveToNext();
+        s = c.getString(dataColumn);
         assertEquals(sString1, s);
 
-        testCursor.moveToPosition(2);
-        s = testCursor.getString(dataColumn);
+        c.moveToPosition(2);
+        s = c.getString(dataColumn);
         assertEquals(sString3, s);
 
         int i;
 
-        for (testCursor.moveToFirst(), i = 0; !testCursor.isAfterLast();
-                testCursor.moveToNext(), i++) {
-            testCursor.getInt(0);
+        for (c.moveToFirst(), i = 0; !c.isAfterLast(); c.moveToNext(), i++) {
+            c.getInt(0);
         }
 
         assertEquals(3, i);
 
         try {
-            testCursor.getInt(0);
+            c.getInt(0);
             fail("CursorIndexOutOfBoundsException expected");
         } catch (CursorIndexOutOfBoundsException ex) {
             // expected
         }
-        testCursor.close();
+        c.close();
     }
 
-    @Test
     @MediumTest
     public void testCursor2() throws Exception {
         populateDefaultTable();
 
-        Cursor testCursor = getTestCursor(mDatabase.query("test", null, "_id > 1000", null, null,
-                null, null));
-        assertEquals(0, testCursor.getCount());
-        assertTrue(testCursor.isBeforeFirst());
+        Cursor c = mDatabase.query("test", null, "_id > 1000", null, null, null, null);
+        assertEquals(0, c.getCount());
+        assertTrue(c.isBeforeFirst());
 
         try {
-            testCursor.getInt(0);
+            c.getInt(0);
             fail("CursorIndexOutOfBoundsException expected");
         } catch (CursorIndexOutOfBoundsException ex) {
             // expected
         }
 
         int i;
-        for (testCursor.moveToFirst(), i = 0; !testCursor.isAfterLast();
-                testCursor.moveToNext(), i++) {
-            testCursor.getInt(0);
+        for (c.moveToFirst(), i = 0; !c.isAfterLast(); c.moveToNext(), i++) {
+            c.getInt(0);
         }
         assertEquals(0, i);
         try {
-            testCursor.getInt(0);
+            c.getInt(0);
             fail("CursorIndexOutOfBoundsException expected");
         } catch (CursorIndexOutOfBoundsException ex) {
             // expected
         }
-        testCursor.close();
+        c.close();
     }
 
-    @Test
     @MediumTest
     public void testLargeField() throws Exception {
         mDatabase.execSQL("CREATE TABLE test (_id INTEGER PRIMARY KEY, data TEXT);");
@@ -284,82 +260,44 @@ public class DatabaseCursorTest implements PerformanceTestCase {
         sql.append("');");
         mDatabase.execSQL(sql.toString());
 
-        Cursor testCursor = getTestCursor(mDatabase.query("test", null, null, null, null, null,
-                null));
-        assertNotNull(testCursor);
-        assertEquals(1, testCursor.getCount());
+        Cursor c = mDatabase.query("test", null, null, null, null, null, null);
+        assertNotNull(c);
+        assertEquals(1, c.getCount());
 
-        assertTrue(testCursor.moveToFirst());
-        assertEquals(0, testCursor.getPosition());
-        String largeString = testCursor.getString(testCursor.getColumnIndexOrThrow("data"));
+        assertTrue(c.moveToFirst());
+        assertEquals(0, c.getPosition());
+        String largeString = c.getString(c.getColumnIndexOrThrow("data"));
         assertNotNull(largeString);
         assertEquals(randomString.toString(), largeString);
-        testCursor.close();
+        c.close();
     }
 
-    private class TestObserver extends DataSetObserver {
-        int total;
-        SQLiteCursor c;
-        boolean quit = false;
-
-        public TestObserver(int total_, SQLiteCursor cursor) {
-            c = cursor;
-            total = total_;
-        }
-
-        @Override
-        public void onChanged() {
-            int count = c.getCount();
-            if (total == count) {
-                int i = 0;
-                while (c.moveToNext()) {
-                    assertEquals(i, c.getInt(1));
-                    i++;
-                }
-                assertEquals(count, i);
-                quit = true;
-                Looper.myLooper().quit();
-            }
-        }
-
-        @Override
-        public void onInvalidated() {
-        }
-    }
-
-    @Test
     @LargeTest
     public void testManyRowsLong() throws Exception {
-        mDatabase.beginTransaction();
-        final int count = 9000;
-        try {
-            mDatabase.execSQL("CREATE TABLE test (_id INTEGER PRIMARY KEY, data INT);");
+        mDatabase.execSQL("CREATE TABLE test (_id INTEGER PRIMARY KEY, data INT);");
 
-            for (int i = 0; i < count; i++) {
-                mDatabase.execSQL("INSERT INTO test (data) VALUES (" + i + ");");
-            }
-            mDatabase.setTransactionSuccessful();
-        } finally {
-            mDatabase.endTransaction();
+        final int count = 36799;
+        mDatabase.execSQL("BEGIN Transaction;");
+        for (int i = 0; i < count; i++) {
+            mDatabase.execSQL("INSERT INTO test (data) VALUES (" + i + ");");
         }
+        mDatabase.execSQL("COMMIT;");
 
-        Cursor testCursor = getTestCursor(mDatabase.query("test", new String[] { "data" },
-                null, null, null, null, null));
-        assertNotNull(testCursor);
+        Cursor c = mDatabase.query("test", new String[]{"data"}, null, null, null, null, null);
+        assertNotNull(c);
 
         int i = 0;
-        while (testCursor.moveToNext()) {
-            assertEquals(i, testCursor.getInt(0));
+        while (c.moveToNext()) {
+            assertEquals(i, c.getInt(0));
             i++;
         }
         assertEquals(count, i);
-        assertEquals(count, testCursor.getCount());
+        assertEquals(count, c.getCount());
 
         Log.d("testManyRows", "count " + Integer.toString(i));
-        testCursor.close();
+        c.close();
     }
 
-    @Test
     @LargeTest
     public void testManyRowsTxt() throws Exception {
         mDatabase.execSQL("CREATE TABLE test (_id INTEGER PRIMARY KEY, data TEXT);");
@@ -373,27 +311,27 @@ public class DatabaseCursorTest implements PerformanceTestCase {
         sql.append(randomString);
         sql.append("');");
 
-        // if cursor window size changed, adjust this value too
+        // if cursor window size changed, adjust this value too  
         final int count = 600; // more than two fillWindow needed
+        mDatabase.execSQL("BEGIN Transaction;");
         for (int i = 0; i < count; i++) {
             mDatabase.execSQL(sql.toString());
         }
+        mDatabase.execSQL("COMMIT;");
 
-        Cursor testCursor = getTestCursor(mDatabase.query("test", new String[] { "data" }, null,
-                null, null, null, null));
-        assertNotNull(testCursor);
+        Cursor c = mDatabase.query("test", new String[]{"data"}, null, null, null, null, null);
+        assertNotNull(c);
 
         int i = 0;
-        while (testCursor.moveToNext()) {
-            assertEquals(randomString.toString(), testCursor.getString(0));
+        while (c.moveToNext()) {
+            assertEquals(randomString.toString(), c.getString(0));
             i++;
         }
         assertEquals(count, i);
-        assertEquals(count, testCursor.getCount());
-        testCursor.close();
+        assertEquals(count, c.getCount());
+        c.close();
     }
 
-    @Test
     @LargeTest
     public void testManyRowsTxtLong() throws Exception {
         mDatabase.execSQL("CREATE TABLE test (_id INTEGER PRIMARY KEY, txt TEXT, data INT);");
@@ -404,8 +342,9 @@ public class DatabaseCursorTest implements PerformanceTestCase {
             randomString.append((random.nextInt() & 0xf) % 10);
         }
 
-        // if cursor window size changed, adjust this value too
+        // if cursor window size changed, adjust this value too  
         final int count = 600;
+        mDatabase.execSQL("BEGIN Transaction;");
         for (int i = 0; i < count; i++) {
             StringBuilder sql = new StringBuilder(2100);
             sql.append("INSERT INTO test (txt, data) VALUES ('");
@@ -415,76 +354,71 @@ public class DatabaseCursorTest implements PerformanceTestCase {
             sql.append("');");
             mDatabase.execSQL(sql.toString());
         }
+        mDatabase.execSQL("COMMIT;");
 
-        Cursor testCursor = getTestCursor(mDatabase.query("test", new String[] { "txt", "data" },
-                null, null, null, null, null));
-        assertNotNull(testCursor);
+        Cursor c = mDatabase.query("test", new String[]{"txt", "data"}, null, null, null, null, null);
+        assertNotNull(c);
 
         int i = 0;
-        while (testCursor.moveToNext()) {
-            assertEquals(randomString.toString(), testCursor.getString(0));
-            assertEquals(i, testCursor.getInt(1));
+        while (c.moveToNext()) {
+            assertEquals(randomString.toString(), c.getString(0));
+            assertEquals(i, c.getInt(1));
             i++;
         }
         assertEquals(count, i);
-        assertEquals(count, testCursor.getCount());
-        testCursor.close();
+        assertEquals(count, c.getCount());
+        c.close();
     }
 
-    @Test
     @MediumTest
     public void testRequery() throws Exception {
         populateDefaultTable();
 
-        Cursor testCursor = getTestCursor(mDatabase.rawQuery("SELECT * FROM test", null));
-        assertNotNull(testCursor);
-        assertEquals(3, testCursor.getCount());
-        testCursor.deactivate();
-        testCursor.requery();
-        assertEquals(3, testCursor.getCount());
-        testCursor.close();
+        Cursor c = mDatabase.rawQuery("SELECT * FROM test", null);
+        assertNotNull(c);
+        assertEquals(3, c.getCount());
+        c.deactivate();
+        c.requery();
+        assertEquals(3, c.getCount());
+        c.close();
     }
 
-    @Test
     @MediumTest
     public void testRequeryWithSelection() throws Exception {
         populateDefaultTable();
 
-        Cursor testCursor = getTestCursor(
-                mDatabase.rawQuery("SELECT data FROM test WHERE data = '" + sString1 + "'",
-                null));
-        assertNotNull(testCursor);
-        assertEquals(1, testCursor.getCount());
-        assertTrue(testCursor.moveToFirst());
-        assertEquals(sString1, testCursor.getString(0));
-        testCursor.deactivate();
-        testCursor.requery();
-        assertEquals(1, testCursor.getCount());
-        assertTrue(testCursor.moveToFirst());
-        assertEquals(sString1, testCursor.getString(0));
-        testCursor.close();
+        Cursor c = mDatabase.rawQuery("SELECT data FROM test WHERE data = '" + sString1 + "'",
+                null);
+        assertNotNull(c);
+        assertEquals(1, c.getCount());
+        assertTrue(c.moveToFirst());
+        assertEquals(sString1, c.getString(0));
+        c.deactivate();
+        c.requery();
+        assertEquals(1, c.getCount());
+        assertTrue(c.moveToFirst());
+        assertEquals(sString1, c.getString(0));
+        c.close();
     }
 
-    @Test
     @MediumTest
     public void testRequeryWithSelectionArgs() throws Exception {
         populateDefaultTable();
 
-        Cursor testCursor = getTestCursor(mDatabase.rawQuery("SELECT data FROM test WHERE data = ?",
-                new String[] { sString1 }));
-        assertNotNull(testCursor);
-        assertEquals(1, testCursor.getCount());
-        assertTrue(testCursor.moveToFirst());
-        assertEquals(sString1, testCursor.getString(0));
-        testCursor.deactivate();
-        testCursor.requery();
-        assertEquals(1, testCursor.getCount());
-        assertTrue(testCursor.moveToFirst());
-        assertEquals(sString1, testCursor.getString(0));
-        testCursor.close();
+        Cursor c = mDatabase.rawQuery("SELECT data FROM test WHERE data = ?",
+                new String[]{sString1});
+        assertNotNull(c);
+        assertEquals(1, c.getCount());
+        assertTrue(c.moveToFirst());
+        assertEquals(sString1, c.getString(0));
+        c.deactivate();
+        c.requery();
+        assertEquals(1, c.getCount());
+        assertTrue(c.moveToFirst());
+        assertEquals(sString1, c.getString(0));
+        c.close();
     }
 
-    @Test
     @MediumTest
     public void testRequeryWithAlteredSelectionArgs() throws Exception {
         /**
@@ -493,36 +427,69 @@ public class DatabaseCursorTest implements PerformanceTestCase {
         populateDefaultTable();
 
         SQLiteDatabase.CursorFactory factory = new SQLiteDatabase.CursorFactory() {
-            public Cursor newCursor(SQLiteDatabase db, SQLiteCursorDriver masterQuery,
-                    String editTable, SQLiteQuery query) {
-                return new SQLiteCursor(db, masterQuery, editTable, query) {
+            public Cursor newCursor(
+                    SQLiteDatabase db, SQLiteCursorDriver masterQuery, String editTable,
+                    SQLiteQuery query) {
+                return new SQLiteCursor(masterQuery, editTable, query) {
                     @Override
                     public boolean requery() {
-                        setSelectionArguments(new String[] { "2" });
+                        setSelectionArguments(new String[]{"2"});
                         return super.requery();
                     }
                 };
             }
         };
-        Cursor testCursor = getTestCursor(mDatabase.rawQueryWithFactory(factory,
-                "SELECT data FROM test WHERE _id <= ?",
-                new String[] { "1" }, null));
-        assertNotNull(testCursor);
-        assertEquals(1, testCursor.getCount());
-        assertTrue(testCursor.moveToFirst());
-        assertEquals(sString1, testCursor.getString(0));
+        Cursor c = mDatabase.rawQueryWithFactory(
+                factory, "SELECT data FROM test WHERE _id <= ?", new String[]{"1"},
+                null);
+        assertNotNull(c);
+        assertEquals(1, c.getCount());
+        assertTrue(c.moveToFirst());
+        assertEquals(sString1, c.getString(0));
 
         // Our hacked requery() changes the query arguments in the cursor.
-        testCursor.requery();
+        c.requery();
 
-        assertEquals(2, testCursor.getCount());
-        assertTrue(testCursor.moveToFirst());
-        assertEquals(sString1, testCursor.getString(0));
-        assertTrue(testCursor.moveToNext());
-        assertEquals(sString2, testCursor.getString(0));
+        assertEquals(2, c.getCount());
+        assertTrue(c.moveToFirst());
+        assertEquals(sString1, c.getString(0));
+        assertTrue(c.moveToNext());
+        assertEquals(sString2, c.getString(0));
 
         // Test that setting query args on a deactivated cursor also works.
-        testCursor.deactivate();
-        testCursor.requery();
+        c.deactivate();
+        c.requery();
+    }
+
+    /**
+     * sometimes CursorWindow creation fails due to non-availability of memory create
+     * another CursorWindow object. One of the scenarios of its occurrence is when
+     * there are too many CursorWindow objects already opened by the process.
+     * This test is for that scenario.
+     */
+    @LargeTest
+    public void testCursorWindowFailureWhenTooManyCursorWindowsLeftOpen() {
+        mDatabase.execSQL("CREATE TABLE test (_id INTEGER PRIMARY KEY, data TEXT);");
+        mDatabase.execSQL("INSERT INTO test values(1, 'test');");
+        int N = 1024;
+        ArrayList<Cursor> cursorList = new ArrayList<>();
+        // open many cursors until a failure occurs
+        for (int i = 0; i < N; i++) {
+            try {
+                Cursor cursor = mDatabase.rawQuery("select * from test", null);
+                cursor.getCount();
+                cursorList.add(cursor);
+            } catch (CursorWindowAllocationException e) {
+                // got the exception we wanted
+                break;
+            } catch (Exception e) {
+                fail("unexpected exception: " + e.getMessage());
+                e.printStackTrace();
+                break;
+            }
+        }
+        for (Cursor c : cursorList) {
+            c.close();
+        }
     }
 }

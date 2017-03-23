@@ -80,7 +80,7 @@
 #define HAVE_ISINF /**/
 
 /* Define if isnan is there */
-#define HAVE_ISNAN /**/
+/* #undef HAVE_ISNAN */
 
 /* Define to 1 if you have the `isnand' function. */
 /* #undef HAVE_ISNAND */

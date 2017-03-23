@@ -13,12 +13,11 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+// modified from original source see README at the top level of this project
 
 package org.spatialite.database;
 
-import org.spatialite.*;
-import org.spatialite.database.SQLiteDatabase.CursorFactory;
-
+import android.database.Cursor;
 
 /**
  * A driver for SQLiteCursors that is used to create them and gets notified
@@ -32,7 +31,7 @@ public interface SQLiteCursorDriver {
      *         null if standard SQLiteCursors should be returned.
      * @return a Cursor over the result set
      */
-    Cursor query(CursorFactory factory, String[] bindArgs);
+    Cursor query(SQLiteDatabase.CursorFactory factory, Object[] bindArgs);
 
     /**
      * Called by a SQLiteCursor when it is released.
@@ -40,11 +39,9 @@ public interface SQLiteCursorDriver {
     void cursorDeactivated();
 
     /**
-     * Called by a SQLiteCursor when it is requeryed.
-     * 
-     * @return The new count value.
+     * Called by a SQLiteCursor when it is requeried.
      */
-    void cursorRequeried(android.database.Cursor cursor);
+    void cursorRequeried(Cursor cursor);
 
     /**
      * Called by a SQLiteCursor when it it closed to destroy this object as well.
@@ -55,5 +52,5 @@ public interface SQLiteCursorDriver {
      * Set new bind arguments. These will take effect in cursorRequeried().
      * @param bindArgs the new arguments
      */
-    public void setBindArguments(String[] bindArgs);
+    void setBindArguments(String[] bindArgs);
 }

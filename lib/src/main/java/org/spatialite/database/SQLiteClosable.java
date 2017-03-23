@@ -13,66 +13,68 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+// modified from original source see README at the top level of this project
 
 package org.spatialite.database;
 
-import org.spatialite.*;
+import java.io.Closeable;
 
 /**
  * An object created from a SQLiteDatabase that can be closed.
+ *
+ * This class implements a primitive reference counting scheme for database objects.
  */
-public abstract class SQLiteClosable {
+public abstract class SQLiteClosable implements Closeable {
     private int mReferenceCount = 1;
-    private Object mLock = new Object();
 
+    /**
+     * Called when the last reference to the object was released by
+     * a call to {@link #releaseReference()} or {@link #close()}.
+     */
     protected abstract void onAllReferencesReleased();
-    protected void onAllReferencesReleasedFromContainer() {}
 
+    /**
+     * Acquires a reference to the object.
+     *
+     * @throws IllegalStateException if the last reference to the object has already
+     * been released.
+     */
     public void acquireReference() {
-        synchronized(mLock) {
+        synchronized(this) {
             if (mReferenceCount <= 0) {
                 throw new IllegalStateException(
-                        "attempt to re-open an already-closed object: " + getObjInfo());
+                        "attempt to re-open an already-closed object: " + this);
             }
             mReferenceCount++;
         }
     }
 
+    /**
+     * Releases a reference to the object, closing the object if the last reference
+     * was released.
+     *
+     * @see #onAllReferencesReleased()
+     */
     public void releaseReference() {
-        synchronized(mLock) {
-            mReferenceCount--;
-            if (mReferenceCount == 0) {
-                onAllReferencesReleased();
-            }
+        boolean refCountIsZero;
+        synchronized(this) {
+            refCountIsZero = --mReferenceCount == 0;
+        }
+        if (refCountIsZero) {
+            onAllReferencesReleased();
         }
     }
 
-    public void releaseReferenceFromContainer() {
-        synchronized(mLock) {
-            mReferenceCount--;
-            if (mReferenceCount == 0) {
-                onAllReferencesReleasedFromContainer();
-            }
-        }
-    }
-
-    private String getObjInfo() {
-        StringBuilder buff = new StringBuilder();
-        buff.append(this.getClass().getName());
-        buff.append(" (");
-        if (this instanceof SQLiteDatabase) {
-            buff.append("database = ");
-            buff.append(((SQLiteDatabase)this).getPath());
-        } else if (this instanceof SQLiteProgram || this instanceof SQLiteStatement ||
-                this instanceof SQLiteQuery) {
-            buff.append("mSql = ");
-            buff.append(((SQLiteProgram)this).mSql);
-        }
-        /*else if (this instanceof CursorWindow) {
-            buff.append("mStartPos = ");
-            buff.append(((CursorWindow)this).getStartPosition());
-        }*/
-        buff.append(") ");
-        return buff.toString();
+    /**
+     * Releases a reference to the object, closing the object if the last reference
+     * was released.
+     *
+     * Calling this method is equivalent to calling {@link #releaseReference}.
+     *
+     * @see #releaseReference()
+     * @see #onAllReferencesReleased()
+     */
+    public void close() {
+        releaseReference();
     }
 }
