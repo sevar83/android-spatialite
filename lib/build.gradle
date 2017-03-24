@@ -10,9 +10,12 @@ apply plugin: 'com.jfrog.bintray'
 import de.undercouch.gradle.tasks.download.Download
 
 group = 'org.spatialite'
-artifactId = 'android-spatialite'
 version = '2.0.0-RC2'
 description = 'Spatialite Database ported for Android'
+
+ext {
+    artifactId = 'android-spatialite'
+}
 
 gradle.projectsEvaluated {
     preBuild.dependsOn(buildSqlite)
@@ -60,7 +63,7 @@ ext {
     sqliteDistributionUrl = 'http://sqlite.org/2016/sqlite-amalgamation-3150100.zip'
     pomXml = {
         resolveStrategy = Closure.DELEGATE_FIRST
-        name project.name
+        name project.ext.artifactId
         description project.description
         url 'https://github.com/sevar83/android-spatialite'
         scm {
@@ -89,7 +92,7 @@ publishing {
     publications {
         maven(MavenPublication) {
             groupId project.group
-            artifactId project.artifactId
+            artifactId project.ext.artifactId
             version project.version
             artifact "build/outputs/aar/${project.name}-release.aar"
             artifact sourcesJar
