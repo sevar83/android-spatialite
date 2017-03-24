@@ -152,7 +152,7 @@ task javadocJar(type: Jar, dependsOn: javadoc) {
 
 task downloadSqlite(type: Download) {
     src project.sqliteDistributionUrl
-    dest 'src/main/jni/sqlite.zip'
+    dest 'src/main/jni/ndk-modules/sqlite/sqlite.zip'
 }
 
 task installSqlite(dependsOn: downloadSqlite, type: Copy) {
@@ -160,7 +160,7 @@ task installSqlite(dependsOn: downloadSqlite, type: Copy) {
         include '*/sqlite3.*'
         eachFile { it.setPath(it.getName()) }
     }
-    into 'src/main/jni/sqlite'
+    into 'src/main/jni/ndk-modules/sqlite'
 }
 
 def ndkDir = System.getenv('ANDROID_NDK_HOME') ?: properties.getProperty('ndk.dir')
