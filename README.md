@@ -15,9 +15,20 @@
 If you know basic *SQLite*, there's almost nothing to learn. The API is 99% the same as the Android *SQLite* API (as of API level 15). The main difference is the packaging. Use `org.spatialite.database.XYZ` instead of `android.database.sqlite.XYZ` and `org.spatialite.XYZ` instead of `android.database.XYZ`. Same applies to the other classes - all platform `SQLiteXYZ` classes have their *Spatialite* versions.
 
 ### Gradle
-Add the following to your module's `build.gradle`:
+1) Have this in your project's `build.gradle`:
+
 ```
-compile 'org.spatialite:android-spatialite:2.0.0'
+allprojects {
+  repositories {
+    ...
+    maven { url "https://jitpack.io" }
+  }
+}
+```
+
+2) Add the following to your module's `build.gradle`:
+```
+compile 'com.github.sevar83:android-spatialite:2.0.0'
 ```
 
 ## EXAMPLE CODE
@@ -74,7 +85,6 @@ Min SDK 15
 
 ## MIGRATION TO 2.0+
 
-1. Compile with the new maven artifact published on jcenter: `compile 'org.spatialite:android-spatialite:2.0.0'`.
 1. Remove calls to `SQLiteDatabase.loadLibs()`. Now it is automatically done.
 2. Replace all occasions of `import org.spatialite.Cursor;` with `import android.database.Cursor;`
 3. Replace all occasions of `import org.spatialite.database.SQLite***Exception;` with `import android.database.sqlite.SQLite***Exception;`
@@ -82,17 +92,16 @@ Min SDK 15
 ## CHANGES
 
 ### 2.0.0
-- Migrated from JitPack.io to jcenter;
 - Now using the [Requery.io SQLite wrapper](https://github.com/requery/sqlite-android/) instead of SQLCipher's. This results to:
-- Android Nougat (25+) supported;
+- Android Nougat (25+) supported. The native code no more links to private NDK libraries exception and warning messages similar to `UnsatisfiedLinkError: dlopen failed: library "libandroid_runtime.so" not found` should be no more. For more details: https://developer.android.com/about/versions/nougat/android-7.0-changes.html#ndk;
 - Much cleaner codebase derived from a much newer and more mature AOSP SQLite wrapper snapshot;
 - Now possible to build with the latest NDK (tested on R14);
-- Switched to CLang as a default NDK toolchain;
+- Switched to CLang as the default NDK toolchain;
 - 64-bit build targets (arm64-v8a, x86_64);
-- `SQLiteDatabase.loadLibs()` initialization call no more required;
+- `SQLiteDatabase.loadLibs()` initialization call is not required anymore;
 - Removed `org.spatialite.Cursor` interface. Used 'android.database.sqlite.Cursor' instead.
 - Removed the `SQLiteXyzException` classes. Their AOSP originals are used instead;
-- Dropped support for Android localized collation;
+- Dropped support for Android localized collation. SQL statements with "COLLATE LOCALIZED" will cause error. This is necessary to reduce the library size and ensure N compatibility;
 - Updated SQLite to 3.15.1;
 - Updated lzma to 5.2.1;
 - Updated FreeXL to 1.0.2;
