@@ -3,19 +3,12 @@ plugins {
 }
 
 apply plugin: 'com.android.library'
-apply plugin: 'maven-publish'
 apply plugin: 'de.undercouch.download'
-apply plugin: 'com.jfrog.bintray'
+apply plugin: 'com.github.dcendents.android-maven'
+
+group = 'com.github.sevar83'
 
 import de.undercouch.gradle.tasks.download.Download
-
-group = 'org.spatialite'
-version = '2.0.0-RC2'
-description = 'Spatialite Database ported for Android'
-
-ext {
-    artifactId = 'android-spatialite'
-}
 
 gradle.projectsEvaluated {
     preBuild.dependsOn(buildSqlite)
@@ -56,84 +49,8 @@ dependencies {
     androidTestCompile 'com.android.support.test:rules:0.5'
 }
 
-publish.dependsOn "assembleRelease"
-bintrayUpload.dependsOn "assembleRelease"
-
 ext {
     sqliteDistributionUrl = 'http://sqlite.org/2016/sqlite-amalgamation-3150100.zip'
-    pomXml = {
-        resolveStrategy = Closure.DELEGATE_FIRST
-        name project.ext.artifactId
-        description project.description
-        url 'https://github.com/sevar83/android-spatialite'
-        scm {
-            url 'https://github.com/sevar83/sqlite-android.git'
-            connection 'scm:git:git://github.com/sevar83/android-spatialite.git'
-            developerConnection 'scm:git:git@github.com/sevar83/android-spatialite.git'
-        }
-        licenses {
-            license {
-                name 'The Apache Software License, Version 2.0'
-                url 'http://www.apache.org/license/LICENSE-2.0.txt'
-                distribution 'repo'
-            }
-        }
-        developers {
-            developer {
-                id 'sevar83'
-                name 'Svetlozar Kostadinov'
-            }
-        }
-    }
-}
-
-android.libraryVariants
-publishing {
-    publications {
-        maven(MavenPublication) {
-            groupId project.group
-            artifactId project.ext.artifactId
-            version project.version
-            artifact "build/outputs/aar/${project.name}-release.aar"
-            artifact sourcesJar
-            artifact javadocJar
-            pom.withXml {
-                asNode().children().last() + project.pomXml
-                def dependencies = asNode().appendNode('dependencies')
-                configurations.compile.allDependencies.each {
-                    def dependency = dependencies.appendNode('dependency')
-                    dependency.appendNode('groupId', it.group)
-                    dependency.appendNode('artifactId', it.name)
-                    dependency.appendNode('version', it.version)
-                    dependency.appendNode('scope', 'compile')
-                }
-            }
-        }
-    }
-}
-
-Properties properties = new Properties()
-File localProperties = project.rootProject.file('local.properties')
-if (localProperties.exists()) {
-    properties.load(localProperties.newDataInputStream())
-}
-
-bintray {
-    user = properties.getProperty('bintray.user')
-    key = properties.getProperty('bintray.apikey')
-    publications = ['maven']
-    pkg {
-        repo = 'maven'
-        name = 'android-spatialite'
-        userOrg = 'windrider'
-        licenses = ['Apache-2.0']
-        vcsUrl = 'https://github.com/sevar83/android-spatialite.git'
-        version {
-            name = project.version
-            desc = project.description
-            released = new Date()
-        }
-    }
 }
 
 task sourcesJar(type: Jar) {
@@ -166,9 +83,9 @@ task installSqlite(dependsOn: downloadSqlite, type: Copy) {
     into 'src/main/jni/ndk-modules/sqlite'
 }
 
-def ndkDir = System.getenv('ANDROID_NDK_HOME') ?: properties.getProperty('ndk.dir')
+//def ndkDir = System.getenv('ANDROID_NDK_HOME') ?: properties.getProperty('ndk.dir')
 
 task buildSqlite(dependsOn: installSqlite, type: Exec) {
     workingDir 'src/main/jni'
-    commandLine ndkDir + '/ndk-build', '-j8'   // Add NDK_DEBUG=1 for debug symbols or V=1 for verbose building output
+    commandLine 'ndk-build', '-j8'   // Add NDK_DEBUG=1 for debug symbols or V=1 for verbose building output
 }
