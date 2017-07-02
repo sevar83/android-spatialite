@@ -14,18 +14,10 @@
 
 If you know basic *SQLite*, there's almost nothing to learn. The API is 99% the same as the Android *SQLite* API (as of API level 15). The main difference is the packaging. Use `org.spatialite.database.XYZ` instead of `android.database.sqlite.XYZ` and `org.spatialite.XYZ` instead of `android.database.XYZ`. Same applies to the other classes - all platform `SQLiteXYZ` classes have their *Spatialite* versions.
 
-Add the following to your project's `build.gradle`:
-```
-allprojects {
-		repositories {
-			...
-			maven { url 'https://jitpack.io' }
-		}
-	}
-```
+### Gradle
 Add the following to your module's `build.gradle`:
 ```
-compile 'com.github.sevar83:android-spatialite:1.0.7'
+compile 'org.spatialite:android-spatialite:2.0.0'
 ```
 
 ## EXAMPLE CODE
@@ -42,25 +34,73 @@ Simply: *Spatialite* = *SQLite* + advanced geospatial support.<br>
 *Spatialite* is a geospatial extension to *SQLite*. It is a set of few libraries written in C to extend *SQLite* with geometry data types and many [SQL functions](http://www.gaia-gis.it/gaia-sins/spatialite-sql-4.3.0.html) above geometry data. For more info: https://www.gaia-gis.it/gaia-sins/
 
 ### Does it use JDBC?
-No. It uses cross-process cursors - the suggested lightweight approach to access SQL used in the Android platform instead of the heavier JDBC.
+No. It uses cursors - the suggested lightweight approach to access SQL used in the Android platform instead of the heavier JDBC.
+
+### 64-bit architectures supported?
+
+Yes. It builds for `arm64-v8a` and `x86_64`. `mips64` is not tested.
+
+### Reducing the APK size. 
+
+This library is distributed as multi-architecture AAR file. 
+By default Gradle will produce a universal APK including the native .so libraries compiled for all supported CPU architectures. Usually that's unacceptable for large libraries like this.
+But that's easily fixed by using Gradle's "ABI splits" feature. The following gradle code will produce a separate APK per each architecture. The APK size is reduced few times.
+```
+android {
+    splits {
+        abi {
+            enable true
+                reset()
+                include "armeabi-v7a", "arm64-v8a", "x86", "x86_64"
+            }
+        }
+    }
+}
+```
 
 ### What libraries are packaged currently?
 
-- SQLite 3.8.10.2
+- SQLite 3.15.1
 - Spatialite 4.3.0a
 - GEOS 3.4.2
 - Proj4 4.8.0
-- lzma 5.1.3alpha
-- iconv
+- lzma 5.2.1
+- iconv 1.13
 - xml2 2.9.2
-- freexl 1.0
+- freexl 1.0.2
 
 ## REQUIREMENTS
 Min SDK 15
 
+## MIGRATION TO 2.0+
+
+1. Compile with the new maven artifact published on jcenter: `compile 'org.spatialite:android-spatialite:2.0.0'`.
+1. Remove calls to `SQLiteDatabase.loadLibs()`. Now it is automatically done.
+2. Replace all occasions of `import org.spatialite.Cursor;` with `import android.database.Cursor;`
+3. Replace all occasions of `import org.spatialite.database.SQLite***Exception;` with `import android.database.sqlite.SQLite***Exception;`
+
+## CHANGES
+
+### 2.0.0
+- Migrated from JitPack.io to jcenter;
+- Now using the [Requery.io SQLite wrapper](https://github.com/requery/sqlite-android/) instead of SQLCipher's. This results to:
+- Android Nougat (25+) supported;
+- Much cleaner codebase derived from a much newer and more mature AOSP SQLite wrapper snapshot;
+- Now possible to build with the latest NDK (tested on R14);
+- Switched to CLang as a default NDK toolchain;
+- 64-bit build targets (arm64-v8a, x86_64);
+- `SQLiteDatabase.loadLibs()` initialization call no more required;
+- Removed `org.spatialite.Cursor` interface. Used 'android.database.sqlite.Cursor' instead.
+- Removed the `SQLiteXyzException` classes. Their AOSP originals are used instead;
+- Dropped support for Android localized collation;
+- Updated SQLite to 3.15.1;
+- Updated lzma to 5.2.1;
+- Updated FreeXL to 1.0.2;
+
 ## CREDITS
 The main ideas used here were borrowed from:
-- https://github.com/sqlcipher/android-database-sqlcipher and
+- https://github.com/requery/sqlite-android
+- https://github.com/sqlcipher/android-database-sqlcipher
 - https://github.com/illarionov/android-sqlcipher-spatialite
 
 ## LICENSE
