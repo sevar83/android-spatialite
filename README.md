@@ -112,5 +112,12 @@ The main ideas used here were borrowed from:
 - https://github.com/sqlcipher/android-database-sqlcipher
 - https://github.com/illarionov/android-sqlcipher-spatialite
 
+## KNOWN PROJECTS USING THIS LIBRARY
+
+- [GeoWorld](https://play.google.com/store/apps/details?id=com.buildware.geocoord)
+- [GeoWorld PRO](https://play.google.com/store/apps/details?id=com.buildware.geoworld)
+- [Hema Explorer](https://play.google.com/store/apps/details?id=au.com.hemamaps.explorer)
+- [RadioCells.org Android Client](https://github.com/openbmap/radiocells-scanner-android)
+
 ## LICENSE
 Apache License 2.0
