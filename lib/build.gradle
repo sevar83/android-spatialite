@@ -82,9 +82,15 @@ task installSqlite(dependsOn: downloadSqlite, type: Copy) {
     into 'src/main/jni/ndk-modules/sqlite'
 }
 
-//def ndkDir = System.getenv('ANDROID_NDK_HOME') ?: properties.getProperty('ndk.dir')
+def ndkDir = System.getenv("ANDROID_NDK_HOME")
+def propertiesFile = project.rootProject.file('local.properties')
+if (propertiesFile.exists()) {
+    Properties properties = new Properties()
+    properties.load(propertiesFile.newDataInputStream())
+    ndkDir = properties.getProperty('ndk.dir')
+}
 
 task buildSqlite(dependsOn: installSqlite, type: Exec) {
     workingDir 'src/main/jni'
-    commandLine 'ndk-build', '-j8'   // Add NDK_DEBUG=1 for debug symbols or V=1 for verbose building output
+    commandLine "${ndkDir}/ndk-build.cmd", '-j8'   // Add NDK_DEBUG=1 for debug symbols or V=1 for verbose building output
 }
