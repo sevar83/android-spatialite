@@ -18,7 +18,7 @@
 package org.spatialite.database;
 
 import android.database.Cursor;
-import android.support.v4.os.CancellationSignal;
+import androidx.core.os.CancellationSignal;
 
 /**
  * A cursor driver that uses the given query directly.

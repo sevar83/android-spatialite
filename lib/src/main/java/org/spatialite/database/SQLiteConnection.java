@@ -30,9 +30,6 @@ import android.database.sqlite.SQLiteException;
 import android.os.Build;
 import android.os.Looper;
 import android.os.ParcelFileDescriptor;
-import android.support.v4.os.CancellationSignal;
-import android.support.v4.os.OperationCanceledException;
-import android.support.v4.util.LruCache;
 import android.util.Log;
 import android.util.Printer;
 
@@ -43,6 +40,10 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.Map;
 import java.util.regex.Pattern;
+
+import androidx.collection.LruCache;
+import androidx.core.os.CancellationSignal;
+import androidx.core.os.OperationCanceledException;
 
 /**
  * Represents a SQLite database connection.

@@ -18,15 +18,16 @@
 package org.spatialite;
 
 import android.content.ContentValues;
-import android.support.test.InstrumentationRegistry;
-import android.test.PerformanceTestCase;
 
 import junit.framework.TestCase;
 
+import org.junit.Test;
 import org.spatialite.database.SQLiteDatabase;
 
 import java.io.File;
 import java.util.Random;
+
+import androidx.test.core.app.ApplicationProvider;
 
 /**
  * Database Performance Tests
@@ -37,15 +38,14 @@ public class NewDatabasePerformanceTests {
     // Edit this to change the test run times.  The original is 100.
     final static int kMultiplier = 1;
 
-    public static class PerformanceBase extends TestCase
-    implements PerformanceTestCase {
+    public static class PerformanceBase extends TestCase /*implements PerformanceTestCase*/ {
         protected static final int CURRENT_DATABASE_VERSION = 42;
         protected SQLiteDatabase mDatabase;
         protected File mDatabaseFile;
 
         @SuppressWarnings("ResultOfMethodCallIgnored")
         public void setUp() {
-            mDatabaseFile = InstrumentationRegistry.getTargetContext().getDatabasePath("perf_database_test.db");
+            mDatabaseFile = ApplicationProvider.getApplicationContext().getDatabasePath("perf_database_test.db");
             if (mDatabaseFile.exists()) {
                 mDatabaseFile.delete();
             }
@@ -67,9 +67,9 @@ public class NewDatabasePerformanceTests {
         }
 
         // These tests can only be run once.
-        public int startPerformance(Intermediates intermediates) {
+        /*public int startPerformance(Intermediates intermediates) {
             return 0;
-        }
+        }*/
 
         public String numberName(int number) {
             String result = "";
@@ -128,6 +128,7 @@ public class NewDatabasePerformanceTests {
             .execSQL("CREATE TABLE t1(a INTEGER, b INTEGER, c VARCHAR(100))");
         }
 
+        @Test
         public void testRun() {
             for (int i = 0; i < SIZE; i++) {
                 mDatabase.execSQL(statements[i]);
@@ -161,6 +162,7 @@ public class NewDatabasePerformanceTests {
             mDatabase.execSQL("CREATE INDEX i1c ON t1(c)");
         }
 
+        @Test
         public void testRun() {
             for (int i = 0; i < SIZE; i++) {
                 mDatabase.execSQL(statements[i]);
@@ -199,6 +201,7 @@ public class NewDatabasePerformanceTests {
             }
         }
 
+        @Test
         public void testRun() {
             for (int i = 0; i < SIZE; i++) {
                 mDatabase
@@ -236,6 +239,7 @@ public class NewDatabasePerformanceTests {
             }
         }
 
+        @Test
         public void testRun() {
             for (int i = 0; i < SIZE; i++) {
                 mDatabase
@@ -276,6 +280,7 @@ public class NewDatabasePerformanceTests {
             }
         }
 
+        @Test
         public void testRun() {
             for (int i = 0; i < SIZE; i++) {
                 mDatabase
@@ -315,6 +320,7 @@ public class NewDatabasePerformanceTests {
             }
         }
 
+        @Test
         public void testRun() {
             mDatabase.query("t1 INNER JOIN t2 ON t1.b = t2.b", COLUMNS, null,
                     null, null, null, null);
@@ -354,6 +360,7 @@ public class NewDatabasePerformanceTests {
             }
         }
 
+        @Test
         public void testRun() {
             mDatabase.query("t1 INNER JOIN t2 ON t1.b = t2.b", COLUMNS, null,
                     null, null, null, null);
@@ -393,6 +400,7 @@ public class NewDatabasePerformanceTests {
             }
         }
 
+        @Test
         public void testRun() {
             mDatabase.query("t1 INNER JOIN t2 ON t1.c = t2.c", COLUMNS, null,
                     null, null, null, null);
@@ -442,6 +450,7 @@ public class NewDatabasePerformanceTests {
             }
         }
 
+        @Test
         public void testRun() {
             for (int i = 0; i < SIZE; i++) {
                 mDatabase
@@ -480,6 +489,7 @@ public class NewDatabasePerformanceTests {
             }
         }
 
+        @Test
         public void testRun() {
             for (int i = 0; i < SIZE; i++) {
                 mDatabase
@@ -512,6 +522,7 @@ public class NewDatabasePerformanceTests {
 
         }
 
+        @Test
         public void testRun() {
             for (int i = 0; i < SIZE; i++) {
                 mDatabase.query("t1", COLUMNS, null, null, null, null, null);
@@ -543,6 +554,7 @@ public class NewDatabasePerformanceTests {
 
         }
 
+        @Test
         public void testRun() {
             for (int i = 0; i < SIZE; i++) {
                 mDatabase.query("t1", COLUMNS, null, null, null, null, null);
@@ -575,6 +587,7 @@ public class NewDatabasePerformanceTests {
 
         }
 
+        @Test
         public void testRun() {
             for (int i = 0; i < SIZE; i++) {
                 mDatabase.query("t1", COLUMNS, null, null, null, null, null);
@@ -607,6 +620,7 @@ public class NewDatabasePerformanceTests {
 
         }
 
+        @Test
         public void testRun() {
             for (int i = 0; i < SIZE; i++) {
                 mDatabase.query("t1", COLUMNS, null, null, null, null, null);
@@ -646,6 +660,7 @@ public class NewDatabasePerformanceTests {
 
         }
 
+        @Test
         public void testRun() {
             for (int i = 0; i < SIZE; i++) {
                 mDatabase
@@ -678,6 +693,7 @@ public class NewDatabasePerformanceTests {
 
         }
 
+        @Test
         public void testRun() {
             for (int i = 0; i < SIZE; i++) {
                 mDatabase.delete("t1", null, null);
@@ -708,6 +724,7 @@ public class NewDatabasePerformanceTests {
 
         }
 
+        @Test
         public void testRun() {
             for (int i = 0; i < SIZE; i++) {
                 mDatabase.delete("t1", null, null);
@@ -744,6 +761,7 @@ public class NewDatabasePerformanceTests {
             }
         }
 
+        @Test
         public void testRun() {
             for (int i = 0; i < SIZE; i++) {
                 mDatabase.delete("t1", where[i], null);
@@ -781,6 +799,7 @@ public class NewDatabasePerformanceTests {
             }
         }
 
+        @Test
         public void testRun() {
             for (int i = 0; i < SIZE; i++) {
                 mDatabase.delete("t1", where[i], null);
@@ -824,6 +843,7 @@ public class NewDatabasePerformanceTests {
             }
         }
 
+        @Test
         public void testRun() {
             for (int i = 0; i < SIZE; i++) {
                 mDatabase.update("t1", mValues[i], where[i], null);
@@ -865,6 +885,7 @@ public class NewDatabasePerformanceTests {
             }
         }
 
+        @Test
         public void testRun() {
             for (int i = 0; i < SIZE; i++) {
                 mDatabase.update("t1", mValues[i], where[i], null);
@@ -896,6 +917,7 @@ public class NewDatabasePerformanceTests {
             }
         }
 
+        @Test
         public void testRun() {
             for (int i = 0; i < SIZE; i++) {
                 mDatabase.insert("t1", null, mValues[i]);
@@ -928,6 +950,7 @@ public class NewDatabasePerformanceTests {
             }
         }
 
+        @Test
         public void testRun() {
             for (int i = 0; i < SIZE; i++) {
                 mDatabase.insert("t1", null, mValues[i]);
@@ -959,6 +982,7 @@ public class NewDatabasePerformanceTests {
             }
         }
 
+        @Test
         public void testRun() {
             for (int i = 0; i < SIZE; i++) {
                 mDatabase.insert("t1", null, mValues[i]);
@@ -991,6 +1015,7 @@ public class NewDatabasePerformanceTests {
             }
         }
 
+        @Test
         public void testRun() {
             for (int i = 0; i < SIZE; i++) {
                 mDatabase.insert("t1", null, mValues[i]);
@@ -1029,6 +1054,7 @@ public class NewDatabasePerformanceTests {
             }
         }
 
+        @Test
         public void testRun() {
             for (int i = 0; i < SIZE; i++) {
                 mDatabase.query("t3", COLUMNS, where[i], null, null, null, null);
@@ -1068,6 +1094,7 @@ public class NewDatabasePerformanceTests {
             }
         }
 
+        @Test
         public void testRun() {
             for (int i = 0; i < SIZE; i++) {
                 mDatabase.query("t3", COLUMNS, where[i], null, null, null, null);
@@ -1101,6 +1128,7 @@ public class NewDatabasePerformanceTests {
             }
         }
 
+        @Test
         public void testRun() {
             for (int i = 0; i < SIZE; i++) {
                 mDatabase.query("t4", COLUMNS, where[i], null, null, null, null);
@@ -1137,6 +1165,7 @@ public class NewDatabasePerformanceTests {
 
         }
 
+        @Test
         public void testRun() {
             for (int i = 0; i < SIZE; i++) {
                 mDatabase.query("t4", COLUMNS, where[i], null, null, null, null);
@@ -1174,6 +1203,7 @@ public class NewDatabasePerformanceTests {
             }
         }
 
+        @Test
         public void testRun() {
             for (int i = 0; i < SIZE; i++) {
                 mDatabase.query("t3", COLUMNS, where[i], null, null, null, null);
@@ -1212,6 +1242,7 @@ public class NewDatabasePerformanceTests {
             }
         }
 
+        @Test
         public void testRun() {
             for (int i = 0; i < SIZE; i++) {
                 mDatabase.query("t3", COLUMNS, where[i], null, null, null, null);

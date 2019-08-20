@@ -17,14 +17,20 @@
 
 package org.spatialite;
 
-import android.test.PerformanceTestCase;
-import android.test.suitebuilder.annotation.SmallTest;
-
-import junit.framework.TestCase;
+import org.junit.Test;
+import org.junit.runner.RunWith;
 
 import java.util.Arrays;
 
-public class CursorWindowTest extends TestCase implements PerformanceTestCase {
+import androidx.test.ext.junit.runners.AndroidJUnit4;
+import androidx.test.filters.SmallTest;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
+import static org.spatialite.TestUtils.DELTA;
+
+@RunWith(AndroidJUnit4.class)
+public class CursorWindowTest /*implements PerformanceTestCase*/ {
     static {
         System.loadLibrary("android_spatialite");
     }
@@ -33,11 +39,12 @@ public class CursorWindowTest extends TestCase implements PerformanceTestCase {
     }
 
     // These test can only be run once.
-    public int startPerformance(Intermediates intermediates) {
+    /*public int startPerformance(Intermediates intermediates) {
         return 1;
-    }
+    }*/
 
     @SmallTest
+    @Test
     public void testConstructor_WithName() {
         CursorWindow window = new CursorWindow("MyWindow");
         assertEquals("MyWindow", window.getName());
@@ -46,6 +53,7 @@ public class CursorWindowTest extends TestCase implements PerformanceTestCase {
     }
 
     @SmallTest
+    @Test
     public void testConstructorWithEmptyName() {
         CursorWindow window = new CursorWindow("");
         assertEquals("<unnamed>", window.getName());
@@ -54,6 +62,7 @@ public class CursorWindowTest extends TestCase implements PerformanceTestCase {
     }
 
     @SmallTest
+    @Test
     public void testConstructorWithNullName() {
         CursorWindow window = new CursorWindow(null);
         assertEquals("<unnamed>", window.getName());
@@ -62,6 +71,7 @@ public class CursorWindowTest extends TestCase implements PerformanceTestCase {
     }
 
     @SmallTest
+    @Test
     public void testValues() {
         CursorWindow window = new CursorWindow("MyWindow");
         doTestValues(window);
@@ -74,7 +84,7 @@ public class CursorWindowTest extends TestCase implements PerformanceTestCase {
         double db1 = 1.26;
         assertTrue(window.putDouble(db1, 0, 0));
         double db2 = window.getDouble(0, 0);
-        assertEquals(db1, db2);
+        assertEquals(db1, db2, DELTA);
 
         long int1 = Long.MAX_VALUE;
         assertTrue(window.putLong(int1, 0, 1));
@@ -91,7 +101,7 @@ public class CursorWindowTest extends TestCase implements PerformanceTestCase {
         
         assertTrue(window.putString(Double.toString(42.0), 0, 4));
         assertEquals(Double.toString(42.0), window.getString(0, 4));
-        assertEquals(42.0, window.getDouble(0, 4));
+        assertEquals(42.0, window.getDouble(0, 4), DELTA);
         
         // put blob
         byte[] blob = new byte[1000];

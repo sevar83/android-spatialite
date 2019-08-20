@@ -2,7 +2,6 @@ package org.spatialite.sqlcipher;
 
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabaseCorruptException;
-import android.support.test.runner.AndroidJUnit4;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -10,6 +9,8 @@ import org.spatialite.database.SQLiteDatabase;
 
 import java.io.File;
 import java.io.IOException;
+
+import androidx.test.ext.junit.runners.AndroidJUnit4;
 
 import static junit.framework.Assert.assertNotNull;
 import static junit.framework.Assert.fail;

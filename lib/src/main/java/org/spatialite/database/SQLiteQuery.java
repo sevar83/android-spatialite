@@ -19,11 +19,12 @@ package org.spatialite.database;
 
 import android.database.sqlite.SQLiteDatabaseCorruptException;
 import android.database.sqlite.SQLiteException;
-import android.support.v4.os.CancellationSignal;
-import android.support.v4.os.OperationCanceledException;
 import android.util.Log;
 
 import org.spatialite.CursorWindow;
+
+import androidx.core.os.CancellationSignal;
+import androidx.core.os.OperationCanceledException;
 
 /**
  * Represents a query that reads the resulting rows into a {@link SQLiteQuery}.

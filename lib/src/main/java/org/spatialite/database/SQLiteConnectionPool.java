@@ -24,8 +24,6 @@ package org.spatialite.database;
 import android.annotation.SuppressLint;
 import android.database.sqlite.SQLiteException;
 import android.os.SystemClock;
-import android.support.v4.os.CancellationSignal;
-import android.support.v4.os.OperationCanceledException;
 import android.util.Log;
 import android.util.Printer;
 
@@ -35,6 +33,9 @@ import java.util.Map;
 import java.util.WeakHashMap;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.locks.LockSupport;
+
+import androidx.core.os.CancellationSignal;
+import androidx.core.os.OperationCanceledException;
 
 /**
  * Maintains a pool of active SQLite database connections.

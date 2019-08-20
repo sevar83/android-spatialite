@@ -1,8 +1,6 @@
 package org.spatialite.sqlcipher;
 
 import android.content.Context;
-import android.support.annotation.CallSuper;
-import android.support.test.InstrumentationRegistry;
 import android.util.Log;
 
 import org.junit.After;
@@ -15,6 +13,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 
+import androidx.test.core.app.ApplicationProvider;
+
 import static android.content.ContentValues.TAG;
 
 public abstract class BaseTest {
@@ -26,16 +26,14 @@ public abstract class BaseTest {
     protected File databasePath;
 
     @Before
-    @CallSuper
     public void setUp() {
-        targetContext = InstrumentationRegistry.getTargetContext();
+        targetContext = ApplicationProvider.getApplicationContext();
         databasePath = targetContext.getDatabasePath(DATABASE_NAME);
         prepareDatabaseEnvironment();
         database = createDatabase(databasePath);
     }
 
     @After
-    @CallSuper
     public void tearDown(){
         SQLiteDatabase.releaseMemory();
         database.close();
@@ -56,7 +54,7 @@ public abstract class BaseTest {
     protected void extractAssetToDatabaseDirectory(String fileName) throws IOException {
 
         int length;
-        InputStream sourceDatabase = InstrumentationRegistry.getContext().getAssets().open(fileName);
+        InputStream sourceDatabase = ApplicationProvider.getApplicationContext().getAssets().open(fileName);
         File destinationPath = databasePath;
         OutputStream destination = new FileOutputStream(destinationPath);
 

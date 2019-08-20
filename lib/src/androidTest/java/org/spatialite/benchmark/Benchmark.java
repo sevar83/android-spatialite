@@ -22,8 +22,6 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.database.sqlite.SQLiteStatement;
 import android.provider.BaseColumns;
-import android.support.test.InstrumentationRegistry;
-import android.support.test.runner.AndroidJUnit4;
 import android.util.Log;
 
 import org.junit.Test;
@@ -32,6 +30,10 @@ import org.junit.runner.RunWith;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
+
+import androidx.test.core.app.ApplicationProvider;
+import androidx.test.ext.junit.runners.AndroidJUnit4;
+import androidx.test.filters.LargeTest;
 
 @RunWith(AndroidJUnit4.class)
 public class Benchmark {
@@ -42,6 +44,7 @@ public class Benchmark {
     private PlatformSQLite platformSQLite;
     private RequerySQLite requerySQLite;
 
+    @LargeTest
     @Test
     public void runBenchmark() {
         final int runs = 5;
@@ -49,7 +52,7 @@ public class Benchmark {
         Statistics requery = new Statistics();
         for (int i = 0; i < runs; i++) {
 
-            Context context = InstrumentationRegistry.getContext();
+            Context context = ApplicationProvider.getApplicationContext();
             String dbName = "testAndroid.db";
             context.deleteDatabase(dbName);
             platformSQLite = new PlatformSQLite(context, dbName);

@@ -18,20 +18,28 @@
 package org.spatialite;
 
 import android.database.Cursor;
-import android.test.MoreAsserts;
-import android.test.suitebuilder.annotation.MediumTest;
-import android.test.suitebuilder.annotation.SmallTest;
-import android.test.suitebuilder.annotation.Suppress;
 import android.util.Log;
 
-import junit.framework.TestCase;
-
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.spatialite.database.SQLiteDatabase;
 
 import java.util.ArrayList;
 import java.util.Locale;
 
-public class DatabaseLocaleTest extends TestCase {
+import androidx.test.ext.junit.runners.AndroidJUnit4;
+import androidx.test.filters.MediumTest;
+import androidx.test.filters.SmallTest;
+import androidx.test.filters.Suppress;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
+
+@RunWith(AndroidJUnit4.class)
+public class DatabaseLocaleTest {
 
     private SQLiteDatabase mDatabase;
 
@@ -45,9 +53,8 @@ public class DatabaseLocaleTest extends TestCase {
         "COTE",
     };
 
-    @Override
-    protected void setUp() throws Exception {
-        super.setUp();
+    @Before
+    public void setUp() throws Exception {
         mDatabase = SQLiteDatabase.create(null);
         mDatabase.execSQL(
                 "CREATE TABLE test (id INTEGER PRIMARY KEY, data TEXT COLLATE LOCALIZED);");
@@ -59,10 +66,9 @@ public class DatabaseLocaleTest extends TestCase {
         }
     }
 
-    @Override
-    protected void tearDown() throws Exception {
+    @After
+    public void tearDown() throws Exception {
         mDatabase.close();
-        super.tearDown();
     }
 
     private String[] query(String sql) {
@@ -81,14 +87,16 @@ public class DatabaseLocaleTest extends TestCase {
     }
 
     @MediumTest
+    @Test
     public void testLocaleInsertOrder() throws Exception {
         insertStrings();
         String[] results = query("SELECT data FROM test");
-        MoreAsserts.assertEquals(STRINGS, results);
+        assertEquals(STRINGS, results);
     }
 
     @Suppress // not supporting localized collators
     @MediumTest
+    @Test
     public void testLocaleenUS() throws Exception {
         insertStrings();
         Log.i("LocaleTest", "about to call setLocale en_US");
@@ -99,7 +107,7 @@ public class DatabaseLocaleTest extends TestCase {
         // The database code currently uses PRIMARY collation strength,
         // meaning that all versions of a character compare equal (regardless
         // of case or accents), leaving the "cote" flavors in database order.
-        MoreAsserts.assertEquals(results, new String[] {
+        assertEquals(results, new String[] {
                 STRINGS[4],  // "boy"
                 STRINGS[0],  // sundry forms of "cote"
                 STRINGS[1],
@@ -111,6 +119,7 @@ public class DatabaseLocaleTest extends TestCase {
     }
 
     @SmallTest
+    @Test
     public void testHoge() throws Exception {
         Cursor cursor = null;
         try {

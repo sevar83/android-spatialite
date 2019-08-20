@@ -17,9 +17,9 @@
 
 package org.spatialite.database;
 
-import android.support.v4.os.CancellationSignal;
-
 import java.util.Arrays;
+
+import androidx.core.os.CancellationSignal;
 
 /**
  * A base class for compiled SQLite programs.
