@@ -101,5 +101,6 @@ if (ndkDir == null) {
 
 task buildSqlite(dependsOn: installSqlite, type: Exec) {
     workingDir 'src/main/jni'
-    commandLine "${ndkDir}/ndk-build.cmd", '-j8'   // Add NDK_DEBUG=1 for debug symbols or V=1 for verbose building output
+    println("NDK directory: $ndkDir")
+    commandLine "$ndkDir/ndk-build.cmd", '-j8'   // Add NDK_DEBUG=1 for debug symbols or V=1 for verbose building output
 }
