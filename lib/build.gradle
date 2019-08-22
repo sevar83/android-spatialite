@@ -112,3 +112,15 @@ task buildSqlite(dependsOn: installSqlite, type: Exec) {
         throw GradleScriptException("Unsupported OS")
     }
 }
+
+task ndkClean(type: Exec, description: 'Clean NDK Binaries') {
+    if (OperatingSystem.current().lnux) {
+        commandLine "$ndkDir/ndk-build", 'clean', '-C', file('src/main/jni').absolutePath
+    } else if (OperatingSystem.current().windows) {
+        commandLine "$ndkDir/ndk-build.cmd", 'clean', '-C', file('src/main/jni').absolutePath
+    } else {
+        throw GradleScriptException("Unsupported OS")
+    }
+}
+
+clean.dependsOn 'ndkClean'
