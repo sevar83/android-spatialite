@@ -84,7 +84,7 @@ task installSqlite(dependsOn: downloadSqlite, type: Copy) {
     into 'src/main/jni/ndk-modules/sqlite'
 }
 
-def ndkDir = System.getenv("ANDROID_NDK_HOME")
+def ndkDir = System.getenv("NDK_HOME")
 def propertiesFile = project.rootProject.file('local.properties')
 if (propertiesFile.exists()) {
     Properties properties = new Properties()
