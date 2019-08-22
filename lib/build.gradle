@@ -85,11 +85,18 @@ task installSqlite(dependsOn: downloadSqlite, type: Copy) {
 }
 
 def ndkDir = System.getenv("NDK_HOME")
-def propertiesFile = project.rootProject.file('local.properties')
-if (propertiesFile.exists()) {
-    Properties properties = new Properties()
-    properties.load(propertiesFile.newDataInputStream())
-    ndkDir = properties.getProperty('ndk.dir')
+if (ndkDir == null) {
+    def propertiesFile = project.rootProject.file('local.properties')
+    if (propertiesFile.exists()) {
+        Properties properties = new Properties()
+        properties.load(propertiesFile.newDataInputStream())
+        ndkDir = properties.getProperty('ndk.dir')
+        if (ndkDir == null) {
+            throw GradleScriptException("Either NDK_HOME or ndk.dir in local.properties should point to Android NDK!")
+        }
+    } else {
+        throw GradleScriptException("Either NDK_HOME or ndk.dir in local.properties should point to Android NDK!")
+    }
 }
 
 task buildSqlite(dependsOn: installSqlite, type: Exec) {
