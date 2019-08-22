@@ -9,6 +9,7 @@ apply plugin: 'com.github.dcendents.android-maven'
 group = 'com.github.sevar83'
 
 import de.undercouch.gradle.tasks.download.Download
+import org.gradle.internal.os.OperatingSystem;
 
 gradle.projectsEvaluated {
     preBuild.dependsOn(buildSqlite)
@@ -100,7 +101,14 @@ if (ndkDir == null) {
 }
 
 task buildSqlite(dependsOn: installSqlite, type: Exec) {
-    workingDir 'src/main/jni'
     println("NDK directory: $ndkDir")
-    commandLine "$ndkDir/ndk-build.cmd", '-j8'   // Add NDK_DEBUG=1 for debug symbols or V=1 for verbose building output
+
+    // Add NDK_DEBUG=1 for debug symbols or V=1 for verbose building output
+    if (OperatingSystem.current().linux) {
+        commandLine "$ndkDir/ndk-build", '-j8', '-C', file('src/main/jni').absolutePath
+    } else if (OperatingSystem.current().windows) {
+        commandLine "$ndkDir/ndk-build.cmd", '-j8', '-C', file('src/main/jni').absolutePath
+    } else {
+        throw GradleScriptException("Unsupported OS")
+    }
 }
