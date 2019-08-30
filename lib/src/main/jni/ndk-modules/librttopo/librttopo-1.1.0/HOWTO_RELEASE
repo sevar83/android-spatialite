@@ -1,0 +1,10 @@
+- Set version in configure.ac
+- Tweak -version-info in src/Makefile.am
+- Run make distcheck, fix if needed
+- Commit all of the above, confirm bots are all happy
+- Add annotated tag: git tag -sa librttopo-<version>
+- Push annotated tag to repository: git push <remote> librttopo-<version>
+- Create release artifacts: make dist
+- Upload release artifacts to upload.osgeo.org
+- Update websites (to be defined)
+- Announce on discuss@lists.osgeo.org

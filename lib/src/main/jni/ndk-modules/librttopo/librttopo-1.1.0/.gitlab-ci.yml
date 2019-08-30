@@ -1,0 +1,15 @@
+test:
+  script:
+    - apt-get update -qq
+    - apt-get install -y build-essential autoconf libtool
+    - apt-get install -y zip # for make dist which also produces .zip
+    - apt-get install -y git2cl # for make dist which creates ChangeLog
+    - echo deb http://ftp.debian.org/debian sid main >> /etc/apt/sources.list
+    - apt-get update -qq
+    - apt-cache search libgeos
+    - apt-get install -t sid -y libgeos-dev
+    - geos-config --version || true
+    - ./autogen.sh
+    - ./configure CFLAGS="-Wall -g -O2"
+    - make
+    - make distcheck

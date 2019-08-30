@@ -1,0 +1,9 @@
+# See http://readme.drone.io/usage/overview
+pipeline:
+  build:
+    image: docker.kbt.io/librttopo/build-test:debian-sid
+    commands:
+      - ./autogen.sh
+      - ./configure
+      - make
+      - make distcheck

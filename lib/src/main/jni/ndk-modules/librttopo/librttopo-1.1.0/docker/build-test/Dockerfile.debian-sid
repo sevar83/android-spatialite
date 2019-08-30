@@ -1,0 +1,5 @@
+FROM debian:sid
+RUN apt-get update -qq && apt-get install -y \
+          build-essential autoconf libtool \
+          zip git2cl libgeos-dev
+

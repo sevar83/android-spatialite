@@ -1,0 +1,12 @@
+# Package Information for pkg-config
+
+prefix=@prefix@
+exec_prefix=@exec_prefix@
+libdir=@libdir@
+includedir=@includedir@
+
+Name: rttopo
+Description: the RT Topology library
+Version: @VERSION@
+Libs: -L${libdir} -lrttopo -lm
+Cflags: -I${includedir} 

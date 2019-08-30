@@ -1,0 +1,20 @@
+# http://editorconfig.org
+
+# top-most EditorConfig file
+root = true
+
+# these are the defaults
+[*]
+charset = utf-8
+end_of_line = lf
+trim_trailing_whitespace = true
+insert_final_newline = true
+
+# C files want space
+[*.{c,h}]
+indent_style = space
+indent_size = 2
+
+# Makefiles want tab indentation
+[{Makefile.in,Makefile}]
+indent_style = tab
