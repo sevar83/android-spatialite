@@ -76,7 +76,7 @@ public class SpatialiteTest {
         Cursor c = mDatabase.rawQuery("SELECT geos_version()", new Object[] {});
         assertEquals(1, c.getCount());
         c.moveToFirst();
-        assertEquals("3.4.2-CAPI-1.8.2 r0", c.getString(0));
+        assertEquals("3.7.2-CAPI-1.11.2 b55d2125", c.getString(0));
         c.close();
     }
 
