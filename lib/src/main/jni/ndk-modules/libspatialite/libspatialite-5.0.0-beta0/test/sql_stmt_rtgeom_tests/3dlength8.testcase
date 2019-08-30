@@ -1,0 +1,7 @@
+3dLength - 3D linestring
+:memory: #use in-memory database
+SELECT ST_3dLength(ST_GeomFromText('LINESTRING Z(0 0 0, 1 0 0, 1 0 1, 2 0 1, 2 0 2, 3 0 2, 3 0 3)'))
+1 # rows (not including the header row)
+1 # columns
+ST_3dLength(ST_GeomFromText('LINESTRING Z(0 0 0, 1 0 0, 1 0 1, 2 0 1, 2 0 2, 3 0 2, 3 0 3)'))
+6.0

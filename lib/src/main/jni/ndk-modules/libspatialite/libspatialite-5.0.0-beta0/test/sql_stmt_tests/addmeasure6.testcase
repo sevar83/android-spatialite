@@ -1,0 +1,7 @@
+ST_AddMeasure() - Invalid Point geometry
+:memory: #use in-memory database
+SELECT ST_AddMeasure(MakePoint(1, 2), 10.0, 20.0)
+1 # rows (not including the header row)
+1 # columns
+ST_AddMeasure(MakePoint(1, 2), 10.0, 20.0)
+(NULL)

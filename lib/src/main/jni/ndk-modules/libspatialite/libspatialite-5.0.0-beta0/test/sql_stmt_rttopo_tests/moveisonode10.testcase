@@ -1,0 +1,7 @@
+MoveIsoNode - Double Geometry
+:memory: #use in-memory database
+SELECT ST_MoveIsoNode('topology', -1, 1.1);
+1 # rows (not including the header row)
+1 # columns
+ST_MoveIsoNode('topology', -1, 1.1)
+SQL/MM Spatial exception - invalid argument.

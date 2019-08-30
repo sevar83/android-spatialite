@@ -1,0 +1,7 @@
+StoredProc_CreateTables
+:memory: #use in-memory database
+SELECT StoredProc_CreateTables();
+1 # rows (not including the header row)
+1 # columns
+StoredProc_CreateTables()
+1

@@ -1,0 +1,7 @@
+TopoGeo_ToGeoTableGeneralize - Double prefix
+:memory: #use in-memory database
+SELECT TopoGeo_ToGeoTableGeneralize('topology', 1.2, 'table', NULL, 'out', 10.0);
+1 # rows (not including the header row)
+1 # columns
+TopoGeo_ToGeoTableGeneralize('topology', 1.2, 'table', NULL, 'out', 10.0)
+SQL/MM Spatial exception - invalid argument.

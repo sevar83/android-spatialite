@@ -1,0 +1,7 @@
+EnsureClosedRings GeometryCollection with unclosed Rings (XYM)
+:memory: #use in-memory database
+SELECT AsText(EnsureClosedRings(GeomFromText('GEOMETRYCOLLECTIONM(POINTM(1 1 1), LINESTRINGM(10 10 2, 40 40 3), POLYGONM((50 50 1, 100 50 2, 100 100 3, 50 100 4), (60 60 5, 80 60 6 , 80 80 7, 60 80 8)))', 4326)));
+1 # rows (not including the header row)
+1 # columns
+AsText(EnsureClosedRings(GeomFromText('GEOMETRYCOLLECTIONM(POINTM(1 1 1), LINESTRINGM(10 10 2, 40 40 3), POLYGONM((50 50 1, 100 50 2, 100 100 3, 50 100 4), (60 60 5, 80 60 6 , 80 80 7, 60 80 8)))', 4326)))
+GEOMETRYCOLLECTION M(POINT M(1 1 1), LINESTRING M(10 10 2, 40 40 3), POLYGON M((50 50 1, 100 50 2, 100 100 3, 50 100 4, 50 50 1), (60 60 5, 80 60 6, 80 80 7, 60 80 8, 60 60 5)))

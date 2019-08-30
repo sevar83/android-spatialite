@@ -1,0 +1,7 @@
+WMS_GetFeatureInfoRequestUrl() - Text minx
+:memory: #use in-memory database
+SELECT WMS_GetFeatureInfoRequestUrl('some_url', 'layer', 1024, 1024, 100, 200, 'minx', 30.5, 60.5, 60.5)
+1 # rows (not including the header row)
+1 # columns
+WMS_GetFeatureInfoRequestUrl('some_url', 'layer', 1024, 1024, 100, 200, 'minx', 30.5, 60.5, 60.5)
+(NULL)

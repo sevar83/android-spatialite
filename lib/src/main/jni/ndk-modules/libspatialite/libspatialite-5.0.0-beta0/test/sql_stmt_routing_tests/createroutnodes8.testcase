@@ -1,0 +1,7 @@
+CreateRoutingNodes() - INT geometry-column
+:memory: #use in-memory database
+SELECT CreateRoutingNodes(NULL, 'table', 1, 'from', 'to');
+1 # rows (not including the header row)
+1 # columns
+CreateRoutingNodes(NULL, 'table', 1, 'from', 'to')
+CreateRoutingNodes exception - illegal Geometry Column Name [not a TEXT string].

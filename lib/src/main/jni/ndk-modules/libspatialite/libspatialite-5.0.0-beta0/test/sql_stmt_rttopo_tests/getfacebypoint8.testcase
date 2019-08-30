@@ -1,0 +1,7 @@
+GetFaceByPoint - Text Tolerance
+:memory: #use in-memory database
+SELECT GetFaceByPoint('topology', MakePoint(1, 2, 4326), 'tol');
+1 # rows (not including the header row)
+1 # columns
+GetFaceByPoint('topology', MakePoint(1, 2, 4326), 'tol')
+SQL/MM Spatial exception - invalid argument.

@@ -1,0 +1,7 @@
+ST_LogiNetFromTGeo - Text Network
+:memory: #use in-memory database
+SELECT ST_LogiNetFromTGeo('network', 'topology');
+1 # rows (not including the header row)
+1 # columns
+ST_LogiNetFromTGeo('network', 'topology')
+SQL/MM Spatial exception - invalid network name.

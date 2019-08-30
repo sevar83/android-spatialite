@@ -1,0 +1,7 @@
+CreateRouting_GetLastError()
+:memory: #use in-memory database
+SELECT CreateRouting_GetLastError();
+1 # rows (not including the header row)
+1 # columns
+CreateRouting_GetLastError()
+(NULL)

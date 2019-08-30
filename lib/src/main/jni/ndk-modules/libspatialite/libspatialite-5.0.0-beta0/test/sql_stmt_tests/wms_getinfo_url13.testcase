@@ -1,0 +1,7 @@
+WMS_GetFeatureInfoRequestUrl() - NULL height
+:memory: #use in-memory database
+SELECT WMS_GetFeatureInfoRequestUrl('some_url', 'layer', 1024, NULL, 100, 200, 30, 30, 60, 60)
+1 # rows (not including the header row)
+1 # columns
+WMS_GetFeatureInfoRequestUrl('some_url', 'layer', 1024, NULL, 100, 200, 30, 30, 60, 60)
+(NULL)

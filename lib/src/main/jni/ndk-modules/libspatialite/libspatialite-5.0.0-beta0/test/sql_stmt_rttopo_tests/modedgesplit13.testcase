@@ -1,0 +1,7 @@
+ModEdgeSplit - Invalid BLOB Geometry
+:memory: #use in-memory database
+SELECT ST_ModEdgeSplit('topology', 'face', zeroblob(4));
+1 # rows (not including the header row)
+1 # columns
+ST_ModEdgeSplit('topology', 'face', zeroblob(4))
+SQL/MM Spatial exception - invalid argument.

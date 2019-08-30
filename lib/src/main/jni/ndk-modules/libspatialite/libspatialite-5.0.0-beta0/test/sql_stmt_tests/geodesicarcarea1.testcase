@@ -1,0 +1,7 @@
+geodesic Arc Area - NULL g1
+:memory:
+SELECT GeodesicArcArea(NULL, MakePoint(167.836789, -46.969656, 4326));
+1 # rows
+1 # column
+GeodesicArcArea(NULL, MakePoint(167.836789, -46.969656, 4326))
+(NULL)

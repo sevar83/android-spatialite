@@ -1,0 +1,7 @@
+ST_AddMeasure() - NULL M-start
+:memory: #use in-memory database
+SELECT ST_AddMeasure(GeomFromText('LINESTRING(0 0, 1 0, 1 1, 0 1)'), NULL, 20.0)
+1 # rows (not including the header row)
+1 # columns
+ST_AddMeasure(GeomFromText('LINESTRING(0 0, 1 0, 1 1, 0 1)'), NULL, 20.0)
+(NULL)

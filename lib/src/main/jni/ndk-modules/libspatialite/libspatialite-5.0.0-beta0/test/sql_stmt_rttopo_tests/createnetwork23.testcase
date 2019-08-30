@@ -1,0 +1,7 @@
+CreateNetwork - Double allow-coincident
+:memory: #use in-memory database
+SELECT CreateNetwork('roadsE', 1, 4326, 1, 1.5);
+1 # rows (not including the header row)
+1 # columns
+CreateNetwork('roadsE', 1, 4326, 1, 1.5);
+-1

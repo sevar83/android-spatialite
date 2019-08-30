@@ -1,0 +1,7 @@
+RemIsoEdge - Text Edge
+:memory: #use in-memory database
+SELECT ST_RemIsoEdge('topology', 'node');
+1 # rows (not including the header row)
+1 # columns
+ST_RemIsoEdge('topology', 'node')
+SQL/MM Spatial exception - invalid argument.

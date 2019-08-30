@@ -1,0 +1,7 @@
+ModLinkHeal - Double Link #1
+:memory: #use in-memory database
+SELECT ST_ModLinkHeal('net', 1.3, 2);
+1 # rows (not including the header row)
+1 # columns
+ST_ModLinkHeal('net', 1.3, 2)
+SQL/MM Spatial exception - invalid argument.

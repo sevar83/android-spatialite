@@ -1,0 +1,7 @@
+MakeStringList() - int values
+:memory: #use in-memory database
+SELECT MakeStringList(x) FROM (SELECT 1 AS x UNION SELECT 20 AS x UNION SELECT 300 AS x); 
+1 # rows (not including the header row)
+1 # columns
+MakeStringList(x) FROM (SELECT 1 AS x UNION SELECT 20 AS x UNION SELECT 300 AS x)
+1,20,300

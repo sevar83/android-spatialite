@@ -1,0 +1,7 @@
+TopoGeo_AddLineString - Text Tolerance
+:memory: #use in-memory database
+SELECT TopoGeo_AddLineString('topology', GeomFromText('LINESTRING(0 0, 1 1)', 4326), 'tol');
+1 # rows (not including the header row)
+1 # columns
+TopoGeo_AddLineString('topology', GeomFromText('LINESTRING(0 0, 1 1)', 4326), 'tol')
+SQL/MM Spatial exception - invalid argument.

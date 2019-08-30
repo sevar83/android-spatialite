@@ -1,0 +1,7 @@
+From GeoJSON - Point type-crs-coords-bbox
+:memory:
+SELECT AsEWKT(GeomFromGeoJSON('{"type":"Point","crs":{"type":"name","properties":{"name":"urn:ogc:def:crs:EPSG:4326"}},"coordinates":[1,2,3],"bbox":[1,2,1,2]}'));
+1 # rows
+1 # column
+AsEWKT(GeomFromGeoJSON('{"type":"Point","crs":{"type":"name","properties":{"name":"urn:ogc:def:crs:EPSG:4326"}},"coordinates":[1,2,3],"bbox":[1,2,1,2]}')):0
+SRID=4326;POINT(1 2 3)

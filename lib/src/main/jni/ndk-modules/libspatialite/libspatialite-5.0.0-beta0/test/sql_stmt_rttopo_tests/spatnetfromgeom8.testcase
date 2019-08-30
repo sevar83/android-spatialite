@@ -1,0 +1,7 @@
+ST_SpatNetFromGeom - Text GeomCollection
+:memory: #use in-memory database
+SELECT ST_SpatNetFromGeom('network', 'geom');
+1 # rows (not including the header row)
+1 # columns
+ST_SpatNetFromGeom('network', 'geom')
+SQL/MM Spatial exception - invalid argument.

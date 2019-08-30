@@ -1,0 +1,7 @@
+AsEncodedPolyline - LINESTRING Geometry not 4326
+:memory: #use in-memory database
+SELECT ST_AsEncodedPolyline(GeomFromText('LINESTRING(0 0, 10 10)', 3003));
+1 # rows (not including the header row)
+1 # columns
+ST_AsEncodedPolyline(GeomFromText('LINESTRING(0 0, 10 10)', 3003))
+(NULL)

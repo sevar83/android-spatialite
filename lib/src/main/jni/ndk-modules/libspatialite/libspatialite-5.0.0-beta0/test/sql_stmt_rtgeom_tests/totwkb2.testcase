@@ -1,0 +1,7 @@
+AsTWKB - Int Geometry
+:memory: #use in-memory database
+SELECT AsTWKB(1);
+1 # rows (not including the header row)
+1 # columns
+AsTWKB(1)
+(NULL)

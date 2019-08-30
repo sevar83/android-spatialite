@@ -1,0 +1,7 @@
+CreateTopology - BLOB Srid
+:memory: #use in-memory database
+SELECT CreateTopology('topo', zeroblob(4));
+1 # rows (not including the header row)
+1 # columns
+CreateTopology('topo', zeroblob(4))
+-1

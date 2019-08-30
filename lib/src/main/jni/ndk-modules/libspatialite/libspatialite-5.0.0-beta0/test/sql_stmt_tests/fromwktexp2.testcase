@@ -1,0 +1,7 @@
+From Text - PointZ Exp-2
+:memory:
+SELECT AsText(GeomFromText('POINTZ(.1 -.2 +.3)'));
+1 # rows
+1 # column
+AsText(GeomFromText('POINTZ(.1 -.2 +.3)'))
+POINT Z(0.1 -0.2 0.3)

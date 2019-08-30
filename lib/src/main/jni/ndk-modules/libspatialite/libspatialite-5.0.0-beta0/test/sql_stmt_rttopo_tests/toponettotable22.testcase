@@ -1,0 +1,7 @@
+TopoNet_ToGeoTable - Text with-spatial-inxed
+:memory: #use in-memory database
+SELECT TopoNet_ToGeoTable('network', NULL, 'table', NULL, 'out', 'no');
+1 # rows (not including the header row)
+1 # columns
+TopoNet_ToGeoTable('network', NULL, 'table', NULL, 'out', 'no')
+SQL/MM Spatial exception - invalid argument.

@@ -1,0 +1,7 @@
+IsDecimalNumber() - TEXT valid unsigned
+:memory: #use in-memory database
+SELECT IsDecimalNumber('1234.56');
+1 # rows (not including the header row)
+1 # columns
+IsDecimalNumber('1234.56')
+1

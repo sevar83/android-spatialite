@@ -1,0 +1,7 @@
+geodesic Central Angle - non-geographic SRID
+:memory:
+SELECT GeodesicCentralAngle(MakePoint(172.677712, -34.426461, 3003), MakePoint(167.836789, -46.969656, 3003));
+1 # rows
+1 # column
+GeodesicCentralAngle(MakePoint(172.677712, -34.426461, 3003), MakePoint(167.836789, -46.969656, 3003))
+(NULL)

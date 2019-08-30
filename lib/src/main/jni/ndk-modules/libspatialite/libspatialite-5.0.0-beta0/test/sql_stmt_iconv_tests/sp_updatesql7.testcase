@@ -1,0 +1,7 @@
+StoredProc_UpdateSqlBody - Double SQL body
+:memory: #use in-memory database
+SELECT StoredProc_UpdateSqlBody('name', 1.4);
+1 # rows (not including the header row)
+1 # columns
+StoredProc_UpdateSqlBody('name', 1.4)
+StoredProc exception - illegal Stored Procedure Body [not a BLOB].

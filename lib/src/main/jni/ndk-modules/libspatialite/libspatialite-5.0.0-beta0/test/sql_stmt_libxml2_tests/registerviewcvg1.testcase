@@ -1,0 +1,7 @@
+RegisterSpatialViewCoverage - NULL coverage
+:memory: #use in-memory database
+SELECT SE_RegisterSpatialViewCoverage(NULL, 'table', 'geom');
+1 # rows (not including the header row)
+1 # columns
+SE_RegisterSpatialViewCoverage(NULL, 'table', 'geom')
+-1

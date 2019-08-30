@@ -1,0 +1,7 @@
+IsInteger() - BLOB value
+:memory: #use in-memory database
+SELECT IsInteger(zeroblob(10));
+1 # rows (not including the header row)
+1 # columns
+IsInteger(zeroblob(10))
+-1

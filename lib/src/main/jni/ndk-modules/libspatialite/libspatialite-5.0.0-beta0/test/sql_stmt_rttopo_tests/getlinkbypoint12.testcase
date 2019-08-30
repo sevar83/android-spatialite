@@ -1,0 +1,7 @@
+GetLinkByPoint - Text Geometry
+:memory: #use in-memory database
+SELECT GetLinkByPoint('network', 'geom');
+1 # rows (not including the header row)
+1 # columns
+GetLinkByPoint('network', 'geom')
+SQL/MM Spatial exception - invalid argument.

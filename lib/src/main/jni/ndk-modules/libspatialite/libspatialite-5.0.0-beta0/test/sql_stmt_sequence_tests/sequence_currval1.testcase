@@ -1,0 +1,7 @@
+sequence_currval(NULL) - NULL Sequence
+:memory: #use in-memory database
+SELECT sequence_currval(NULL)
+1 # rows (not including the header row)
+1 # columns
+sequence_currval(NULL)
+(NULL)

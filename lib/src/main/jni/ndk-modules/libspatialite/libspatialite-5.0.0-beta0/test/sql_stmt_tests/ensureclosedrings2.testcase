@@ -1,0 +1,7 @@
+EnsureClosedRings Int Geometry
+:memory: #use in-memory database
+SELECT EnsureClosedRings(1);
+1 # rows (not including the header row)
+1 # columns
+EnsureClosedRings(1)
+(NULL)

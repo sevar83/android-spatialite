@@ -1,0 +1,7 @@
+GetSpatialIndexExtent - TEXT geometry
+:memory: #use in-memory database
+SELECT GetSpatialIndexExtent(NULL, 'table', 'geom');
+1 # rows (not including the header row)
+1 # columns
+GetSpatialIndexExtent(NULL, 'table', 'geom')
+(NULL)

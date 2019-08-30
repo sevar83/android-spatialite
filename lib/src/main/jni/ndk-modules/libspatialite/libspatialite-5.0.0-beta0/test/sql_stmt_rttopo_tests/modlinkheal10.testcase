@@ -1,0 +1,7 @@
+ModLinkHeal - NULL Link #2
+:memory: #use in-memory database
+SELECT ST_ModLinkHeal('net', 1, NULL);
+1 # rows (not including the header row)
+1 # columns
+ST_ModLinkHeal('net', 1, NULL)
+SQL/MM Spatial exception - null argument.

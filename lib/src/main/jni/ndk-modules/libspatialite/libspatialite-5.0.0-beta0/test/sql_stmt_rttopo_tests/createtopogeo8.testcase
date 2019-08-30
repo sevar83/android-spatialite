@@ -1,0 +1,7 @@
+ST_CreateTopoGeo - Text GeomCollection
+:memory: #use in-memory database
+SELECT ST_CreateTopoGeo('topology', 'geom');
+1 # rows (not including the header row)
+1 # columns
+ST_CreateTopoGeo('topology', 'geom')
+SQL/MM Spatial exception - invalid argument.

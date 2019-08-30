@@ -1,0 +1,7 @@
+RemIsoEdge - NULL Edge
+:memory: #use in-memory database
+SELECT ST_RemIsoEdge('topology', NULL);
+1 # rows (not including the header row)
+1 # columns
+ST_RemIsoEdge('topology', NULL)
+SQL/MM Spatial exception - null argument.

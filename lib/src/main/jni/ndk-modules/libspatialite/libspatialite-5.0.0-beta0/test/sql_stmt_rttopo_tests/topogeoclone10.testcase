@@ -1,0 +1,7 @@
+TopoGeo_Clone - Double db-prefix
+:memory: #use in-memory database
+SELECT TopoGeo_Clone(1.5, 'origin', 'destination');
+1 # rows (not including the header row)
+1 # columns
+TopoGeo_Clone(NULL, 'origin', 'destination')
+SQL/MM Spatial exception - invalid argument.

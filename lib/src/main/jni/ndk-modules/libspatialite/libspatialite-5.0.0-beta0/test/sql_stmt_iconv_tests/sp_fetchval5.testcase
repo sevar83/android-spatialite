@@ -1,0 +1,7 @@
+StoredVar_GetValue - Text name
+:memory: #use in-memory database
+SELECT StoredVar_GetValue('xname');
+1 # rows (not including the header row)
+1 # columns
+StoredVar_GetValue('xname')
+(NULL)

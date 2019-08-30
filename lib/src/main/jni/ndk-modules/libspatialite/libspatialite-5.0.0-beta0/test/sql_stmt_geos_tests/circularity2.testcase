@@ -1,0 +1,7 @@
+Circularity - Simple Polygon
+:memory: #use in-memory database
+SELECT Circularity(GeomFromText("POLYGON((0 0, 0 4, 4 4, 4 0, 0 0))"));
+1 # rows (not including the header row)
+1 # columns
+Circularity(GeomFromText("POLYGON((0 0, 0 4, 4 4, 4 0, 0 0))"))
+0.78:2

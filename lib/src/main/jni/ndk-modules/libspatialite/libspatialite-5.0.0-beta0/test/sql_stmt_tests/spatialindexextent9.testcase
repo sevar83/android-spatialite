@@ -1,0 +1,7 @@
+GetSpatialIndexExtent - BLOB table
+:memory: #use in-memory database
+SELECT GetSpatialIndexExtent(NULL, zeroblob(4), 'geom');
+1 # rows (not including the header row)
+1 # columns
+GetSpatialIndexExtent(NULL, zeroblob(4), 'geom')
+(NULL)

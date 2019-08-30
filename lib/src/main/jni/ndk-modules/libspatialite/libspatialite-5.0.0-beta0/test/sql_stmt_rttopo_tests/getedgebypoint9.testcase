@@ -1,0 +1,7 @@
+GetEdgeByPoint - Int Geometry
+:memory: #use in-memory database
+SELECT GetEdgeByPoint('topology', -1);
+1 # rows (not including the header row)
+1 # columns
+GetEdgeByPoint('topology', -1)
+SQL/MM Spatial exception - invalid argument.

@@ -1,0 +1,7 @@
+TopoGeo_RemoveTopoLayer - TEXT TopoLayer
+:memory: #use in-memory database
+SELECT TopoGeo_RemoveTopoLayer('topology', 'out');
+1 # rows (not including the header row)
+1 # columns
+TopoGeo_RemoveTopoLayer('topology', 'out')
+SQL/MM Spatial exception - invalid topology name.

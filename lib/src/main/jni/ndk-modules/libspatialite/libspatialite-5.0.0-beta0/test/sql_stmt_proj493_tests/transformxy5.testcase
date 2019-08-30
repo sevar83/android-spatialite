@@ -1,0 +1,7 @@
+ST_TransformXY - Invalid Geometry
+:memory: #use in-memory database
+SELECT ST_TransformXY(zeroblob(10), 4326)
+1 # rows (not including the header row)
+1 # columns
+ST_TransformXY(zeroblob(10), 4326)
+(NULL)

@@ -1,0 +1,7 @@
+ModLogLinkSplit - NULL Link
+:memory: #use in-memory database
+SELECT ST_ModLogLinkSplit('net', NULL);
+1 # rows (not including the header row)
+1 # columns
+ST_ModLogLinkSplit('net', NULL)
+SQL/MM Spatial exception - null argument.

@@ -1,0 +1,7 @@
+TopoGeo_UpdateSeeds - Int Topology 
+:memory: #use in-memory database
+SELECT TopoGeo_UpdateSeeds(1);
+1 # rows (not including the header row)
+1 # columns
+TopoGeo_UpdateSeeds(1)
+SQL/MM Spatial exception - invalid argument.

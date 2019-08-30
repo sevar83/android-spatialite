@@ -1,0 +1,7 @@
+SqlProc_Execute - just one vararg
+:memory: #use in-memory database
+SELECT SqlProc_Execute(SqlProc_FromText('SELECT @col1@, $col2$ FROM @table@ WHERE @col2@ LIKE ''@filter@''; SELECT Count(*) FROM @table@;'), '@col2@=ref_sys_name');
+1 # rows (not including the header row)
+1 # columns
+SqlProc_Execute(SqlProc_FromText('SELECT @col1@, $col2$ FROM @table@ WHERE @col2@ LIKE ''@filter@''; SELECT Count(*) FROM @table@;'), '@col2@=ref_sys_name')
+SqlProc exception - a fatal SQL error was encountered.

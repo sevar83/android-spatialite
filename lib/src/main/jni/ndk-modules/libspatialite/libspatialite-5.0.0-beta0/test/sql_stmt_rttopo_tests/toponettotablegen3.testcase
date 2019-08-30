@@ -1,0 +1,7 @@
+TopoNet_ToGeoTableGeneralize - Double Network
+:memory: #use in-memory database
+SELECT TopoNet_ToGeoTableGeneralize(1.5, NULL, 'table', NULL, 'out', 10.0);
+1 # rows (not including the header row)
+1 # columns
+TopoNet_ToGeoTableGeneralize(1.5, NULL, 'table', NULL, 'out', 10.0)
+SQL/MM Spatial exception - invalid argument.

@@ -1,0 +1,7 @@
+GetLastTopologyException - Undefined Topology
+:memory: #use in-memory database
+SELECT GetLastTopologyException('topo');
+1 # rows (not including the header row)
+1 # columns
+GetLastTopologyException('topo')
+(NULL)

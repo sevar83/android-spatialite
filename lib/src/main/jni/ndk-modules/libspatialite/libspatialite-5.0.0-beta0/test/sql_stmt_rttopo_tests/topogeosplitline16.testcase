@@ -1,0 +1,7 @@
+TopoGeo_SubdivideLines - Double max-length
+:memory: #use in-memory database
+SELECT AsText(TopoGeo_SubdivideLines(GeomFromText('LINESTRINGZM(1 2 3 4, 5 6 7 8)', 4326), NULL, 1000.0));
+1 # rows (not including the header row)
+1 # columns
+AsText(TopoGeo_SubdivideLines(GeomFromText('LINESTRINGZM(1 2 3 4, 5 6 7 8)', 4326), NULL, 1000.0))
+MULTILINESTRING ZM((1 2 3 4, 5 6 7 8))

@@ -1,0 +1,7 @@
+SqlProc_SetLogfile - BLOB filepath
+:memory: #use in-memory database
+SELECT SqlProc_SetLogfile(zeroblob(10));
+1 # rows (not including the header row)
+1 # columns
+SqlProc_SetLogfile(zeroblob(10))
+SqlProc exception - illegal File Path argument.

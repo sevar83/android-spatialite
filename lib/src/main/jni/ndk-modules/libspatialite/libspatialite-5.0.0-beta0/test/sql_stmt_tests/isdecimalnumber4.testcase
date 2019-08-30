@@ -1,0 +1,7 @@
+IsDecimalNumber() - BLOB
+:memory: #use in-memory database
+SELECT IsDecimalNumber(zeroblob(10));
+1 # rows (not including the header row)
+1 # columns
+IsDecimalNumber(zeroblob(10))
+-1

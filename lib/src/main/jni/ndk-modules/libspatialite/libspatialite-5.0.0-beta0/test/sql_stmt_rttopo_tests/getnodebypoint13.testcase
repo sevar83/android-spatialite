@@ -1,0 +1,7 @@
+GetNodeByPoint - Invalid BLOB Geometry
+:memory: #use in-memory database
+SELECT GetNodeByPoint('topology', zeroblob(4));
+1 # rows (not including the header row)
+1 # columns
+GetNodeByPoint('topology', zeroblob(4))
+SQL/MM Spatial exception - invalid argument.

@@ -1,0 +1,7 @@
+LineFromEncodedPolyline - NULL encoded string
+:memory: #use in-memory database
+SELECT ST_LineFromEncodedPolyline(NULL);
+1 # rows (not including the header row)
+1 # columns
+ST_LineFromEncodedPolyline(NULL);
+(NULL)

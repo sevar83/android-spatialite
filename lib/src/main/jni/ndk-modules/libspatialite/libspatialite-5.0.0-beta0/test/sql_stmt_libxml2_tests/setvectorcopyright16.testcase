@@ -1,0 +1,7 @@
+SetVectorCoverageCopyright - Text License, NULL copyright
+:memory: #use in-memory database
+SELECT SE_SetVectorCoverageCopyright('coverage', NULL, 'CC0 1.0');
+1 # rows (not including the header row)
+1 # columns
+SE_SetVectorCoverageCopyright('coverage', NULL, 'CC0 1.0')
+0

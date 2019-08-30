@@ -1,0 +1,7 @@
+StoredProc_UpdateTitle - BLOB title
+:memory: #use in-memory database
+SELECT StoredProc_UpdateTitle('name', zeroblob(10));
+1 # rows (not including the header row)
+1 # columns
+StoredProc_UpdateTitle('name', zeroblob(10))
+StoredProc exception - illegal Stored Procedure Title [not a TEXT string].

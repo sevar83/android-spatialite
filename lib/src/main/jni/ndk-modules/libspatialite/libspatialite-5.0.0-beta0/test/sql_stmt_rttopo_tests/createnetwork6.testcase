@@ -1,0 +1,7 @@
+CreateNetwork - NULL Spatial
+:memory: #use in-memory database
+SELECT CreateNetwork('roadsA', NULL);
+1 # rows (not including the header row)
+1 # columns
+CreateNetwork('roadsA', NULL)
+1

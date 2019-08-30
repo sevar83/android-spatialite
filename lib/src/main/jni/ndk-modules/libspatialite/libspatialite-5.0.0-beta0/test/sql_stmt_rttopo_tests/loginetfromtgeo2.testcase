@@ -1,0 +1,7 @@
+ST_LogiNetFromTGeo - Int Network
+:memory: #use in-memory database
+SELECT ST_LogiNetFromTGeo(1, 'topology');
+1 # rows (not including the header row)
+1 # columns
+ST_LogiNetFromTGeo(1, 'topology')
+SQL/MM Spatial exception - invalid argument.

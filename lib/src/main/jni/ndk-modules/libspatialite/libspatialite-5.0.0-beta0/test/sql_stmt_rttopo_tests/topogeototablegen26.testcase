@@ -1,0 +1,7 @@
+TopoGeo_ToGeoTableGeneralize - Integer tolerance
+:memory: #use in-memory database
+SELECT TopoGeo_ToGeoTableGeneralize('topology', NULL, 'table', NULL, 'out', 10);
+1 # rows (not including the header row)
+1 # columns
+TopoGeo_ToGeoTableGeneralize('topology', NULL, 'table', NULL, 'out', 10)
+SQL/MM Spatial exception - invalid topology name.

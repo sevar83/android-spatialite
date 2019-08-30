@@ -1,0 +1,7 @@
+TopoGeo_PolyFacesList - NULL out-table
+:memory: #use in-memory database
+SELECT TopoGeo_PolyFacesList('topology', NULL, 'table', NULL, NULL);
+1 # rows (not including the header row)
+1 # columns
+TopoGeo_PolyFacesList('topology', NULL, 'table', NULL, NULL)
+SQL/MM Spatial exception - null argument.

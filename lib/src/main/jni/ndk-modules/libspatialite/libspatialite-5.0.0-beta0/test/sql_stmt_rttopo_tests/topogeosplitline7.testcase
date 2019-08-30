@@ -1,0 +1,7 @@
+TopoGeo_SubdivideLines - invalid BLOB Geometry
+:memory: #use in-memory database
+SELECT TopoGeo_SubdivideLines(zeroblob(100), NULL);
+1 # rows (not including the header row)
+1 # columns
+TopoGeo_SubdivideLines(zeroblob(100), NULL)
+SQL/MM Spatial exception - invalid Geometry.

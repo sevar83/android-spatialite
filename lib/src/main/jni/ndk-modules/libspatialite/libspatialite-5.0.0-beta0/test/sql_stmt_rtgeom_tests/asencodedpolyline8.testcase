@@ -1,0 +1,7 @@
+AsEncodedPolyline - valid Geometry
+:memory: #use in-memory database
+SELECT ST_AsEncodedPolyline(GeomFromText('LINESTRING(10 20, 20 30)', 4326));
+1 # rows (not including the header row)
+1 # columns
+ST_AsEncodedPolyline(GeomFromText('LINESTRING(10 20, 20 30)', 4326))
+_gayB_c`|@_c`|@_c`|@

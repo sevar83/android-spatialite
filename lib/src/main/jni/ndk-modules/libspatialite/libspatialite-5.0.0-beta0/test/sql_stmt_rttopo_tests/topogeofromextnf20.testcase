@@ -1,0 +1,7 @@
+TopoGeo_FromGeoTableNoFaceExt - BLOB tolerance
+:memory: #use in-memory database
+SELECT TopoGeo_FromGeoTableNoFaceExt('topology', NULL, 'table', NULL, 'dustbin', 'dustbinview', NULL, NULL, zeroblob(4));
+1 # rows (not including the header row)
+1 # columns
+TopoGeo_FromGeoTableNoFaceExt('topology', NULL, 'table', NULL, 'dustbin', 'dustbinview', NULL, NULL, zeroblob(4))
+SQL/MM Spatial exception - invalid argument.

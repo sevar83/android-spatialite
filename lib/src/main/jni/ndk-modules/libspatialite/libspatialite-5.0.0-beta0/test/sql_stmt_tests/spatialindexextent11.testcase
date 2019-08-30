@@ -1,0 +1,7 @@
+GetSpatialIndexExtent - INT geometry
+:memory: #use in-memory database
+SELECT GetSpatialIndexExtent(NULL, 'table', 1);
+1 # rows (not including the header row)
+1 # columns
+GetSpatialIndexExtent(NULL, 'table', 1)
+(NULL)

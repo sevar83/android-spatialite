@@ -1,0 +1,7 @@
+IsLowASCII() - valid string - TRUE
+:memory: #use in-memory database
+SELECT IsLowASCII('The quick brown Fox jumps over the lazy Dog.')
+1 # rows (not including the header row)
+1 # columns
+IsLowASCII('The quick brown Fox jumps over the lazy Dog.')
+1

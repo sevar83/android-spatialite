@@ -1,0 +1,7 @@
+DropNetwork - Text Network
+:memory: #use in-memory database
+SELECT DropNetwork('topoW');
+1 # rows (not including the header row)
+1 # columns
+DropNetwork('topoW')
+0

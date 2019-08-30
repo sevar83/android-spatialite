@@ -1,0 +1,7 @@
+RelateMatch - Double matrix
+:memory: #use in-memory database
+SELECT ST_RelateMatch(1.2, "T*T***T**");
+1 # rows (not including the header row)
+1 # columns
+ST_RelateMatch(1.2, "T*T***T**")
+-1

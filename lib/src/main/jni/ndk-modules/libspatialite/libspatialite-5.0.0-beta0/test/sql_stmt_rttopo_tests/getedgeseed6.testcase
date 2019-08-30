@@ -1,0 +1,7 @@
+GetEdgeSeed - NULL Face
+:memory: #use in-memory database
+SELECT TopoGeo_GetEdgeSeed('topology', NULL);
+1 # rows (not including the header row)
+1 # columns
+TopoGeo_GetEdgeSeed('topology', NULL)
+SQL/MM Spatial exception - null argument.

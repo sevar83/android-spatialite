@@ -1,0 +1,7 @@
+CreateTopology - BLOB Topology
+:memory: #use in-memory database
+SELECT CreateTopology(zeroblob(4));
+1 # rows (not including the header row)
+1 # columns
+CreateTopology(zeroblob(4))
+-1

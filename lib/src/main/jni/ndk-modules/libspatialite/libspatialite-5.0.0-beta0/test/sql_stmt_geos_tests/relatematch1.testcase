@@ -1,0 +1,7 @@
+RelateMatch - NULL matrix
+:memory: #use in-memory database
+SELECT ST_RelateMatch(NULL, "T*T***T**");
+1 # rows (not including the header row)
+1 # columns
+ST_RelateMatch(NULL, "T*T***T**")
+-1

@@ -1,0 +1,7 @@
+WMS_DefaultSetting() - Double key
+:memory: #use in-memory database
+SELECT WMS_DefaultSetting('some-url', 'layer', 1.1, 'value');
+1 # rows (not including the header row)
+1 # columns
+WMS_DefaultSetting('some-url', 'layer', 1.1, 'value')
+-1

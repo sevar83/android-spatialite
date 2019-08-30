@@ -1,0 +1,7 @@
+From EWKT - PointZ Exp-4
+:memory:
+SELECT AsText(GeomFromEWKT('SRID=4326;POINT(.1e1 .2e-2 .3E+3)'));
+1 # rows
+1 # column
+AsText(GeomFromEWKT('SRID=4326;POINT(.1e1 .2e-2 .3E+3)'))
+POINT Z(1 0.002 300)

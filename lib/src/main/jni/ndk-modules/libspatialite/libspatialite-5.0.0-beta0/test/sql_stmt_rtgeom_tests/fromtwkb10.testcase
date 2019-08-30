@@ -1,0 +1,7 @@
+GeomFromTWKB - POINT XY
+:memory: #use in-memory database
+SELECT AsEWKT(GeomFromTWKB(X'C10080897A8092F401', 4326));
+1 # rows (not including the header row)
+1 # columns
+AsEWKT(GeomFromTWKB(X'C10080897A8092F401', 4326))
+SRID=4326;POINT(1 2)

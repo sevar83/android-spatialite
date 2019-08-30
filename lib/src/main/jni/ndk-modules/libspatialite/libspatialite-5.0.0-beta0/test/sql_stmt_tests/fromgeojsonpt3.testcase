@@ -1,0 +1,7 @@
+From GeoJSON - Point type-bbox-coords
+:memory:
+SELECT AsText(GeomFromGeoJSON('{"type":"Point","bbox":[1,2,1,2],"coordinates":[1,2]}'));
+1 # rows
+1 # column
+AsText(GeomFromGeoJSON('{"type":"Point","bbox":[1,2,1,2],"coordinates":[1,2]}'))
+POINT(1 2)

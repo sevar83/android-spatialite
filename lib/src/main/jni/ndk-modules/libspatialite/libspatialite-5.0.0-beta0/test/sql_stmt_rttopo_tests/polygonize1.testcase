@@ -1,0 +1,7 @@
+TopoGeo_Polygonize - NULL Topology
+:memory: #use in-memory database
+SELECT TopoGeo_Polygonize(NULL);
+1 # rows (not including the header row)
+1 # columns
+TopoGeo_Polygonize(NULL)
+SQL/MM Spatial exception - null argument.

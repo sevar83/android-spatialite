@@ -1,0 +1,7 @@
+TopoNet_FromGeoTable - Text Network
+:memory: #use in-memory database
+SELECT TopoNet_FromGeoTable('network', NULL, 'table', NULL);
+1 # rows (not including the header row)
+1 # columns
+TopoNet_FromGeoTable('network', NULL, 'table', NULL)
+SQL/MM Spatial exception - invalid network name.

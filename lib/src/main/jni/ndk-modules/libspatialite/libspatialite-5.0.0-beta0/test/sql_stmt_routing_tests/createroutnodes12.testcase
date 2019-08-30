@@ -1,0 +1,7 @@
+CreateRoutingNodes() - INT from-column
+:memory: #use in-memory database
+SELECT CreateRoutingNodes(NULL, 'table', NULL, 1, 'to');
+1 # rows (not including the header row)
+1 # columns
+CreateRoutingNodes(NULL, 'table', NULL, 1, 'to')
+CreateRoutingNodes exception - illegal FromNode Column Name [not a TEXT string].

@@ -1,0 +1,7 @@
+CreateRouting() - Int Geometry Column
+:memory: #use in-memory database
+SELECT CreateRouting('data_route', 'virt_route', 'input', 'from', 'to', 1, 'cost');
+1 # rows (not including the header row)
+1 # columns
+CreateRouting('data_route', 'virt_route', 'input', 'from', 'to', 1, 'cost')
+CreateRouting exception - illegal Geometry Column Name [not a TEXT string].

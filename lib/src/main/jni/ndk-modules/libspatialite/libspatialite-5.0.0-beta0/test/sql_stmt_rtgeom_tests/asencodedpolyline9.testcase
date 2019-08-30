@@ -1,0 +1,7 @@
+AsEncodedPolyline - LINESTRING Geometry non existing SRID
+:memory: #use in-memory database
+SELECT ST_AsEncodedPolyline(GeomFromText('LINESTRING(0 0, 10 10)', 43210));
+1 # rows (not including the header row)
+1 # columns
+ST_AsEncodedPolyline(GeomFromText('LINESTRING(0 0, 10 10)', 43210))
+(NULL)

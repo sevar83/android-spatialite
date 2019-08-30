@@ -1,0 +1,7 @@
+IsPopulatedCoverage - Int DbPrefix
+NEW:memory: #use in-memory database
+SELECT IsPopulatedCoverage(1, 'alpha');
+1 # rows (not including the header row)
+1 # columns
+IsPopulatedCoverage(1, 'alpha')
+-1

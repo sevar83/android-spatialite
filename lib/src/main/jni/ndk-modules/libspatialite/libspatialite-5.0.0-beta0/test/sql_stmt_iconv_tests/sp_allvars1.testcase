@@ -1,0 +1,7 @@
+SqlProc_AllVariables - NULL 
+:memory: #use in-memory database
+SELECT SqlProc_AllVariables(NULL);
+1 # rows (not including the header row)
+1 # columns
+SqlProc_AllVariables(NULL)
+SqlProc exception - illegal SQL Procedure arg [not a BLOB].

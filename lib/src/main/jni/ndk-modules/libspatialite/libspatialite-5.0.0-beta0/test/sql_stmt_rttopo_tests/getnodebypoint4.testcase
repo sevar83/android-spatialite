@@ -1,0 +1,7 @@
+GetNodeByPoint - Blob Topology
+:memory: #use in-memory database
+SELECT GetNodeByPoint(zeroblob(4), MakePoint(1, 2, 4326));
+1 # rows (not including the header row)
+1 # columns
+GetNodeByPoint(zeroblob(4),MakePoint(1, 2, 4326))
+SQL/MM Spatial exception - invalid argument.

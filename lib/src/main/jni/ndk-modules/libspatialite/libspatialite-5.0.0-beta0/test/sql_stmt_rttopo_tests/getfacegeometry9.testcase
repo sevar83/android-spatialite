@@ -1,0 +1,7 @@
+GetFaceGeometry - BLOB Face
+:memory: #use in-memory database
+SELECT ST_GetFaceGeometry('topology', zeroblob(4));
+1 # rows (not including the header row)
+1 # columns
+ST_GetFaceGeometry('topology', zeroblob(4), 2)
+SQL/MM Spatial exception - invalid argument.

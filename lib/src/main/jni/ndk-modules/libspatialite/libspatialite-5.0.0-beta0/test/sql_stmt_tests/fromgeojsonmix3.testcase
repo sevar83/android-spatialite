@@ -1,0 +1,7 @@
+From GeoJSON - MultiPoint bbox-crs-coords-type
+:memory:
+SELECT AsEWKT(GeomFromGeoJSON('{"bbox":[1,1,2,2],"crs":{"type":"name","properties":{"name":"EPSG:4326"}},"coordinates":[[1,2],[2,1]],"type":"MultiPoint"}'));
+1 # rows
+1 # column
+AsEWKT(GeomFromGeoJSON('{"bbox":[1,1,2,2],"crs":{"type":"name","properties":{"name":"EPSG:4326"}},"coordinates":[[1,2],[2,1]],"type":"MultiPoint"}')):0
+SRID=4326;MULTIPOINT(1 2,2 1)

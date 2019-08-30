@@ -1,0 +1,7 @@
+ST_TransformXY - null Geometry
+:memory: #use in-memory database
+SELECT ST_TransformXY(NULL, 4326)
+1 # rows (not including the header row)
+1 # columns
+ST_TransformXY(NULL, 4326)
+(NULL)

@@ -1,0 +1,7 @@
+CreateNetwork - NULL Srid
+:memory: #use in-memory database
+SELECT CreateNetwork('roadsB', 1, NULL);
+1 # rows (not including the header row)
+1 # columns
+CreateNetwork('roadsB', 1, NULL);
+1

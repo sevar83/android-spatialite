@@ -1,0 +1,7 @@
+ST_AddMeasure() - Int geometry
+:memory: #use in-memory database
+SELECT ST_AddMeasure(1, 10.0, 20.0)
+1 # rows (not including the header row)
+1 # columns
+ST_AddMeasure(1, 10.0, 20.0)
+(NULL)

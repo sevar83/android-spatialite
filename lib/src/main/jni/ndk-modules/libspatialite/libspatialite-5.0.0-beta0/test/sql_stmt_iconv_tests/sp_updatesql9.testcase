@@ -1,0 +1,7 @@
+StoredProc_UpdateSqlBody - valid BLOB SQL body
+:memory: #use in-memory database
+SELECT StoredProc_UpdateSqlBody('myname', SqlProc_FromText('SELECT @col@ FROM @tbl@'));
+1 # rows (not including the header row)
+1 # columns
+StoredProc_UpdateSqlBody('myname', SqlProc_FromText('SELECT @col@ FROM @tbl@'))
+0

@@ -1,0 +1,7 @@
+sequence_setval('name', 100) - Named Sequence, valid value
+:memory: #use in-memory database
+SELECT sequence_setval('name', 100)
+1 # rows (not including the header row)
+1 # columns
+sequence_setval('name', 100)
+100

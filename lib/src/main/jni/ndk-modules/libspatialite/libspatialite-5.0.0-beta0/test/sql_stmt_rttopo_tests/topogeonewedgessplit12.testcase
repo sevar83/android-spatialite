@@ -1,0 +1,7 @@
+TopoGeo_NewEdgesSplit - Text max-length
+:memory: #use in-memory database
+SELECT TopoGeo_NewEdgesSplit('topology', 512, 'ten');
+1 # rows (not including the header row)
+1 # columns
+TopoGeo_NewEdgesSplit('topology', 512, 'ten')
+SQL/MM Spatial exception - invalid argument.

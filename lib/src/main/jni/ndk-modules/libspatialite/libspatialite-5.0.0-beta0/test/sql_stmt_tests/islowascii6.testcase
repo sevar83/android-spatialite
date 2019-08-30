@@ -1,0 +1,7 @@
+IsLowASCII() - valid string - TRUE
+:memory: #use in-memory database
+SELECT IsLowASCII('Zwölf Boxkämpfer jagen Victor quer über den großen Sylter Deich.')
+1 # rows (not including the header row)
+1 # columns
+IsLowASCII('Zwölf Boxkämpfer jagen Victor quer über den großen Sylter Deich.')
+0

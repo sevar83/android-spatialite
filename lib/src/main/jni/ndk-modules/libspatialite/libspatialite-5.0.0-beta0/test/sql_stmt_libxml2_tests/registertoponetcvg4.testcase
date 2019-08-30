@@ -1,0 +1,7 @@
+RegisterTopoNetCoverage - BLOB coverage
+:memory: #use in-memory database
+SELECT SE_RegisterTopoNetCoverage(zeroblob(4), 'network');
+1 # rows (not including the header row)
+1 # columns
+SE_RegisterTopoNetCoverage(zeroblob(4), 'network')
+-1

@@ -1,0 +1,7 @@
+ST_Cutter - INT transaction
+:memory: #use in-memory database
+SELECT ST_Cutter(NULL, 'input', 'input_g', 'db-prefix', 'blade', 'blade_g', 'output', 1);
+1 # rows (not including the header row)
+1 # columns
+ST_Cutter(NULL, 'input', 'input_g', 'db-prefix', 'blade', 'blade_g', 'output', 1)
+0

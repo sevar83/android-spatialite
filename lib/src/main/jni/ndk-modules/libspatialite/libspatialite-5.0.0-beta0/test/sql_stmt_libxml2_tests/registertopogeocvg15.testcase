@@ -1,0 +1,7 @@
+RegisterTopoGeoCoverage - Int Abstract
+:memory: #use in-memory database
+SELECT SE_RegisterTopoGeoCoverage('alpha', 'topo', 'title', 1);
+1 # rows (not including the header row)
+1 # columns
+SE_RegisterTopoGeoCoverage('alpha', 'topo', 'title', 1)
+-1

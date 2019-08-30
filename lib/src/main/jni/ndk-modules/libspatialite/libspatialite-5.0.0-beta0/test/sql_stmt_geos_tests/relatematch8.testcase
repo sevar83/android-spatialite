@@ -1,0 +1,7 @@
+RelateMatch - double pattern
+:memory: #use in-memory database
+SELECT ST_RelateMatch('FF0FFF0F2', 1.4);
+1 # rows (not including the header row)
+1 # columns
+ST_RelateMatch('FF0FFF0F2', 1.4)
+-1

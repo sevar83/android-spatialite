@@ -1,0 +1,7 @@
+WMS_RegisterRefSys() - Double layer-name
+:memory: #use in-memory database
+SELECT WMS_RegisterRefSys('some-url', 1.1, 'EPSG:4326', 30, 40, 70, 80)
+1 # rows (not including the header row)
+1 # columns
+WMS_RegisterRefSys('some-url', 1.1, 'EPSG:4326', 30, 40, 70, 80):0
+-1

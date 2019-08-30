@@ -1,0 +1,7 @@
+NewEdgeHeal - Text Edge #1
+:memory: #use in-memory database
+SELECT ST_NewEdgeHeal('topology', 'from', 2);
+1 # rows (not including the header row)
+1 # columns
+ST_NewEdgeHeal('topology', 'from', 2)
+SQL/MM Spatial exception - invalid argument.

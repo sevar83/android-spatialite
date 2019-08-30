@@ -1,0 +1,7 @@
+sequence_setval(NULL, NULL) - NULL Sequence, NULL value
+:memory: #use in-memory database
+SELECT sequence_setval(NULL, NULL)
+1 # rows (not including the header row)
+1 # columns
+sequence_setval(NULL, NULL)
+(NULL)

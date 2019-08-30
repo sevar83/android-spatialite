@@ -1,0 +1,7 @@
+GeometryPointEncode() - invalid BLOB
+:memory: #use in-memory database
+SELECT Hex(GeometryPointEncode(zeroblob(25)))
+1 # rows (not including the header row)
+1 # columns
+Hex(GeometryPointEncode(zeroblob(25)))
+000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000

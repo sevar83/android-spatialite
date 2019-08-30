@@ -1,0 +1,7 @@
+GPKG5
+:memory: #use in-memory database
+SELECT AutoGpkgStop('a')
+1 # rows (not including the header row)
+1 # columns
+AutoGpkgStop('a')
+0

@@ -1,0 +1,7 @@
+FDO_OGR4
+:memory: #use in-memory database
+SELECT AutoFDOStart(1)
+1 # rows (not including the header row)
+1 # columns
+AutoFDOStart(1)
+-1

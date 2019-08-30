@@ -1,0 +1,7 @@
+WMS_DefaultSetting() - BLOB URL
+:memory: #use in-memory database
+SELECT WMS_DefaultSetting(zeroblob(10), 'layer', 'key', 'value')
+1 # rows (not including the header row)
+1 # columns
+WMS_DefaultSetting(zeroblob(10), 'layer', 'key', 'value')
+-1

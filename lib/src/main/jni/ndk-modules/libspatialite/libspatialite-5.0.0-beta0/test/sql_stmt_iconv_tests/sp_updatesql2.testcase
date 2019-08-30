@@ -1,0 +1,7 @@
+StoredProc_UpdateSqlBody - Int name
+:memory: #use in-memory database
+SELECT StoredProc_UpdateSqlBody(1, SqlProc_FromText('SELECT @col1@ FROM @tbl@'));
+1 # rows (not including the header row)
+1 # columns
+StoredProc_UpdateSqlBody(1, SqlProc_FromText('SELECT @col1@ FROM @tbl@'))
+StoredProc exception - illegal Stored Procedure Name [not a TEXT string].

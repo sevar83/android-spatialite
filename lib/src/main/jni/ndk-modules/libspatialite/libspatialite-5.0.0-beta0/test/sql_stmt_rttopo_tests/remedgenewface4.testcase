@@ -1,0 +1,7 @@
+RemEdgeNewFace - Blob Topology
+:memory: #use in-memory database
+SELECT ST_RemEdgeNewFace(zeroblob(4), -1);
+1 # rows (not including the header row)
+1 # columns
+ST_RemEdgeNewFace(zeroblob(4), -1)
+SQL/MM Spatial exception - invalid argument.

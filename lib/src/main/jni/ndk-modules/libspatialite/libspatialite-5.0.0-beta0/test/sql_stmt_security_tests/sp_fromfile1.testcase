@@ -1,0 +1,7 @@
+SqlProc_FromFile - NULL filepath
+:memory: #use in-memory database
+SELECT SqlProc_FromFile(NULL);
+1 # rows (not including the header row)
+1 # columns
+SqlProc_FromFile(NULL)
+SqlProc exception - illegal File Path argument.

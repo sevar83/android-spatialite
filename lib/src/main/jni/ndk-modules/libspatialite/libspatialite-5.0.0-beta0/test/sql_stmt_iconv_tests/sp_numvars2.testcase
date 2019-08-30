@@ -1,0 +1,7 @@
+SqlProc_NumVariables - INT
+:memory: #use in-memory database
+SELECT SqlProc_NumVariables(1);
+1 # rows (not including the header row)
+1 # columns
+SqlProc_NumVariables(1)
+SqlProc exception - illegal SQL Procedure arg [not a BLOB].

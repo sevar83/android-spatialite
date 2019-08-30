@@ -1,0 +1,7 @@
+RelateMatch - BLOB pattern
+:memory: #use in-memory database
+SELECT ST_RelateMatch('FF0FFF0F2', zeroblob(10));
+1 # rows (not including the header row)
+1 # columns
+ST_RelateMatch('FF0FFF0F2', zeroblob(10))
+-1

@@ -1,0 +1,7 @@
+SqlProc_CookedSQL - INT
+:memory: #use in-memory database
+SELECT SqlProc_CookedSQL(1);
+1 # rows (not including the header row)
+1 # columns
+SqlProc_CookedSQL(1)
+SqlProc exception - illegal SQL Procedure arg [not a BLOB].

@@ -1,0 +1,7 @@
+TopoGeo_ModEdgeSplit - Illegal max-length - double
+:memory: #use in-memory database
+SELECT TopoGeo_ModEdgeSplit('topology', 512, 0.0);
+1 # rows (not including the header row)
+1 # columns
+TopoGeo_ModEdgeSplit('topology', 512, 0.0)
+SQL/MM Spatial exception - max_length should be > 0.0.

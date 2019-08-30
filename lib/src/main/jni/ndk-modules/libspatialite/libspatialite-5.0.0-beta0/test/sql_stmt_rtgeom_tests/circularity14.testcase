@@ -1,0 +1,7 @@
+Circularity Geodesic - Point - Ellipsoid
+:memory: #use in-memory database
+SELECT Circularity(GeomFromText("POINT(50.4 50.4)"), 1);
+1 # rows (not including the header row)
+1 # columns
+Circularity(GeomFromText("POINT(50.4 50.4)"), 1)
+(NULL)

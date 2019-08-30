@@ -1,0 +1,7 @@
+GeomFromTWKB - Text srid
+:memory: #use in-memory database
+SELECT GeomFromTWKB(X'C10080897A8092F401', 'srid');
+1 # rows (not including the header row)
+1 # columns
+GeomFromTWKB(X'C10080897A8092F401', 'srid')
+(NULL)

@@ -1,0 +1,7 @@
+StoredProc_Register - NULL SQL body
+:memory: #use in-memory database
+SELECT StoredProc_Register('name', 'title', NULL);
+1 # rows (not including the header row)
+1 # columns
+StoredProc_Register('name', 'title', NULL))
+StoredProc exception - illegal Stored Procedure Body [not a BLOB].

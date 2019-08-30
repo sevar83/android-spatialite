@@ -1,0 +1,7 @@
+ST_SpatNetFromTGeo - NULL Network
+:memory: #use in-memory database
+SELECT ST_SpatNetFromTGeo(NULL, 'topology');
+1 # rows (not including the header row)
+1 # columns
+ST_SpatNetFromTGeo(NULL, 'topology')
+SQL/MM Spatial exception - null argument.

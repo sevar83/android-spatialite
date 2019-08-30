@@ -1,0 +1,7 @@
+RelateMatch - BLOB matrix
+:memory: #use in-memory database
+SELECT ST_RelateMatch(zeroblob(10), "T*T***T**");
+1 # rows (not including the header row)
+1 # columns
+ST_RelateMatch(zeroblob(10), "T*T***T**")
+-1

@@ -1,0 +1,7 @@
+Relate - text bnr
+:memory: #use in-memory database
+SELECT ST_Relate(MakePoint(0, 0, 4326), MakePoint(0, 0, 4326), 'bnr');
+1 # rows (not including the header row)
+1 # columns
+ST_Relate(MakePoint(0, 0, 4326), MakePoint(0, 0, 4326), 'bnr');
+-1

@@ -1,0 +1,7 @@
+TopoGeo_AddLineString - Double Tolerance
+:memory: #use in-memory database
+SELECT TopoGeo_AddLineString('topology', GeomFromText('LINESTRING(0 0, 1 1)', 4326), 0.0);
+1 # rows (not including the header row)
+1 # columns
+TopoGeo_AddLineString('topology', GeomFromText('LINESTRING(0 0, 1 1)', 4326), 0.0)
+SQL/MM Spatial exception - invalid topology name.

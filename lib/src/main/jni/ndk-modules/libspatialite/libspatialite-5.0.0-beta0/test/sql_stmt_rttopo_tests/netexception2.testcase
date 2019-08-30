@@ -1,0 +1,7 @@
+GetLastNetworkException - Undefined Network
+:memory: #use in-memory database
+SELECT GetLastNetworkException('net');
+1 # rows (not including the header row)
+1 # columns
+GetLastNetworkException('net')
+(NULL)

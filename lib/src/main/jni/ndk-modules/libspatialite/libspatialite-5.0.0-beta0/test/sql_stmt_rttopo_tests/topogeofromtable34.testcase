@@ -1,0 +1,7 @@
+TopoGeo_FromGeoTable - NEGATIVE max length
+:memory: #use in-memory database
+SELECT TopoGeo_FromGeoTable('topology', NULL, 'table', NULL, NULL, -1);
+1 # rows (not including the header row)
+1 # columns
+TopoGeo_FromGeoTable('topology', NULL, 'table', NULL, NULL, -1)
+SQL/MM Spatial exception - max_length should be > 0.0.

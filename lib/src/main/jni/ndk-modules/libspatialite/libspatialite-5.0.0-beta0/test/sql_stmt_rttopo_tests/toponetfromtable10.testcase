@@ -1,0 +1,7 @@
+TopoNet_FromGeoTable - NULL table
+:memory: #use in-memory database
+SELECT TopoNet_FromGeoTable('network', NULL, NULL, NULL);
+1 # rows (not including the header row)
+1 # columns
+TopoNet_FromGeoTable('network', NULL, NULL, NULL)
+SQL/MM Spatial exception - invalid argument.

@@ -1,0 +1,7 @@
+IsValidRasterStatistics - Int DbPrefix
+NEW:memory: #use in-memory database
+SELECT IsValidRasterStatistics(1, 'alpha', zeroblob(4));
+1 # rows (not including the header row)
+1 # columns
+IsValidRasterStatistics(1, 'alpha', zeroblob(4))
+-1

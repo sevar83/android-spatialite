@@ -1,0 +1,7 @@
+GetFaceByPoint - Text Geometry
+:memory: #use in-memory database
+SELECT GetFaceByPoint('topology', 'geom');
+1 # rows (not including the header row)
+1 # columns
+GetFaceByPoint('topology', 'geom')
+SQL/MM Spatial exception - invalid argument.

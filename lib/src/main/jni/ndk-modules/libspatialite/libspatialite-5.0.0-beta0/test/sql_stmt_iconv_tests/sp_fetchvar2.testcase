@@ -1,0 +1,7 @@
+StoredVar_Get - Int name
+:memory: #use in-memory database
+SELECT StoredVar_Get(1);
+1 # rows (not including the header row)
+1 # columns
+StoredVar_Get(1)
+StoredVar exception - illegal Stored Variable Name [not a TEXT string].

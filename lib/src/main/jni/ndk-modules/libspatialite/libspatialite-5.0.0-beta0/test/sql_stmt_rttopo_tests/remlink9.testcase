@@ -1,0 +1,7 @@
+RemoveLink - NULL Link
+:memory: #use in-memory database
+SELECT ST_RemoveLink('net', NULL);
+1 # rows (not including the header row)
+1 # columns
+ST_RemoveLink('net', NULL)
+SQL/MM Spatial exception - null argument.

@@ -1,0 +1,7 @@
+ModLogLinkSplit - Text Link
+:memory: #use in-memory database
+SELECT ST_ModLogLinkSplit('net', 'node');
+1 # rows (not including the header row)
+1 # columns
+ST_ModLogLinkSplit('net', 'node')
+SQL/MM Spatial exception - invalid argument.

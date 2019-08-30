@@ -1,0 +1,7 @@
+GeomFromTWKB - NULL TWKB
+:memory: #use in-memory database
+SELECT GeomFromTWKB(NULL);
+1 # rows (not including the header row)
+1 # columns
+GeomFromTWKB(NULL);
+(NULL)

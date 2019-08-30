@@ -1,0 +1,7 @@
+SqlProc_VarValue - NULL Value
+:memory: #use in-memory database
+SELECT SqlProc_VarValue('$name$', NULL);
+1 # rows (not including the header row)
+1 # columns
+SqlProc_VarValue('$name$', NULL)
+$name$=NULL

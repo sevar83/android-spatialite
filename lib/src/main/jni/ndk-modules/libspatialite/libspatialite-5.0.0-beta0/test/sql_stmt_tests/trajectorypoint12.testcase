@@ -1,0 +1,7 @@
+ST_TrajectoryInterpolatePoint - Valid Trajectory ZM -- After
+:memory: #use in-memory database
+SELECT ST_AsText(ST_TrajectoryInterpolatePoint(ST_GeomFromText('LINESTRINGZM(0 0 0 0, 10 10 10 10)', 4326), 11));
+1 # rows (not including the header row)
+1 # columns
+ST_AsText(ST_TrajectoryInterpolatePoint(ST_GeomFromText('LINESTRINGZM(0 0 0 0, 10 10 10 10)', 4326), 11))
+POINT ZM(10 10 10 11)

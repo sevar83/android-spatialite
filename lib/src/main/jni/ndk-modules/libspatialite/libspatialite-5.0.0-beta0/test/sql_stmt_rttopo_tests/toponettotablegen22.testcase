@@ -1,0 +1,7 @@
+TopoNet_ToGeoTableGeneralize - Text tolerance
+:memory: #use in-memory database
+SELECT TopoNet_ToGeoTableGeneralize('network', NULL, 'table', NULL, 'out', 'tol');
+1 # rows (not including the header row)
+1 # columns
+TopoNet_ToGeoTableGeneralize('network', NULL, 'table', NULL, 'out', 'tol')
+SQL/MM Spatial exception - invalid argument.

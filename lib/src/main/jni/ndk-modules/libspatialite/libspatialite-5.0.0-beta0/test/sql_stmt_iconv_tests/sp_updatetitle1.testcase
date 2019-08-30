@@ -1,0 +1,7 @@
+StoredProc_UpdateTitle - NULL name
+:memory: #use in-memory database
+SELECT StoredProc_UpdateTitle(NULL, 'title');
+1 # rows (not including the header row)
+1 # columns
+StoredProc_UpdateTitle(NULL, 'title')
+StoredProc exception - illegal Stored Procedure Name [not a TEXT string].

@@ -1,0 +1,7 @@
+CreateRouting() - NULL Overwrite
+:memory: #use in-memory database
+SELECT CreateRouting('data_route', 'virt_route', 'input', 'from', 'to', 'geom', 'cost', 'name', 1, 1, 'fromto', 'tofrom', NULL);
+1 # rows (not including the header row)
+1 # columns
+CreateRouting('data_route', 'virt_route', 'input', 'from', 'to', 'geom', 'cost', 'name', 1, 1, 'fromto', 'tofrom', NULL)
+CreateRouting exception - illegal OverWrite option [not an INTEGER].

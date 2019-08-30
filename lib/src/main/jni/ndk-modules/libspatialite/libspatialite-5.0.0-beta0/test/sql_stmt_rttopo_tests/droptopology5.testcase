@@ -1,0 +1,7 @@
+DropTopology - Text Topology
+:memory: #use in-memory database
+SELECT DropTopology('topoW');
+1 # rows (not including the header row)
+1 # columns
+DropTopology('topoW')
+0

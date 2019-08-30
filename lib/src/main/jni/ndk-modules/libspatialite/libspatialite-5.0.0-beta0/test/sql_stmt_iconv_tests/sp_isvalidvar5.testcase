@@ -1,0 +1,7 @@
+SqlProc_IsValidVarValue - valid TEXT
+:memory: #use in-memory database
+SELECT SqlProc_IsValidVarValue('@var@=value');
+1 # rows (not including the header row)
+1 # columns
+SqlProc_IsValidVarValue('@var@=value')
+1

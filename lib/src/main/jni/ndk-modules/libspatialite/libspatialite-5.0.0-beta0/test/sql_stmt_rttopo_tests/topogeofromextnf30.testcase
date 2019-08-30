@@ -1,0 +1,7 @@
+TopoGeo_FromGeoTableNoFaceExt - Double max-length
+:memory: #use in-memory database
+SELECT TopoGeo_FromGeoTableNoFaceExt('topology', NULL, 'table', NULL, 'dustbin', 'dustbinview', NULL, 5000.0);
+1 # rows (not including the header row)
+1 # columns
+TopoGeo_FromGeoTableNoFaceExt('topology', NULL, 'table', NULL, 'dustbin', 'dustbinview', NULL, 5000.0)
+SQL/MM Spatial exception - invalid topology name.

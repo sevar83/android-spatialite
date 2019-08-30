@@ -56,7 +56,7 @@ public class SpatialiteTest {
         Cursor c = mDatabase.rawQuery("SELECT spatialite_version()", new Object[] {});
         assertEquals(1, c.getCount());
         c.moveToFirst();
-        assertEquals("4.3.0a", c.getString(0));
+        assertEquals("5.0.0-beta0", c.getString(0));
         c.close();
     }
 
@@ -66,7 +66,7 @@ public class SpatialiteTest {
         Cursor c = mDatabase.rawQuery("SELECT proj4_version()", new Object[] {});
         assertEquals(1, c.getCount());
         c.moveToFirst();
-        assertEquals("Rel. 4.8.0, 6 March 2012", c.getString(0));
+        assertEquals("Rel. 4.9.3, 15 August 2016", c.getString(0));
         c.close();
     }
 
@@ -77,6 +77,16 @@ public class SpatialiteTest {
         assertEquals(1, c.getCount());
         c.moveToFirst();
         assertEquals("3.7.2-CAPI-1.11.2 b55d2125", c.getString(0));
+        c.close();
+    }
+
+    @SmallTest
+    @Test
+    public void testVersion_RtTopo() throws Exception {
+        Cursor c = mDatabase.rawQuery("SELECT rttopo_version()", new Object[] {});
+        assertEquals(1, c.getCount());
+        c.moveToFirst();
+        assertEquals("1.1.0-dev", c.getString(0));
         c.close();
     }
 
@@ -140,7 +150,7 @@ public class SpatialiteTest {
         c.close();
     }
 
-    @SmallTest
+    /*@SmallTest
     @Test
     public void testHasGeosTrunk() throws Exception {
         Cursor c = mDatabase.rawQuery("SELECT HasGeosTrunk()", new Object[] {});
@@ -148,7 +158,7 @@ public class SpatialiteTest {
         c.moveToFirst();
         assertEquals(1, c.getInt(0));
         c.close();
-    }
+    }*/
 
     /*@SmallTest
     @Test
@@ -194,6 +204,46 @@ public class SpatialiteTest {
     @Test
     public void testHasGeoPackage() throws Exception {
         Cursor c = mDatabase.rawQuery("SELECT HasGeoPackage()", new Object[] {});
+        assertEquals(1, c.getCount());
+        c.moveToFirst();
+        assertEquals(1, c.getInt(0));
+        c.close();
+    }
+
+    @SmallTest
+    @Test
+    public void testHasRtTopo() {
+        Cursor c = mDatabase.rawQuery("SELECT HasRtTopo()", new Object[] {});
+        assertEquals(1, c.getCount());
+        c.moveToFirst();
+        assertEquals(1, c.getInt(0));
+        c.close();
+    }
+
+    @SmallTest
+    @Test
+    public void testHasTopology() {
+        Cursor c = mDatabase.rawQuery("SELECT HasTopology()", new Object[] {});
+        assertEquals(1, c.getCount());
+        c.moveToFirst();
+        assertEquals(1, c.getInt(0));
+        c.close();
+    }
+
+    @SmallTest
+    @Test
+    public void testHasKNN() {
+        Cursor c = mDatabase.rawQuery("SELECT HasKNN()", new Object[] {});
+        assertEquals(1, c.getCount());
+        c.moveToFirst();
+        assertEquals(1, c.getInt(0));
+        c.close();
+    }
+
+    @SmallTest
+    @Test
+    public void testHasRouting() {
+        Cursor c = mDatabase.rawQuery("SELECT HasRouting()", new Object[] {});
         assertEquals(1, c.getCount());
         c.moveToFirst();
         assertEquals(1, c.getInt(0));

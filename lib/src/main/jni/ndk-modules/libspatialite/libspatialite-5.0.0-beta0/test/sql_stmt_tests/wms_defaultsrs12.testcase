@@ -1,0 +1,7 @@
+WMS_DefaultRefSys() - BLOB ref-sys
+:memory: #use in-memory database
+SELECT WMS_DefaultRefSys('some-url', 'layer', zeroblob(10))
+1 # rows (not including the header row)
+1 # columns
+WMS_DefaultRefSys('some-url', 'layer', zeroblob(10)):0
+-1

@@ -1,0 +1,7 @@
+StoredVar_Register - Double Value
+:memory: #use in-memory database
+SELECT StoredVar_Register('varfloat', 'title', 1.1);
+1 # rows (not including the header row)
+1 # columns
+StoredVar_Register('varfloat', 'title', 1.1))
+1

@@ -1,0 +1,7 @@
+ST_ValidLogicalNet - Blob Network
+:memory: #use in-memory database
+SELECT ST_ValidLogicalNet(zeroblob(4));
+1 # rows (not including the header row)
+1 # columns
+ST_ValidLogicalNet(zeroblob(4))
+SQL/MM Spatial exception - invalid argument.

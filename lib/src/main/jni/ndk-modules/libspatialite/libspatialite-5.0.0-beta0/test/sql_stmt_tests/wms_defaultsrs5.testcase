@@ -1,0 +1,7 @@
+WMS_DefaultRefSys() - NULL layer-name
+:memory: #use in-memory database
+SELECT WMS_DefaultRefSys('some-url', NULL, 'EPSG:4326')
+1 # rows (not including the header row)
+1 # columns
+WMS_DefaultRefSys('some-url', NULL, 'EPSG:4326'):0
+-1

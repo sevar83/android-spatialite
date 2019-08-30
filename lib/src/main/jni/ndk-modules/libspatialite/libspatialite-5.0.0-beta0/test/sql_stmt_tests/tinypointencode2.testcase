@@ -1,0 +1,7 @@
+TinyPointEncode() - INTEGER
+:memory: #use in-memory database
+SELECT TinyPointEncode(1)
+1 # rows (not including the header row)
+1 # columns
+TinyPointEncode(1)
+1

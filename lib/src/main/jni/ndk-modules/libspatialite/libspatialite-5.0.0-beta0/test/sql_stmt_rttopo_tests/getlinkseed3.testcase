@@ -1,0 +1,7 @@
+GetLinkSeed - Double Topology
+:memory: #use in-memory database
+SELECT TopoNet_GetLinkSeed(1.2, 1);
+1 # rows (not including the header row)
+1 # columns
+TopoNet_GetLinkSeed(1.2, 1)
+SQL/MM Spatial exception - invalid argument.

@@ -1,0 +1,7 @@
+PostgreSql_ResetLastError 
+:memory: #use in-memory database
+SELECT PostgreSql_ResetLastError ();
+1 # rows (not including the header row)
+1 # columns
+PostgreSql_ResetLastError ()
+1

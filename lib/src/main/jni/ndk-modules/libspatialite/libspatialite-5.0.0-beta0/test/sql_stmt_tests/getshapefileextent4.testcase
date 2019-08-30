@@ -1,0 +1,7 @@
+GetShapefileExtent() - BLOB VirtualTable name
+:memory: #use in-memory database
+SELECT GetShapefileExtent(zeroblob(10))
+1 # rows (not including the header row)
+1 # columns
+GetShapefileExtent(zeroblob(10))
+(NULL)

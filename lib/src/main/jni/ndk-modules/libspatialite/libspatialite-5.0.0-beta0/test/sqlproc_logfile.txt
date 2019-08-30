@@ -1,0 +1,41 @@
+--
+-- creating a table
+--
+CREATE TABLE my_test (
+    id INTEGER PRIMARY KEY,
+    name TEXT NOT NULL,
+    value DOUBLE NOT NULL);
+    
+--
+-- populating the table
+--
+INSERT INTO my_test (id, name, value) VALUES (NULL, 'alpha', 1.5);
+INSERT INTO my_test (id, name, value) VALUES (NULL, 'beta', 2.5);
+INSERT INTO my_test (id, name, value) VALUES (NULL, 'gamma', 3.5);
+INSERT INTO my_test (id, name, value) VALUES (NULL, 'delta', 4.5);
+INSERT INTO my_test (id, name, value) VALUES (NULL, 'epsilon', 5.5);
+
+--
+-- first check
+--
+SELECT * FROM my_test;
+
+--
+-- testing update
+--
+UPDATE my_test SET name = 'DELTA' WHERE value = 4.5;
+
+--
+-- testing delete
+--
+DELETE FROM my_test WHERE name = 'beta';
+
+--
+-- second check
+--
+SELECT * FROM my_test;
+
+--
+-- last check
+--
+SELECT * FROM my_test WHERE name = 'none';

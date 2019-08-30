@@ -1,0 +1,7 @@
+DrapeLineExceptions - double geom1
+:memory: #use in-memory database
+SELECT AsText(ST_DrapeLineExceptions(1.2, GeomFromText('LINESTRING Z(0 0 0, 1 1 1, 5 1 2)')));
+1 # rows (not including the header row)
+1 # columns
+AsText(ST_DrapeLineExceptions(1.2, GeomFromText('LINESTRING Z(0 0 0, 1 1 1, 5 1 2)')))
+(NULL)

@@ -1,0 +1,7 @@
+TopoNet_DisambiguateSegmentLinks - Int Network
+:memory: #use in-memory database
+SELECT TopoNet_DisambiguateSegmentLinks(1);
+1 # rows (not including the header row)
+1 # columns
+TopoNet_DisambiguateSegmentLinks(1)
+SQL/MM Spatial exception - invalid argument.

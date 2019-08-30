@@ -1,0 +1,7 @@
+IsLowASCII() - BLOB string
+:memory: #use in-memory database
+SELECT IsLowASCII(zeroblob(10))
+1 # rows (not including the header row)
+1 # columns
+IsLowASCII(zeroblob(10))
+-1

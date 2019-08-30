@@ -1,0 +1,7 @@
+GetLinkSeed - BLOB Face
+:memory: #use in-memory database
+SELECT TopoNet_GetLinkSeed('network', zeroblob(4));
+1 # rows (not including the header row)
+1 # columns
+TopoNet_GetLinkSeed('network', zeroblob(4), 2)
+SQL/MM Spatial exception - invalid argument.

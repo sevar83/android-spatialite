@@ -1,0 +1,7 @@
+RegisterVirtualShapeCoverage - Double f_table_name
+:memory: #use in-memory database
+SELECT SE_RegisterVirtualShapeCoverage('alpha', 1.1, 'geom');
+1 # rows (not including the header row)
+1 # columns
+SE_RegisterVirtualShapeCoverage('alpha', 1.1, 'geom')
+-1

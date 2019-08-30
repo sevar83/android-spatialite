@@ -1,0 +1,7 @@
+StoredProc_UpdateTitle - Text title
+:memory: #use in-memory database
+SELECT StoredProc_UpdateTitle('procname', 'another title');
+1 # rows (not including the header row)
+1 # columns
+StoredProc_UpdateTitle('procname', 'another title')
+0

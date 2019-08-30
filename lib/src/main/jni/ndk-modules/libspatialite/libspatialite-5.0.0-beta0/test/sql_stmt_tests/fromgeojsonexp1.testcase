@@ -1,0 +1,7 @@
+From GeoJSON - PointZ Exp-1
+:memory:
+SELECT AsText(GeomFromGeoJSON('{"type":"Point","coordinates":[.1,.2,.3]}'));
+1 # rows
+1 # column
+AsText(GeomFromGeoJSON('{"type":"Point","coordinates":[.1,.2,.3]}'))
+POINT Z(0.1 0.2 0.3)

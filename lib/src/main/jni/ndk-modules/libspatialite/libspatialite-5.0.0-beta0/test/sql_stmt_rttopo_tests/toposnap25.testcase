@@ -1,0 +1,7 @@
+TopoGeo_TopoSnap - long form NULL iterate
+:memory: #use in-memory database
+SELECT TopoGeo_TopoSnap('topo', MakePoint(1, 2, 4326), 0.01, 0.1, NULL);
+1 # rows (not including the header row)
+1 # columns
+TopoGeo_TopoSnap('topo', MakePoint(1, 2, 4326), 0.01, 0.1, NULL)
+SQL/MM Spatial exception - null argument.

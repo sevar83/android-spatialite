@@ -1,0 +1,7 @@
+ST_SpatNetFromGeom - Invalid BLOB GeomCollection
+:memory: #use in-memory database
+SELECT ST_SpatNetFromGeom('network', zeroblob(100));
+1 # rows (not including the header row)
+1 # columns
+ST_SpatNetFromGeom('network', zeroblob(100))
+SQL/MM Spatial exception - not a Geometry.

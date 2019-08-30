@@ -1,0 +1,7 @@
+RemIsoNode - Text Node
+:memory: #use in-memory database
+SELECT ST_RemIsoNode('topology', 'node');
+1 # rows (not including the header row)
+1 # columns
+ST_RemIsoNode('topology', 'node')
+SQL/MM Spatial exception - invalid argument.

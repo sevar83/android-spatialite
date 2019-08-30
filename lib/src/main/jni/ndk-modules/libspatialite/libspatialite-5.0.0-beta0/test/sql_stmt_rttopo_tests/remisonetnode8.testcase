@@ -1,0 +1,7 @@
+RemIsoNetNode - Text Node
+:memory: #use in-memory database
+SELECT ST_RemIsoNetNode('net', 'node');
+1 # rows (not including the header row)
+1 # columns
+ST_RemIsoNetNode('net', 'node')
+SQL/MM Spatial exception - invalid argument.

@@ -1,0 +1,7 @@
+TopoGeo_AddLineStringNoFace - Invalid BLOB Geometry
+:memory: #use in-memory database
+SELECT TopoGeo_AddLineStringNoFace('topology', zeroblob(4));
+1 # rows (not including the header row)
+1 # columns
+TopoGeo_AddLineStringNoFace('topology', zeroblob(4))
+SQL/MM Spatial exception - invalid argument.

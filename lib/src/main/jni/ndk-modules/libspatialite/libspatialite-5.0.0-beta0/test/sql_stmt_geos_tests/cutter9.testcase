@@ -1,0 +1,7 @@
+ST_Cutter - NULL blade-geom
+:memory: #use in-memory database
+SELECT ST_Cutter('db-prefix', 'input', 'input_g', NULL, 'blade', NULL, 'output');
+1 # rows (not including the header row)
+1 # columns
+ST_Cutter('db-prefix', 'input', 'input_g', NULL, 'blade', NULL, 'output')
+0

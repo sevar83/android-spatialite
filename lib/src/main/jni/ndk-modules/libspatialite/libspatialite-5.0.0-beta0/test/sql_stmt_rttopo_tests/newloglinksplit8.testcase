@@ -1,0 +1,7 @@
+NewLogLinkSplit - Text Link
+:memory: #use in-memory database
+SELECT ST_NewLogLinkSplit('net', 'node');
+1 # rows (not including the header row)
+1 # columns
+ST_NewLogLinkSplit('net', 'node')
+SQL/MM Spatial exception - invalid argument.

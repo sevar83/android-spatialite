@@ -1,0 +1,7 @@
+SqlProc_IsValid - INT
+:memory: #use in-memory database
+SELECT SqlProc_isValid(1);
+1 # rows (not including the header row)
+1 # columns
+SqlProc_isValid(1)
+0

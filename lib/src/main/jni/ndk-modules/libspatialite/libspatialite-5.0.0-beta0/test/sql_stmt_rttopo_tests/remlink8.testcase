@@ -1,0 +1,7 @@
+RemoveLink - Text Link
+:memory: #use in-memory database
+SELECT ST_RemoveLink('net', 'node');
+1 # rows (not including the header row)
+1 # columns
+ST_RemoveLink('net', 'link')
+SQL/MM Spatial exception - invalid argument.

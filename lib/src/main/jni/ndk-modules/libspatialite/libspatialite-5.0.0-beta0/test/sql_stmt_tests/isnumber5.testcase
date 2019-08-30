@@ -1,0 +1,7 @@
+IsNumber() - TEXT invalid
+:memory: #use in-memory database
+SELECT IsNumber('number');
+1 # rows (not including the header row)
+1 # columns
+IsNumber('number')
+0

@@ -1,0 +1,7 @@
+SqlProc_SetLogfile - BLOB append
+:memory: #use in-memory database
+SELECT SqlProc_SetLogfile(NULL, zeroblob(10));
+1 # rows (not including the header row)
+1 # columns
+SqlProc_SetLogfile(NULL, zeroblob(10))
+SqlProc exception - illegal Append Mode argument.

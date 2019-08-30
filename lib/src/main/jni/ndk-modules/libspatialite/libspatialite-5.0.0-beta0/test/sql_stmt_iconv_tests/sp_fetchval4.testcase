@@ -1,0 +1,7 @@
+StoredVar_GetValue - BLOB name
+:memory: #use in-memory database
+SELECT StoredVar_GetValue(zeroblob(10));
+1 # rows (not including the header row)
+1 # columns
+StoredVar_GetValue(zeroblob(10))
+StoredVar exception - illegal Stored Variable Name [not a TEXT string].

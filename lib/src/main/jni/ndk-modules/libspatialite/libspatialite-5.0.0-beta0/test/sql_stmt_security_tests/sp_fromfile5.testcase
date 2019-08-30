@@ -1,0 +1,7 @@
+SqlProc_FromFile - not existing filepath
+:memory: #use in-memory database
+SELECT SqlProc_FromFile('not_existing.file');
+1 # rows (not including the header row)
+1 # columns
+SqlProc_FromFile('not_existing.file')
+SqlProc exception - unable to parse the external File.

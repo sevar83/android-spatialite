@@ -1,0 +1,7 @@
+TopoGeo_RemoveSmallFaces - INT min-area
+:memory: #use in-memory database
+SELECT TopoGeo_RemoveSmallFaces('topology', 0.5, 1);
+1 # rows (not including the header row)
+1 # columns
+TopoGeo_RemoveSmallFaces('topology', 0.5, 1)
+SQL/MM Spatial exception - invalid topology name.

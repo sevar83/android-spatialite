@@ -1,0 +1,7 @@
+ST_IsValidTrajectory - MULTILINESTRING M Geometry
+:memory: #use in-memory database
+SELECT ST_IsValidTrajectory(ST_GeomFromText('MULTILINESTRINGM((10 10 10, 20 20 20), (50 50 50, 60 60 60))'));
+1 # rows (not including the header row)
+1 # columns
+ST_IsValidTrajectory(ST_GeomFromText('MULTILINESTRINGM((10 10 10, 20 20 20), (50 50 50, 60 60 60))'))
+0

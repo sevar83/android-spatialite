@@ -1,0 +1,7 @@
+SqlProc_AllVariables - valid BLOB
+:memory: #use in-memory database
+SELECT SqlProc_AllVariables(SqlProc_FromText('SELECT @col1@, $col2$ FROM @table@'));
+1 # rows (not including the header row)
+1 # columns
+SqlProc_AllVariables(SqlProc_FromText('SELECT @col1@, $col2$ FROM @table@'))
+@col1@ @col2@ @table@

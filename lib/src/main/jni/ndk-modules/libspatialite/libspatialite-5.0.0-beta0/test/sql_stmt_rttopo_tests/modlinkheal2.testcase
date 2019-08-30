@@ -1,0 +1,7 @@
+ModLinkHeal - Int Network
+:memory: #use in-memory database
+SELECT ST_ModLinkHeal(1, 1, 2);
+1 # rows (not including the header row)
+1 # columns
+ST_ModLinkHeal(1, 1, 2)
+SQL/MM Spatial exception - invalid argument.

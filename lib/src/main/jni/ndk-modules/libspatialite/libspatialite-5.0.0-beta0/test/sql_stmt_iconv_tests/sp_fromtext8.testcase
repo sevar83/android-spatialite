@@ -1,0 +1,7 @@
+SqlProc_FromText - INT charset
+:memory: #use in-memory database
+SELECT Hex(SqlProc_FromText('SELECT @col1@, @col2@ FROM @table@', 1));
+1 # rows (not including the header row)
+1 # columns
+Hex(SqlProc_FromText('SELECT @col1@, @col2@ FROM @table@', 1))
+SqlProc exception - illegal Charset Encodind argument.

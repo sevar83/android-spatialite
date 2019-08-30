@@ -1,0 +1,7 @@
+TopoGeo_TopoSnap - Invalid BLOB Geometry
+:memory: #use in-memory database
+SELECT TopoGeo_TopoSnap('topo', zeroblob(100), 1);
+1 # rows (not including the header row)
+1 # columns
+TopoGeo_TopoSnap('topo', zeroblob(100), 1)
+SQL/MM Spatial exception - invalid argument.

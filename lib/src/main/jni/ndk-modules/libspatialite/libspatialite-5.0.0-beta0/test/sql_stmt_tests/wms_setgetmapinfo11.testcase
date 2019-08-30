@@ -1,0 +1,7 @@
+WMS_SetGetMapInfos() - Double abstract
+:memory: #use in-memory database
+SELECT WMS_SetGetMapInfos('some-url', 'layer', 'title', 1.1)
+1 # rows (not including the header row)
+1 # columns
+WMS_SetGetMapInfos('some-url', 'layer', 'title', 1.1)
+-1

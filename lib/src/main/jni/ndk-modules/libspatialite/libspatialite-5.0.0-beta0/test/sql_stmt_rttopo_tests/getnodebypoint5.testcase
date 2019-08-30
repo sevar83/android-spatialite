@@ -1,0 +1,7 @@
+GetNodeByPoint - Text Topology
+:memory: #use in-memory database
+SELECT GetNodeByPoint('topology', MakePoint(1, 2, 4326));
+1 # rows (not including the header row)
+1 # columns
+GetNodeByPoint('topology', MakePoint(1, 2, 4326))
+SQL/MM Spatial exception - invalid topology name.

@@ -1,0 +1,7 @@
+GPKG8
+:memory: #use in-memory database
+SELECT AutoGpkgStop(NULL)
+1 # rows (not including the header row)
+1 # columns
+AutoGpkgStop(NULL)
+0

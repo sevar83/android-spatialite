@@ -1,0 +1,7 @@
+TopoGeo_ToGeoTable - Double with-spatial-inxed
+:memory: #use in-memory database
+SELECT TopoGeo_ToGeoTable('topology', NULL, 'table', NULL, 'out', 1.1);
+1 # rows (not including the header row)
+1 # columns
+TopoGeo_ToGeoTable('topology', NULL, 'table', NULL, 'out', 1.1)
+SQL/MM Spatial exception - invalid argument.

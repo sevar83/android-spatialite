@@ -1,0 +1,7 @@
+TopoGeo_CreateTopoLayer - NULL is-view
+:memory: #use in-memory database
+SELECT TopoGeo_CreateTopoLayer('topology', NULL, 'table', 'geometry', 'out', NULL);
+1 # rows (not including the header row)
+1 # columns
+TopoGeo_CreateTopoLayer('topology', NULL, 'table', zeroblob(4), 'out', NULL)
+SQL/MM Spatial exception - null argument.

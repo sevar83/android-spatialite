@@ -1,0 +1,7 @@
+StoredProc_Delete - Text name
+:memory: #use in-memory database
+SELECT StoredProc_Delete('name');
+1 # rows (not including the header row)
+1 # columns
+StoredProc_Delete('name')
+0

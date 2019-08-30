@@ -1,0 +1,7 @@
+CreateRouting() - NULL bidirectional option
+:memory: #use in-memory database
+SELECT CreateRouting('data_route', 'virt_route', 'input', 'from', 'to', 'geom', 'cost', 'name', 1, NULL);
+1 # rows (not including the header row)
+1 # columns
+CreateRouting('data_route', 'virt_route', 'input', 'from', 'to', 'geom', 'cost', 'name', 1, NULL)
+CreateRouting exception - illegal Bidirectional option [not an INTEGER].

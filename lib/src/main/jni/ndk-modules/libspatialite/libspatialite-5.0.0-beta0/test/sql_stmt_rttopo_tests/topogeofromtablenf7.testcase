@@ -1,0 +1,7 @@
+TopoGeo_FromGeoTableNoFace - INT prefix
+:memory: #use in-memory database
+SELECT TopoGeo_FromGeoTableNoFace('topology', 1, 'table', NULL);
+1 # rows (not including the header row)
+1 # columns
+TopoGeo_FromGeoTableNoFace('topology', 1, 'table', NULL)
+SQL/MM Spatial exception - invalid argument.

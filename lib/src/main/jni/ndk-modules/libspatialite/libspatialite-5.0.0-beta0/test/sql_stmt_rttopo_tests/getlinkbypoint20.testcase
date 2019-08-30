@@ -1,0 +1,7 @@
+GetLinkByPoint - Double NEGATIVE Tolerance
+:memory: #use in-memory database
+SELECT GetLinkByPoint('network', MakePoint(1, 2, 4326), -0.1);
+1 # rows (not including the header row)
+1 # columns
+GetLinkByPoint('network', MakePoint(1, 2, 4326), -0.1)
+SQL/MM Spatial exception - illegal negative tolerance.

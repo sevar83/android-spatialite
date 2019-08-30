@@ -1,0 +1,7 @@
+NewEdgesSplit - Text Geometry
+:memory: #use in-memory database
+SELECT ST_NewEdgesSplit('topology', 'face', 'geom');
+1 # rows (not including the header row)
+1 # columns
+ST_NewEdgesSplit('topology', 'face', 'geom')
+SQL/MM Spatial exception - invalid argument.

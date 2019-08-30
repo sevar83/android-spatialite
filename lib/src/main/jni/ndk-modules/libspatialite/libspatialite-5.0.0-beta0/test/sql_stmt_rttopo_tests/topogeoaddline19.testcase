@@ -1,0 +1,7 @@
+TopoGeo_AddLineString - Double NEGATIVE Tolerance
+:memory: #use in-memory database
+SELECT TopoGeo_AddLineString('topology', MakePoint(1, 2, 4326), -0.1);
+1 # rows (not including the header row)
+1 # columns
+TopoGeo_AddLineString('topology', MakePoint(1, 2, 4326), -0.1)
+SQL/MM Spatial exception - illegal negative tolerance.

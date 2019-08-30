@@ -1,0 +1,7 @@
+GetEdgeByPoint - Int NEGATIVE Tolerance
+:memory: #use in-memory database
+SELECT GetEdgeByPoint('topology', MakePoint(1, 2, 4326), -1);
+1 # rows (not including the header row)
+1 # columns
+GetEdgeByPoint('topology', MakePoint(1, 2, 4326), -1)
+SQL/MM Spatial exception - illegal negative tolerance.

@@ -1,0 +1,7 @@
+sequence_currval('name') - Named Sequence
+:memory: #use in-memory database
+SELECT sequence_currval('name')
+1 # rows (not including the header row)
+1 # columns
+sequence_currval('name')
+(NULL)

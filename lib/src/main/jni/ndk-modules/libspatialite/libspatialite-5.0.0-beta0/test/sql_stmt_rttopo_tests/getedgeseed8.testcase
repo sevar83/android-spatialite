@@ -1,0 +1,7 @@
+GetEdgeSeed - Text Face
+:memory: #use in-memory database
+SELECT TopoGeo_GetEdgeSeed('topology', 'face');
+1 # rows (not including the header row)
+1 # columns
+TopoGeo_GetEdgeSeed('topology', 'face')
+SQL/MM Spatial exception - invalid argument.

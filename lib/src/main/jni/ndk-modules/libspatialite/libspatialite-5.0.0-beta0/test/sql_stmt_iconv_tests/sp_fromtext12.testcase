@@ -1,0 +1,7 @@
+SqlProc_FromText - undefined charset
+:memory: #use in-memory database
+SELECT Hex(SqlProc_FromText('SELECT @col1@, @col2@ FROM @table@', 'abcdefghi'));
+1 # rows (not including the header row)
+1 # columns
+Hex(SqlProc_FromText('SELECT @col1@, @col2@ FROM @table@', 'abcdefghi'))
+SqlProc exception - invalid SQL Body.

@@ -1,0 +1,7 @@
+ST_ValidateTopoGeo - Int Topology
+:memory: #use in-memory database
+SELECT ST_ValidateTopoGeo(1);
+1 # rows (not including the header row)
+1 # columns
+ST_ValidateTopoGeo(1)
+SQL/MM Spatial exception - invalid argument.

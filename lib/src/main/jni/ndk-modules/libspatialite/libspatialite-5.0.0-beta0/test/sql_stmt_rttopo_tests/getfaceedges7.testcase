@@ -1,0 +1,7 @@
+GetFaceEdges - BLOB Face
+:memory: #use in-memory database
+SELECT ST_GetFaceEdges('topology', zeroblob(4));
+1 # rows (not including the header row)
+1 # columns
+ST_GetFaceEdges('topology', zeroblob(4))
+SQL/MM Spatial exception - invalid argument.

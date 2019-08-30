@@ -1,0 +1,7 @@
+TopoGeo_NewEdgeHeal - NULL Topology
+:memory: #use in-memory database
+SELECT TopoGeo_NewEdgeHeal(NULL);
+1 # rows (not including the header row)
+1 # columns
+TopoGeo_NewEdgeHeal(NULL)
+SQL/MM Spatial exception - null argument.

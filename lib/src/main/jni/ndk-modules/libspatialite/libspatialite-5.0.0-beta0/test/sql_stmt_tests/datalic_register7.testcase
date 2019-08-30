@@ -1,0 +1,7 @@
+RegisterDataLicense() - Int url
+:memory: #use in-memory database
+SELECT RegisterDataLicense('some license', 1)
+1 # rows (not including the header row)
+1 # columns
+RegisterDataLicense('some license', 1)
+-1

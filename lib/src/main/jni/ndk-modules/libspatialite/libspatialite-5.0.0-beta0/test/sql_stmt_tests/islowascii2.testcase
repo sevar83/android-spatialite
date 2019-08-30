@@ -1,0 +1,7 @@
+IsLowASCII() - Int string
+:memory: #use in-memory database
+SELECT IsLowASCII(1)
+1 # rows (not including the header row)
+1 # columns
+IsLowASCII(1)
+-1

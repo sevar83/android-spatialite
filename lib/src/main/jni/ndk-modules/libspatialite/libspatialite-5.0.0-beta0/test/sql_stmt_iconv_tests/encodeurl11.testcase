@@ -1,0 +1,7 @@
+EncodeURL - valid charset
+:memory: #use in-memory database
+SELECT EncodeURL('però più perché', 'CP1252');
+1 # rows (not including the header row)
+1 # columns
+EncodeURL('però più perché', 'CP1252')
+per%f2%20pi%f9%20perch%e9

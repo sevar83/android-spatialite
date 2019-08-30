@@ -1,0 +1,7 @@
+CreateRouting() - NULL Input Table
+:memory: #use in-memory database
+SELECT CreateRouting('data_route', 'virt_route', NULL, 'from', 'to', 'geom', 'cost');
+1 # rows (not including the header row)
+1 # columns
+CreateRouting('data_route', 'virt_route', NULL, 'from', 'to', 'geom', 'cost')
+CreateRouting exception - illegal Input-Table Name [not a TEXT string].

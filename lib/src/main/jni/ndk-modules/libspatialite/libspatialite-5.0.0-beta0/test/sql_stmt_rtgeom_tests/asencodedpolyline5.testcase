@@ -1,0 +1,7 @@
+AsEncodedPolyline - invalid BLOB
+:memory: #use in-memory database
+SELECT ST_AsEncodedPolyline(zeroblob(50));
+1 # rows (not including the header row)
+1 # columns
+ST_AsEncodedPolyline(zeroblob(50))
+(NULL)

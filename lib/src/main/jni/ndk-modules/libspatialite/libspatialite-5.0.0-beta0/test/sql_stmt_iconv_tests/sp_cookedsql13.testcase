@@ -1,0 +1,7 @@
+SqlProc_CookedSQL - all varargs
+:memory: #use in-memory database
+SELECT SqlProc_CookedSQL(SqlProc_FromText('SELECT @col1@, $col2$ FROM @table@'), '@TABLE@=some_table', '$col1$=first_col', '@col2@=second_col');
+1 # rows (not including the header row)
+1 # columns
+SqlProc_CookedSQL(SqlProc_FromText('SELECT @col1@, $col2$ FROM @table@'), '@TABLE@=some_table', '$col1$=first_col', '@col2@=second_col')
+SELECT first_col, second_col FROM some_table

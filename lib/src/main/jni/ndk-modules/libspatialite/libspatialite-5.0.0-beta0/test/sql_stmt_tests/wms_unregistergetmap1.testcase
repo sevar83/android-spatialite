@@ -1,0 +1,7 @@
+WMS_UnRegisterGetMap() - NULL URL
+:memory: #use in-memory database
+SELECT WMS_UnRegisterGetMap(NULL, 'layer')
+1 # rows (not including the header row)
+1 # columns
+WMS_UnRegisterGetMap(NULL, 'layer')
+-1

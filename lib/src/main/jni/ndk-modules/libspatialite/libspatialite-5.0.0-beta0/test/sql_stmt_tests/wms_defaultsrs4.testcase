@@ -1,0 +1,7 @@
+WMS_DefaultRefSys() - BLOB URL
+:memory: #use in-memory database
+SELECT WMS_DefaultRefSys(zeroblob(4), 'layer', 'EPSG:4326')
+1 # rows (not including the header row)
+1 # columns
+WMS_DefaultRefSys(zeroblob(4), 'layer', 'EPSG:4326'):0
+-1

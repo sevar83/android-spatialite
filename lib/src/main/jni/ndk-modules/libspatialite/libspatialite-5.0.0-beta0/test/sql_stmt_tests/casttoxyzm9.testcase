@@ -1,0 +1,7 @@
+casttoxyzm - BLOB Z nodata
+:memory: #use in-memory database
+SELECT AsText(CastToXYZM(GeomFromText("POINTM(4 3 20)"), zeroblob(4), -2.22))
+1 # rows (not including the header row)
+1 # columns
+AsText(CastToXYZM(GeomFromText("POINTM(4 3 20)"), zeroblob(4), -2.22))
+(NULL)

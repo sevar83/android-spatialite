@@ -1,0 +1,7 @@
+SqlProc_RawSQL - valid BLOB
+:memory: #use in-memory database
+SELECT SqlProc_RawSQL(SqlProc_FromText('SELECT @col1@, $col2$ FROM @table@'));
+1 # rows (not including the header row)
+1 # columns
+SqlProc_RawSQL(SqlProc_FromText('SELECT @col1@, $col2$ FROM @table@'))
+SELECT @col1@, $col2$ FROM @table@

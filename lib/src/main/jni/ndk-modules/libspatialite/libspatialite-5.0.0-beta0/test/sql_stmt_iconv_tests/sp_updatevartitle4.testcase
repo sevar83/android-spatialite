@@ -1,0 +1,7 @@
+StoredVar_UpdateTitle - BLOB name
+:memory: #use in-memory database
+SELECT StoredVar_UpdateTitle(zeroblob(10), 'title');
+1 # rows (not including the header row)
+1 # columns
+StoredVar_UpdateTitle(zeroblob(10), 'title')
+StoredVar exception - illegal Stored Variable Name [not a TEXT string].

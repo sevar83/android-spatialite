@@ -1,0 +1,7 @@
+geodesic Arc Length - NULL g2
+:memory:
+SELECT GeodesicArcLength(MakePoint(167.836789, -46.969656, 4326), NULL);
+1 # rows
+1 # column
+GeodesicArcLength(MakePoint(167.836789, -46.969656, 4326), NULL)
+(NULL)

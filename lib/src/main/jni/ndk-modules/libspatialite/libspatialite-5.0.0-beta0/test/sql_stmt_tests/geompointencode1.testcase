@@ -1,0 +1,7 @@
+GeometryPointEncode() - NULL
+:memory: #use in-memory database
+SELECT GeometryPointEncode(NULL)
+1 # rows (not including the header row)
+1 # columns
+GeometryPointEncode(NULL)
+(NULL)

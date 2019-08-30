@@ -1,0 +1,7 @@
+WMS_UnRegisterGetMap() - BLOB layer-name
+:memory: #use in-memory database
+SELECT WMS_UnRegisterGetMap('some-url', zeroblob(4))
+1 # rows (not including the header row)
+1 # columns
+WMS_UnRegisterGetMap('some-url', zeroblob(4))
+-1

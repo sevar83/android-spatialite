@@ -1,0 +1,7 @@
+RegisterTopoNetCoverage - Double Queryable
+:memory: #use in-memory database
+SELECT SE_RegisterTopoNetCoverage('alpha', 'network', 'title', 'abstract', 1.2, 1);
+1 # rows (not including the header row)
+1 # columns
+SE_RegisterTopoNetCoverage('alpha', 'network', 'title', 'abstract', 1.2, 1)
+-1

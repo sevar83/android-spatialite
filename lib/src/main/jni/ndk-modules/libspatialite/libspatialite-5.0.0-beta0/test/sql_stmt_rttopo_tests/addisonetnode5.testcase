@@ -1,0 +1,7 @@
+AddIsoNetNode - NULL Point
+:memory: #use in-memory database
+SELECT ST_AddIsoNetNode('roads', NULL);
+1 # rows (not including the header row)
+1 # columns
+ST_AddIsoNetNode('roads', NULL)
+SQL/MM Spatial exception - invalid network name.

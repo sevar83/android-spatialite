@@ -1,0 +1,7 @@
+GetFaceEdges - NULL Topology
+:memory: #use in-memory database
+SELECT ST_GetFaceEdges(NULL, -1);
+1 # rows (not including the header row)
+1 # columns
+ST_GetFaceEdges(NULL, -1)
+SQL/MM Spatial exception - null argument.

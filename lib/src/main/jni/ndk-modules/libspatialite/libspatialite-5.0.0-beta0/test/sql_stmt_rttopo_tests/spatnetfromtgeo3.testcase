@@ -1,0 +1,7 @@
+ST_SpatNetFromTGeo - Double Network
+:memory: #use in-memory database
+SELECT ST_SpatNetFromTGeo(1.5, 'topology');
+1 # rows (not including the header row)
+1 # columns
+ST_SpatNetFromTGeo(1.5, 'topology')
+SQL/MM Spatial exception - invalid argument.

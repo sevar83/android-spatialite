@@ -1,0 +1,7 @@
+ST_TrajectoryInterpolatePoint - Invalid BLOB
+:memory: #use in-memory database
+SELECT ST_AsText(ST_TrajectoryInterpolatePoint(zeroblob(50), 5));
+1 # rows (not including the header row)
+1 # columns
+ST_AsText(ST_TrajectoryInterpolatePoint(zeroblob(50), 5))
+(NULL)

@@ -1,0 +1,7 @@
+NewLinkHeal - Text Network
+:memory: #use in-memory database
+SELECT ST_NewLinkHeal('topology', 1, 2);
+1 # rows (not including the header row)
+1 # columns
+ST_NewLinkHeal('topology', 1, 2)
+SQL/MM Spatial exception - invalid network name.

@@ -1,0 +1,7 @@
+RegisterDataLicense() - Text license
+:memory: #use in-memory database
+SELECT RegisterDataLicense('some license')
+1 # rows (not including the header row)
+1 # columns
+RegisterDataLicense('some license')
+1

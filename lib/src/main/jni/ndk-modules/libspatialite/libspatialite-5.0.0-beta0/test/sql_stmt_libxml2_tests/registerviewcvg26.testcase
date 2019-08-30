@@ -1,0 +1,7 @@
+RegisterSpatialViewCoverage - Double is_queryable
+:memory: #use in-memory database
+SELECT SE_RegisterSpatialViewCoverage('alpha', 'table', 'geom', 'title', 'abstract', NULL, 1.0);
+1 # rows (not including the header row)
+1 # columns
+SE_RegisterSpatialViewCoverage('alpha', 'table', 'geom', 'title', 'abstract', NULL, 1.0)
+-1

@@ -1,0 +1,7 @@
+CreateRouting() - NULL ToNode Column
+:memory: #use in-memory database
+SELECT CreateRouting('data_route', 'virt_route', 'input', 'from', NULL, 'geom', 'cost');
+1 # rows (not including the header row)
+1 # columns
+CreateRouting('data_route', 'virt_route', 'input', 'from', NULL, 'geom', 'cost')
+CreateRouting exception - illegal ToNode Column Name [not a TEXT string].

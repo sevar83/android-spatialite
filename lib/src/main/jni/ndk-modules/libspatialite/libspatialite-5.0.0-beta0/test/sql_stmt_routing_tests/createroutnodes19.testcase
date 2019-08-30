@@ -1,0 +1,7 @@
+CreateRoutingNodes() - not existing spatial table #1
+:memory: #use in-memory database
+SELECT CreateRoutingNodes(NULL, 'table', NULL, 'from', 'to');
+1 # rows (not including the header row)
+1 # columns
+CreateRoutingNodes(NULL, 'table', NULL, 'from', 'to')
+CreateRoutingNodes exception - 'table' is not a valid Spatial Table (LINESTRING)

@@ -1,0 +1,7 @@
+GetShapefileExtent() - Text VirtualTable name
+:memory: #use in-memory database
+SELECT GetShapefileExtent('example');
+1 # rows (not including the header row)
+1 # columns
+GetShapefileExtent('example')
+(NULL)

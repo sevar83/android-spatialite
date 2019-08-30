@@ -1,0 +1,7 @@
+RemoveRepeatedPoints Repeated Points XYM
+:memory: #use in-memory database
+SELECT AsText(RemoveRepeatedPoints(GeomFromText('GEOMETRYCOLLECTIONM(POINTM(1 1 2), LINESTRINGM(10 10 1, 10 10 1, 10 10 1, 40 40 3, 40 40 3), POLYGONM((50 50 1, 100 50 2, 100 50 3, 100 50 3, 100 100 4, 50 100 5, 50 50 1), (60 60 5, 80 60 4, 80 60 4, 80 60 4, 80 80 2, 60 80 1, 60 60 5)))', 4326)));
+1 # rows (not including the header row)
+1 # columns
+AsText(RemoveRepeatedPoints(GeomFromText('GEOMETRYCOLLECTIONM(POINTM(1 1 2), LINESTRINGM(10 10 1, 10 10 1, 10 10 1, 40 40 3, 40 40 3), POLYGONM((50 50 1, 100 50 2, 100 50 3, 100 50 3, 100 100 4, 50 100 5, 50 50 1), (60 60 5, 80 60 4, 80 60 4, 80 60 4, 80 80 2, 60 80 1, 60 60 5)))', 4326)));
+GEOMETRYCOLLECTION M(POINT M(1 1 2), LINESTRING M(10 10 1, 40 40 3), POLYGON M((50 50 1, 100 50 2, 100 100 4, 50 100 5, 50 50 1), (60 60 5, 80 60 4, 80 80 2, 60 80 1, 60 60 5)))

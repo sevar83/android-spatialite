@@ -1,0 +1,7 @@
+CreateTopology - TEXT Srid
+:memory: #use in-memory database
+SELECT CreateTopology('topo', 'alpha');
+1 # rows (not including the header row)
+1 # columns
+CreateTopology('topo', 'alpha')
+-1

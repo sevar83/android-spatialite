@@ -1,0 +1,7 @@
+StoredProc_Register - INT title
+:memory: #use in-memory database
+SELECT StoredProc_Register('name', 1, SqlProc_FromText('SELECT @column1@ FROM @table1@'));
+1 # rows (not including the header row)
+1 # columns
+StoredProc_Register('name', 1, SqlProc_FromText('SELECT @column1@ FROM @table1@'))
+StoredProc exception - illegal Stored Procedure Title [not a TEXT string].

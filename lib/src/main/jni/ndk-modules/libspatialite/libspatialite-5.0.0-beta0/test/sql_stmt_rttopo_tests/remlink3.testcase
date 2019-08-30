@@ -1,0 +1,7 @@
+RemoveLink - Double Network
+:memory: #use in-memory database
+SELECT ST_RemoveLink(1.5, -1);
+1 # rows (not including the header row)
+1 # columns
+ST_RemoveLink(1.5, -1)
+SQL/MM Spatial exception - invalid argument.

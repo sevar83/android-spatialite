@@ -1,0 +1,7 @@
+WMS_UnRegisterRefSys() - Int ref-sys
+:memory: #use in-memory database
+SELECT WMS_UnRegisterRefSys('some-url', 'layer', 1)
+1 # rows (not including the header row)
+1 # columns
+WMS_UnRegisterRefSys('some-url', 'layer', 1):0
+-1

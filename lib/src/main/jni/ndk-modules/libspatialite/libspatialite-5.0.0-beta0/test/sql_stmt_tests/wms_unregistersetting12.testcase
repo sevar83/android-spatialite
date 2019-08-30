@@ -1,0 +1,7 @@
+WMS_UnRegisterSetting() - BLOB value
+:memory: #use in-memory database
+SELECT WMS_UnRegisterSetting('some-url', 'layer', 'key', zeroblob(10));
+1 # rows (not including the header row)
+1 # columns
+WMS_UnRegisterSetting('some-url', 'layer', 'key', zeroblob(10))
+-1

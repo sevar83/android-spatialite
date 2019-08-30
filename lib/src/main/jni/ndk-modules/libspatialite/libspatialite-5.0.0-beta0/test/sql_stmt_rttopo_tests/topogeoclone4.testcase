@@ -1,0 +1,7 @@
+TopoGeo_Clone - Blob Topology (origin)
+:memory: #use in-memory database
+SELECT TopoGeo_Clone(NULL, zeroblob(4), 'destination');
+1 # rows (not including the header row)
+1 # columns
+TopoGeo_Clone(NULL, zeroblob(4), 'destination')
+SQL/MM Spatial exception - invalid argument.

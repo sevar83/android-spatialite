@@ -1,0 +1,7 @@
+RenameDataLicense() - BLOB old-name
+:memory: #use in-memory database
+SELECT RenameDataLicense(zeroblob(10), 'new')
+1 # rows (not including the header row)
+1 # columns
+RenameDataLicense(zeroblob(10), 'new')
+-1

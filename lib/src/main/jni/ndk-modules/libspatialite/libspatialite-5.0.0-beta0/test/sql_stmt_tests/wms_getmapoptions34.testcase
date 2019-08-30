@@ -1,0 +1,7 @@
+WMS_SetGetMapOptions() - Text bgcolor - valid
+:memory: #use in-memory database
+SELECT WMS_SetGetMapOptions('some_url', 'layer', '00AABB')
+1 # rows (not including the header row)
+1 # columns
+WMS_SetGetMapOptions('some_url', 'layer', '00AABB')
+0

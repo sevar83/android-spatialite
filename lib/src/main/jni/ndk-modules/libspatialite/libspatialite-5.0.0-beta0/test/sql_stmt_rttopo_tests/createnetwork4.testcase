@@ -1,0 +1,7 @@
+CreateNetwork - BLOB Network
+:memory: #use in-memory database
+SELECT CreateNetwork(zeroblob(4));
+1 # rows (not including the header row)
+1 # columns
+CreateNetwork(zeroblob(4))
+-1

@@ -1,0 +1,7 @@
+geodesic Chord Length - NULL g1
+:memory:
+SELECT GeodesicChordLength(NULL, MakePoint(167.836789, -46.969656, 4326));
+1 # rows
+1 # column
+GeodesicChordLength(NULL, MakePoint(167.836789, -46.969656, 4326))
+(NULL)

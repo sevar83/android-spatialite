@@ -1,0 +1,7 @@
+SqlProc_IsValidVarValue - DOUBLE
+:memory: #use in-memory database
+SELECT SqlProc_IsValidVarValue(1.2);
+1 # rows (not including the header row)
+1 # columns
+SqlProc_IsValidVarValue(1.2)
+0

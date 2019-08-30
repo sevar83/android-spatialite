@@ -1,0 +1,7 @@
+SqlProc_Execute - all varargs
+:memory: #use in-memory database
+SELECT SqlProc_Execute(SqlProc_FromText('SELECT @col1@, $col2$ FROM @table@ WHERE @col2@ LIKE ''@filter@''; SELECT Count(*) FROM @table@;'), '$col1$=srid', '@col2@=ref_sys_name', '@table@=spatial_ref_sys', '@filter@=%deprecated%');
+1 # rows (not including the header row)
+1 # columns
+SqlProc_Execute(SqlProc_FromText('SELECT @col1@, $col2$ FROM @table@ WHERE @col2@ LIKE ''@filter@''; SELECT Count(*) FROM @table@;'), '$col1$=srid', '@col2@=ref_sys_name', '@table@=spatial_ref_sys', '@filter@=%deprecated%')
+1

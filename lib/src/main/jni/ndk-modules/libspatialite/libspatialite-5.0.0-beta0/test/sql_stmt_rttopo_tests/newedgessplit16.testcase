@@ -1,0 +1,7 @@
+NewEdgesSplit - MULTIPOINT Geometry
+:memory: #use in-memory database
+SELECT ST_NewEdgesSplit('topology', -1, GeomFromText('MULTIPOINT(0 0, 1 1)', 4326));
+1 # rows (not including the header row)
+1 # columns
+ST_NewEdgesSplit('topology', -1, GeomFromText('MULTIPOINT(0 0, 1 1)', 4326))
+SQL/MM Spatial exception - invalid argument.

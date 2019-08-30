@@ -1,0 +1,7 @@
+ST_AddMeasure() - Text geometry
+:memory: #use in-memory database
+SELECT ST_AddMeasure('geom', 10.0, 20.0)
+1 # rows (not including the header row)
+1 # columns
+ST_AddMeasure('geom', 10.0, 20.0)
+(NULL)

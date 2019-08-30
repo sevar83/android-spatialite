@@ -1,0 +1,7 @@
+AsTWKB - Point XY
+:memory: #use in-memory database
+SELECT Hex(AsTWKB(MakePoint(1, 2), 6, 6, 6, 0, 0));
+1 # rows (not including the header row)
+1 # columns
+Hex(AsTWKB(MakePoint(1, 2), 6, 6, 6, 0, 0))
+C10080897A8092F401

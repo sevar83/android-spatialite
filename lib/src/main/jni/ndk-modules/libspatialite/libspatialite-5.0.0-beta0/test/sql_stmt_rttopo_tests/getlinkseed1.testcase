@@ -1,0 +1,7 @@
+GetLinkSeed - NULL Topology
+:memory: #use in-memory database
+SELECT TopoNet_GetLinkSeed(NULL, 1);
+1 # rows (not including the header row)
+1 # columns
+TopoNet_GetLinkSeed(NULL, 1)
+SQL/MM Spatial exception - null argument.

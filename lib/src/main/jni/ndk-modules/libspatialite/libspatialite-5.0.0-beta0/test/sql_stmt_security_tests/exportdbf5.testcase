@@ -1,0 +1,7 @@
+exportDBF - NULL colname case
+:memory: #use in-memory database
+SELECT ExportDBF('table', 'test.dbf', 'UTF-8', NULL);
+1 # rows (not including the header row)
+1 # columns
+ExportDBF('table', 'test.dbf', 'UTF-8', NULL)
+(NULL)

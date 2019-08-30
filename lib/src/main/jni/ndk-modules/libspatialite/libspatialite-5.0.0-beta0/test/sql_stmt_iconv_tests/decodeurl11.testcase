@@ -1,0 +1,7 @@
+DecodeURL - valid charset
+:memory: #use in-memory database
+SELECT DecodeURL('http://www.acme.it/search?q1=per%f2%20pi%f9%20perch%e9', 'CP1252');
+1 # rows (not including the header row)
+1 # columns
+DecodeURL('http://www.acme.it/search?q1=per%f2%20pi%f9%20perch%e9', 'CP1252')
+http://www.acme.it/search?q1=però più perché

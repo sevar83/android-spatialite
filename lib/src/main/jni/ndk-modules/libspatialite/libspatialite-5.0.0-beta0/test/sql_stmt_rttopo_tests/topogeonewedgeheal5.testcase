@@ -1,0 +1,7 @@
+TopoGeo_NewEdgeHeal - Text Topology
+:memory: #use in-memory database
+SELECT TopoGeo_NewEdgeHeal('topology');
+1 # rows (not including the header row)
+1 # columns
+TopoGeo_NewEdgeHeal('topology')
+SQL/MM Spatial exception - invalid topology name.

@@ -1,0 +1,7 @@
+TopoNet_ToGeoTableGeneralize - NULL with-spatial-inxed
+:memory: #use in-memory database
+SELECT TopoNet_ToGeoTableGeneralize('network', NULL, 'table', NULL, 'out', 10.0, NULL);
+1 # rows (not including the header row)
+1 # columns
+TopoNet_ToGeoTableGeneralize('network', NULL, 'table', NULL, 'out', 10.0, NULL)
+SQL/MM Spatial exception - null argument.

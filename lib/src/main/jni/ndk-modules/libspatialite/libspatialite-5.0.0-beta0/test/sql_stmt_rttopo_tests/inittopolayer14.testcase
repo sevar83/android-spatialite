@@ -1,0 +1,7 @@
+TopoGeo_InitTopoLayer - NULL TopoLayer
+:memory: #use in-memory database
+SELECT TopoGeo_InitTopoLayer('topology', NULL, 'table', NULL);
+1 # rows (not including the header row)
+1 # columns
+TopoGeo_InitTopoLayer('topology', NULL, 'table', NULL)
+SQL/MM Spatial exception - null argument.

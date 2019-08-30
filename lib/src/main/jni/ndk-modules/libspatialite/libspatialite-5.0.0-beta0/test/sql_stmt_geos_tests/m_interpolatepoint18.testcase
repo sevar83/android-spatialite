@@ -1,0 +1,7 @@
+interpolate point - valid Point second geometry
+:memory: #use in-memory database
+SELECT ST_InterpolatePoint(GeomFromText('LINESTRING M(0 0 0, 10 0 20)'), GeomFromText('POINT(5 5)'));
+1 # rows (not including the header row)
+1 # columns
+ST_InterpolatePoint(GeomFromText('LINESTRING M(0 0 0, 10 0 20)'), GeomFromText('POINT(5 5)'))
+10.0

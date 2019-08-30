@@ -1,0 +1,7 @@
+TinyPointEncode() - invalid BLOB
+:memory: #use in-memory database
+SELECT Hex(TinyPointEncode(zeroblob(54)))
+1 # rows (not including the header row)
+1 # columns
+Hex(TinyPointEncode(zeroblob(54)))
+000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000

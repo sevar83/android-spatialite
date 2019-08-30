@@ -1,0 +1,7 @@
+TopoGeo_ToGeoTable - Blob Topology
+:memory: #use in-memory database
+SELECT TopoGeo_ToGeoTable(zeroblob(4), NULL, 'table', NULL, 'out');
+1 # rows (not including the header row)
+1 # columns
+TopoGeo_ToGeoTable(zeroblob(4), NULL, 'table', NULL, 'out')
+SQL/MM Spatial exception - invalid argument.

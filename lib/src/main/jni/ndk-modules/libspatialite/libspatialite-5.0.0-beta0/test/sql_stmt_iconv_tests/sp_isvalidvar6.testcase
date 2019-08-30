@@ -1,0 +1,7 @@
+SqlProc_IsValidVarValue - invalid TEXT
+:memory: #use in-memory database
+SELECT SqlProc_IsValidVarValue('invalid');
+1 # rows (not including the header row)
+1 # columns
+SqlProc_IsValidVarValue('invalid')
+0

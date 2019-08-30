@@ -1,0 +1,7 @@
+SqlProc_SetLogfile - Double filepath
+:memory: #use in-memory database
+SELECT SqlProc_SetLogfile(1.5);
+1 # rows (not including the header row)
+1 # columns
+SqlProc_SetLogfile(1.5)
+SqlProc exception - illegal File Path argument.

@@ -1,0 +1,7 @@
+SqlProc_IsValid - TEXT
+:memory: #use in-memory database
+SELECT SqlProc_isValid('text');
+1 # rows (not including the header row)
+1 # columns
+SqlProc_isValid('text')
+0

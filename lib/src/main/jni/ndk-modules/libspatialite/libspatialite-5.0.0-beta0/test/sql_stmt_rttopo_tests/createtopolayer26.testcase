@@ -1,0 +1,7 @@
+TopoGeo_CreateTopoLayer - Integer is-view
+:memory: #use in-memory database
+SELECT TopoGeo_CreateTopoLayer('topology', NULL, 'table', 'geometry', 'out', 1);
+1 # rows (not including the header row)
+1 # columns
+TopoGeo_CreateTopoLayer('topology', NULL, 'table', zeroblob(4), 'out', 1)
+SQL/MM Spatial exception - invalid topology name.

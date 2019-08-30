@@ -1,0 +1,7 @@
+GetLastTopologyException - NULL Topology
+:memory: #use in-memory database
+SELECT GetLastTopologyException(NULL);
+1 # rows (not including the header row)
+1 # columns
+GetLastTopologyException(NULL)
+(NULL)

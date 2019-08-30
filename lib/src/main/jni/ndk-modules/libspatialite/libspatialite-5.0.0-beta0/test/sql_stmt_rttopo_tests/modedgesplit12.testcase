@@ -1,0 +1,7 @@
+ModEdgeSplit - Text Geometry
+:memory: #use in-memory database
+SELECT ST_ModEdgeSplit('topology', 'face', 'geom');
+1 # rows (not including the header row)
+1 # columns
+ST_ModEdgeSplit('topology', 'face', 'geom')
+SQL/MM Spatial exception - invalid argument.

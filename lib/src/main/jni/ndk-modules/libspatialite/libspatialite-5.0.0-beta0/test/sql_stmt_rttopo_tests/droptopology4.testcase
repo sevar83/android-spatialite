@@ -1,0 +1,7 @@
+DropTopology - BLOB Topology
+:memory: #use in-memory database
+SELECT DropTopology(zeroblob(4));
+1 # rows (not including the header row)
+1 # columns
+DropTopology(zeroblob(4))
+-1

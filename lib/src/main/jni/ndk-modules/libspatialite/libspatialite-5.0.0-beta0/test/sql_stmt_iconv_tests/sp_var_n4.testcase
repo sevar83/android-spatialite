@@ -1,0 +1,7 @@
+SqlProc_VariableN - TEXT
+:memory: #use in-memory database
+SELECT SqlProc_VariableN('text', 1);
+1 # rows (not including the header row)
+1 # columns
+SqlProc_VariableN('text', 1)
+SqlProc exception - illegal SQL Procedure arg [not a BLOB].

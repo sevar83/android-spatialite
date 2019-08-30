@@ -1,0 +1,7 @@
+CreateNetwork - NULL allow-coincident
+:memory: #use in-memory database
+SELECT CreateNetwork('roadsW', 1, 4326, 1, NULL);
+1 # rows (not including the header row)
+1 # columns
+CreateNetwork('roadsW', 1, 4326, 1, NULL);
+1

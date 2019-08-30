@@ -1,0 +1,7 @@
+WMS_UnRegisterSetting() - Double key
+:memory: #use in-memory database
+SELECT WMS_UnRegisterSetting('some-url', 'layer', 1.1, 'value');
+1 # rows (not including the header row)
+1 # columns
+WMS_UnRegisterSetting('some-url', 'layer', 1.1, 'value')
+-1

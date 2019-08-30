@@ -1,0 +1,7 @@
+GetSpatialIndexExtent - DOUBLE prefix
+:memory: #use in-memory database
+SELECT GetSpatialIndexExtent(1.5, 'table', 'geom');
+1 # rows (not including the header row)
+1 # columns
+GetSpatialIndexExtent(1.5, 'table', 'geom')
+(NULL)

@@ -1,0 +1,7 @@
+GetLinkSeed - Text Topology
+:memory: #use in-memory database
+SELECT TopoNet_GetLinkSeed('network', 1);
+1 # rows (not including the header row)
+1 # columns
+TopoNet_GetLinkSeed('network', 1)
+SQL/MM Spatial exception - invalid network name.

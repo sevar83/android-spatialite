@@ -1,0 +1,7 @@
+DropNetwork - Double Network
+:memory: #use in-memory database
+SELECT DropNetwork(1.1);
+1 # rows (not including the header row)
+1 # columns
+DropNetwork(1.1)
+-1

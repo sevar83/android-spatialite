@@ -1,0 +1,7 @@
+RegisterTopoNetCoverage - NULL Title
+:memory: #use in-memory database
+SELECT SE_RegisterTopoNetCoverage('alpha', 'network', NULL, 'abstract');
+1 # rows (not including the header row)
+1 # columns
+SE_RegisterTopoNetCoverage('alpha', 'network', NULL, 'abstract')
+-1

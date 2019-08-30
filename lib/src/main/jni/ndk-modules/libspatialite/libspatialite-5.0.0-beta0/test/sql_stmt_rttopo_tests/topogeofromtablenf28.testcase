@@ -1,0 +1,7 @@
+TopoGeo_FromGeoTableNoFace - BLOB max-length
+:memory: #use in-memory database
+SELECT TopoGeo_FromGeoTableNoFace('topology', NULL, 'table', NULL, NULL, zeroblob(4));
+1 # rows (not including the header row)
+1 # columns
+TopoGeo_FromGeoTableNoFace('topology', NULL, 'table', NULL, NULL, zeroblob(4))
+SQL/MM Spatial exception - invalid argument.

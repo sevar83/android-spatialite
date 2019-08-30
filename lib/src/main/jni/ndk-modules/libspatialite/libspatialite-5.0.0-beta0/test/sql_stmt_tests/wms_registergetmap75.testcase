@@ -1,0 +1,7 @@
+WMS_RegisterGetMap() - Double bgcolor
+:memory: #use in-memory database
+SELECT WMS_RegisterGetMap('getcapabilities_url', 'getmap_url', 'layer', 'title', 'abstract', '1.3.0', 'EPSG:3003', 'image/png', 'default', 1, 0, 1, 1, 512, 512, 1.1, 1, 'getfeatureinfo')
+1 # rows (not including the header row)
+1 # columns
+WMS_RegisterGetMap('getcapabilities_url', 'getmap_url', 'layer', 'title', 'abstract', '1.3.0', 'EPSG:3003', 'image/png', 'default', 1, 0, 1, 1, 512, 512, 1.1, 1, 'getfeatureinfo'):0
+-1

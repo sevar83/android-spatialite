@@ -1,0 +1,7 @@
+Circularity - Empty linestring
+:memory: #use in-memory database
+SELECT Circularity(GeomFromText("LINESTRING()"));
+1 # rows (not including the header row)
+1 # columns
+Circularity(GeomFromText("LINESTRING()"))
+(NULL)

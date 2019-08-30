@@ -1,0 +1,7 @@
+Relate - double BLOB geom2
+:memory: #use in-memory database
+SELECT ST_Relate(MakePoint(0, 0, 4326), 1.1);
+1 # rows (not including the header row)
+1 # columns
+ST_Relate(MakePoint(0, 0, 4326), 1.1);
+(NULL)

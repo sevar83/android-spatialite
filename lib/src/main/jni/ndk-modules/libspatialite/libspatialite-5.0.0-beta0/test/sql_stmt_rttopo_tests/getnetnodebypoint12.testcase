@@ -1,0 +1,7 @@
+GetNetNodeByPoint - Text Geometry
+:memory: #use in-memory database
+SELECT GetNetNodeByPoint('network', 'geom');
+1 # rows (not including the header row)
+1 # columns
+GetNetNodeByPoint('network', 'geom')
+SQL/MM Spatial exception - invalid argument.

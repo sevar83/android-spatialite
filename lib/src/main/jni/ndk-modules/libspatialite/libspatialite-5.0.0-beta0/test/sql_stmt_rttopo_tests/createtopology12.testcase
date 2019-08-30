@@ -1,0 +1,7 @@
+CreateTopology - Int tolerance
+:memory: #use in-memory database
+SELECT CreateTopology('topoC', 4326, 0, 1);
+1 # rows (not including the header row)
+1 # columns
+CreateTopology('topoC', 4326, 0, 1);
+1

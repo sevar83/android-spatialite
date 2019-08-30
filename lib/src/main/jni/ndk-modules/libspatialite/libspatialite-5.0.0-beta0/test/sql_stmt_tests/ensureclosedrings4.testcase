@@ -1,0 +1,7 @@
+EnsureClosedRings Invalid BLOB Geometry
+:memory: #use in-memory database
+SELECT EnsureClosedRings(zeroblob(100));
+1 # rows (not including the header row)
+1 # columns
+EnsureClosedRings(zeroblob(100))
+(NULL)

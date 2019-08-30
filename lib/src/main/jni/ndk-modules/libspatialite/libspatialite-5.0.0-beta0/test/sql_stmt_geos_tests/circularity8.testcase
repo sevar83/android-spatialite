@@ -1,0 +1,7 @@
+Circularity - text (error)
+:memory: #use in-memory database
+SELECT Circularity("hello");
+1 # rows (not including the header row)
+1 # columns
+Circularity("hello")
+(NULL)

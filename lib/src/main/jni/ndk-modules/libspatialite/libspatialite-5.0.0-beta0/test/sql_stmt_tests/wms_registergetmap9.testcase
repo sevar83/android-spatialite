@@ -1,0 +1,7 @@
+WMS_RegisterGetMap() - NULL version
+:memory: #use in-memory database
+SELECT WMS_RegisterGetMap('getcapabilities_url', 'getmap_url', 'layer', NULL, 'EPSG:3003', 'image/png', 'default', 1, 0)
+1 # rows (not including the header row)
+1 # columns
+WMS_RegisterGetMap('getcapabilities_url', 'getmap_url', 'layer', NULL, 'EPSG:3003', 'image/png', 'default', 1, 0):0
+-1

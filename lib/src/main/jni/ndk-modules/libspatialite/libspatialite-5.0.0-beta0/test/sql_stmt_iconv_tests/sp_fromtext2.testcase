@@ -1,0 +1,7 @@
+SqlProc_FromText - INT SQL body
+:memory: #use in-memory database
+SELECT SqlProc_FromText(2);
+1 # rows (not including the header row)
+1 # columns
+SqlProc_FromText(2)
+SqlProc exception - illegal SQL Body argument.

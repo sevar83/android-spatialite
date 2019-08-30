@@ -1,0 +1,7 @@
+CreateRoutingNodes() - INT table-name
+:memory: #use in-memory database
+SELECT CreateRoutingNodes(NULL, 1, 'geom', 'from', 'to');
+1 # rows (not including the header row)
+1 # columns
+CreateRoutingNodes(NULL, 1, 'geom', 'from', 'to')
+CreateRoutingNodes exception - illegal Spatial-Table Name [not a TEXT string].

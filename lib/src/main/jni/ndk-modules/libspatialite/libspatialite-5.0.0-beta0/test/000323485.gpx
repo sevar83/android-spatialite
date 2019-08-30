@@ -1,0 +1,43 @@
+<?xml version='1.0' encoding='utf-8'?>
+<gpx xmlns="http://www.topografix.com/GPX/1/0" version="1.0" creator="OSM gpx_dump.py">
+  <trk>
+    <name>Track 0</name>
+    <number>0</number>
+    <trkseg>
+      <trkpt lat="37.7709000" lon="-25.2021000" />
+      <trkpt lat="37.7710000" lon="-25.2002500" />
+      <trkpt lat="37.7696900" lon="-25.1987500" />
+      <trkpt lat="37.7699700" lon="-25.1971200" />
+      <trkpt lat="37.7710900" lon="-25.1959200" />
+      <trkpt lat="37.7724100" lon="-25.1965000" />
+      <trkpt lat="37.7732400" lon="-25.1979200" />
+      <trkpt lat="37.7742300" lon="-25.1977000" />
+      <trkpt lat="37.7753400" lon="-25.1970600" />
+      <trkpt lat="37.7767900" lon="-25.1965200" />
+      <trkpt lat="37.7764900" lon="-25.1947400" />
+      <trkpt lat="37.7780300" lon="-25.1951500" />
+      <trkpt lat="37.7788000" lon="-25.1962200" />
+      <trkpt lat="37.7796000" lon="-25.1974000" />
+      <trkpt lat="37.7803200" lon="-25.1982400" />
+      <trkpt lat="37.7815300" lon="-25.1986400" />
+      <trkpt lat="37.7816400" lon="-25.2000000" />
+      <trkpt lat="37.7833400" lon="-25.2002500" />
+      <trkpt lat="37.7845300" lon="-25.2007000" />
+      <trkpt lat="37.7860900" lon="-25.2016900" />
+      <trkpt lat="37.7867600" lon="-25.2007300" />
+      <trkpt lat="37.7858800" lon="-25.1993300" />
+      <trkpt lat="37.7859400" lon="-25.1976400" />
+      <trkpt lat="37.7854200" lon="-25.1959000" />
+      <trkpt lat="37.7856300" lon="-25.1953800" />
+      <trkpt lat="37.7863600" lon="-25.1947600" />
+      <trkpt lat="37.7868000" lon="-25.1937500" />
+      <trkpt lat="37.7874600" lon="-25.1929800" />
+      <trkpt lat="37.7877000" lon="-25.1914100" />
+      <trkpt lat="37.7887000" lon="-25.1899300" />
+      <trkpt lat="37.7897800" lon="-25.1885600" />
+      <trkpt lat="37.7913100" lon="-25.1864100" />
+      <trkpt lat="37.7936600" lon="-25.1853600" />
+      <trkpt lat="37.7961200" lon="-25.1847800" />
+    </trkseg>
+  </trk>
+</gpx>

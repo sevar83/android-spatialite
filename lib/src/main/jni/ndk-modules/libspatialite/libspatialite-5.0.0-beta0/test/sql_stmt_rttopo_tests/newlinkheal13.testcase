@@ -1,0 +1,7 @@
+NewLinkHeal - BLOB Link #2
+:memory: #use in-memory database
+SELECT ST_NewLinkHeal('net', 1, zeroblob(4));
+1 # rows (not including the header row)
+1 # columns
+ST_NewLinkHeal('net', 1, zeroblob(4))
+SQL/MM Spatial exception - invalid argument.

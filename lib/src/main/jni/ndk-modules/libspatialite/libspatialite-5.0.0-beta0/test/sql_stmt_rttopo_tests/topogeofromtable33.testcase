@@ -1,0 +1,7 @@
+TopoGeo_FromGeoTable - NEGATIVE max point
+:memory: #use in-memory database
+SELECT TopoGeo_FromGeoTable('topology', NULL, 'table', NULL, -1);
+1 # rows (not including the header row)
+1 # columns
+TopoGeo_FromGeoTable('topology', NULL, 'table', NULL, -1)
+SQL/MM Spatial exception - max_points should be >= 2.

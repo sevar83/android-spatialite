@@ -1,0 +1,7 @@
+IsPolygonCCW - NULL Geometry
+:memory: #use in-memory database
+SELECT ST_IsPolygonCCW(NULL);
+1 # rows (not including the header row)
+1 # columns
+ST_IsPolygonCCW(NULL)
+-1

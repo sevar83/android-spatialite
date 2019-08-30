@@ -1,0 +1,7 @@
+RemoveLink - Text Network
+:memory: #use in-memory database
+SELECT ST_RemoveLink('net', -1);
+1 # rows (not including the header row)
+1 # columns
+ST_RemoveLink('net', -1)
+SQL/MM Spatial exception - invalid network name.

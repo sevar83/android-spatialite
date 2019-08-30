@@ -1,0 +1,7 @@
+StoredVar_Register - Int Value
+:memory: #use in-memory database
+SELECT StoredVar_Register('varint', 'title', 1);
+1 # rows (not including the header row)
+1 # columns
+StoredVar_Register('varint', 'title', 1))
+1

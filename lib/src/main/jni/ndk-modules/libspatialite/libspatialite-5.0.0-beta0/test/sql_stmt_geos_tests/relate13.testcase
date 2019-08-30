@@ -1,0 +1,7 @@
+Relate - int geom1
+:memory: #use in-memory database
+SELECT ST_Relate(1, MakePoint(0, 0, 4326));
+1 # rows (not including the header row)
+1 # columns
+ST_Relate(1, MakePoint(0, 0, 4326));
+(NULL)

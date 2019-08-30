@@ -1,0 +1,7 @@
+TinyPointEncode() - TEXT
+:memory: #use in-memory database
+SELECT TinyPointEncode('geometry')
+1 # rows (not including the header row)
+1 # columns
+TinyPointEncode('geometry')
+geometry

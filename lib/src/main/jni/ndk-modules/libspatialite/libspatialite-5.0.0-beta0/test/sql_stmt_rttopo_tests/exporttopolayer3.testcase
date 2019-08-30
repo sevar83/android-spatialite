@@ -1,0 +1,7 @@
+TopoGeo_ExportTopoLayer - Double Topology
+:memory: #use in-memory database
+SELECT TopoGeo_ExportTopoLayer(1.5, 'topolayer', 'out');
+1 # rows (not including the header row)
+1 # columns
+TopoGeo_ExportTopoLayer(1.5, 'topolayer', 'out')
+SQL/MM Spatial exception - invalid argument.

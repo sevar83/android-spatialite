@@ -1,0 +1,7 @@
+AsTWKB - Double with bbox
+:memory: #use in-memory database
+SELECT AsTWKB(MakePoint(1, 2), 6, 6, 6, 0, 1.2);
+1 # rows (not including the header row)
+1 # columns
+AsTWKB(MakePoint(1, 2), 6, 6, 6, 0, 1.2)
+(NULL)

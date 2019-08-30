@@ -1,0 +1,8 @@
+PostgreSql_GetLastError - no message
+:memory: #use in-memory database
+SELECT PostgreSql_ResetLastError();SELECT PostgreSql_GetLastError ();
+2 # rows (not including the header row)
+1 # columns
+PostgreSql_ResetLastError()
+1
+(NULL)

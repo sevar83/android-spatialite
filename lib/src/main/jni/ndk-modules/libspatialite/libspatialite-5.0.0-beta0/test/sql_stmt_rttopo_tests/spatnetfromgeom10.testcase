@@ -1,0 +1,7 @@
+ST_SpatNetFromGeom - non existing Network
+:memory: #use in-memory database
+SELECT ST_SpatNetFromGeom('network', MakePoint(1, 2, 4326));
+1 # rows (not including the header row)
+1 # columns
+ST_SpatNetFromGeom('network', MakePoint(1, 2, 4326))
+SQL/MM Spatial exception - invalid network name.

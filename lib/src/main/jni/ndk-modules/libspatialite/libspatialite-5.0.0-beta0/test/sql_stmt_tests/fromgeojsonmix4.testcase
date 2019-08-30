@@ -1,0 +1,7 @@
+From GeoJSON - MultiLineString bbox-crs-type-coords
+:memory:
+SELECT AsEWKT(GeomFromGeoJSON('{"bbox":[1,1,4,4],"crs":{"type":"name","properties":{"name":"EPSG:4326"}},"type":"MultiLineString","coordinates":[[[1,2],[2,1]],[[3,4],[4,3]]]}'));
+1 # rows
+1 # column
+AsEWKT(GeomFromGeoJSON('{"bbox":[1,1,4,4],"crs":{"type":"name","properties":{"name":"EPSG:4326"}},"type":"MultiLineString","coordinates":[[[1,2],[2,1]],[[3,4],[4,3]]]}')):0
+SRID=4326;MULTILINESTRING((1 2,2 1),(3 4,4 3))

@@ -1,0 +1,7 @@
+LineFromEncodedPolyline - BLOB precision
+:memory: #use in-memory database
+SELECT ST_LineFromEncodedPolyline(ST_LineFromEncodedPolyline('_gayB_c`|@_c`|@_c`|@'), zeroblob(4));
+1 # rows (not including the header row)
+1 # columns
+ST_LineFromEncodedPolyline(ST_LineFromEncodedPolyline('_gayB_c`|@_c`|@_c`|@'), zeroblob(4))
+(NULL)

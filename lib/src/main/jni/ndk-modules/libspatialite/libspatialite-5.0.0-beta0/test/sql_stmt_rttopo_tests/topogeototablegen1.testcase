@@ -1,0 +1,7 @@
+TopoGeo_ToGeoTableGeneralize - NULL Topology
+:memory: #use in-memory database
+SELECT TopoGeo_ToGeoTableGeneralize(NULL, NULL, 'table', NULL, 'out', 10.0);
+1 # rows (not including the header row)
+1 # columns
+TopoGeo_ToGeoTableGeneralize(NULL, NULL, 'table', NULL, 'out', 10.0)
+SQL/MM Spatial exception - null argument.

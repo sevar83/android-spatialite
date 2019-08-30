@@ -1,0 +1,7 @@
+AsTWKB - Invalid BLOB Geometry
+:memory: #use in-memory database
+SELECT AsTWKB(zeroblob(10));
+1 # rows (not including the header row)
+1 # columns
+AsTWKB(zeroblob(10))
+(NULL)

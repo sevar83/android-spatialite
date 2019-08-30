@@ -1,0 +1,7 @@
+RemEdgeModFace - Text Edge
+:memory: #use in-memory database
+SELECT ST_RemEdgeModFace('topology', 'edge');
+1 # rows (not including the header row)
+1 # columns
+ST_RemEdgeModFace('topology', 'edge')
+SQL/MM Spatial exception - invalid argument.

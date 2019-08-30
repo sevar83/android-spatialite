@@ -1,0 +1,7 @@
+From GeoJSON - MultiPolygon bbox-crs-coords-type
+:memory:
+SELECT AsEWKT(GeomFromGeoJSON('{"bbox":[0,0,21,21],"crs":{"type":"name","properties":{"name":"EPSG:4326"}},"coordinates":[[[[0,0],[10,0],[10,10],[0,10],[0,0]],[[1,1],[5,1],[5,5],[1,5],[1,1]]],[[[20,20],[21,20],[21,21],[20,21],[20,20]]]],"type":"MultiPolygon"}'));
+1 # rows
+1 # column
+AsEWKT(GeomFromGeoJSON('{"bbox":[0,0,21,21],"crs":{"type":"name","properties":{"name":"EPSG:4326"}},"coordinates":[[[[0,0],[10,0],[10,10],[0,10],[0,0]],[[1,1],[5,1],[5,5],[1,5],[1,1]]],[[[20,20],[21,20],[21,21],[20,21],[20,20]]]],"type":"MultiPolygon"}')):0
+SRID=4326;MULTIPOLYGON(((0 0,10 0,10 10,0 10,0 0),(1 1,5 1,5 5,1 5,1 1)),((20 20,21 20,21 21,20 21,20 20)))

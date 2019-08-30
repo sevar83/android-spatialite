@@ -1,0 +1,7 @@
+StoredVar_Get - Double name
+:memory: #use in-memory database
+SELECT StoredVar_Get(1.5);
+1 # rows (not including the header row)
+1 # columns
+StoredVar_Get(1.5)
+StoredVar exception - illegal Stored Variable Name [not a TEXT string].

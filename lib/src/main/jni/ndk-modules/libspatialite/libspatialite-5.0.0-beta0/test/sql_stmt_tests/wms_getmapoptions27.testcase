@@ -1,0 +1,7 @@
+WMS_SetGetMapOptions() - Text tile-height
+:memory: #use in-memory database
+SELECT WMS_SetGetMapOptions('some_url', 'layer', 1, 0, 512, 'wow')
+1 # rows (not including the header row)
+1 # columns
+WMS_SetGetMapOptions('some_url', 'layer', 1, 0, 512, 'wow')
+-1

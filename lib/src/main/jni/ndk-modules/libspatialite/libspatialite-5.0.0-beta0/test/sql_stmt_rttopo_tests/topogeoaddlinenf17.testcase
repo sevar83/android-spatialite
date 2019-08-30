@@ -1,0 +1,7 @@
+TopoGeo_AddLineStringNoFace - NULL Tolerance
+:memory: #use in-memory database
+SELECT TopoGeo_AddLineStringNoFace('topology', MakePoint(1, 2, 4326), NULL);
+1 # rows (not including the header row)
+1 # columns
+TopoGeo_AddLineStringNoFace('topology', MakePoint(1, 2, 4326), NULL)
+SQL/MM Spatial exception - null argument.

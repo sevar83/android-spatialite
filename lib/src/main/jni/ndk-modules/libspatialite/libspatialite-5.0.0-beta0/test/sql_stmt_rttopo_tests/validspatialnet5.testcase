@@ -1,0 +1,7 @@
+ST_ValidSpatialNet - Text Network
+:memory: #use in-memory database
+SELECT ST_ValidSpatialNet('network');
+1 # rows (not including the header row)
+1 # columns
+ST_ValidSpatialNet('network')
+SQL/MM Spatial exception - invalid network name.

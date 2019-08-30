@@ -1,0 +1,7 @@
+EnsureClosedRings Double Geometry
+:memory: #use in-memory database
+SELECT EnsureClosedRings(1.5);
+1 # rows (not including the header row)
+1 # columns
+EnsureClosedRings(1.5)
+(NULL)

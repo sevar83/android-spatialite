@@ -1,0 +1,7 @@
+EnsureClosedRings Text Geometry
+:memory: #use in-memory database
+SELECT EnsureClosedRings('geom');
+1 # rows (not including the header row)
+1 # columns
+EnsureClosedRings('geom')
+(NULL)

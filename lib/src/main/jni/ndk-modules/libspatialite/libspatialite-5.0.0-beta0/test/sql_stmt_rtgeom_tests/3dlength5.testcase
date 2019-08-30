@@ -1,0 +1,7 @@
+3dLength - invalid BLOB geometry
+:memory: #use in-memory database
+SELECT ST_3dLength(zeroblob(100))
+1 # rows (not including the header row)
+1 # columns
+ST_3dLength(zeroblob(100))
+(NULL)

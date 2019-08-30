@@ -1,0 +1,7 @@
+EncodeURL - NULL charset
+:memory: #use in-memory database
+SELECT EncodeURL('però più perché', NULL);
+1 # rows (not including the header row)
+1 # columns
+EncodeURL('però più perché', NULL)
+(NULL)

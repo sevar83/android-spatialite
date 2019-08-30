@@ -1,0 +1,7 @@
+NewGeoLinkSplit - Int Geometry
+:memory: #use in-memory database
+SELECT ST_NewGeoLinkSplit('net', -1, 1);
+1 # rows (not including the header row)
+1 # columns
+ST_NewGeoLinkSplit('net', -1, 1)
+SQL/MM Spatial exception - invalid network name.

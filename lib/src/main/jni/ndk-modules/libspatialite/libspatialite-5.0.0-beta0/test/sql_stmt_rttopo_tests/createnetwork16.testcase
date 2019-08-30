@@ -1,0 +1,7 @@
+CreateNetwork - NULL hasZ
+:memory: #use in-memory database
+SELECT CreateNetwork('roadsZ', 1, 4326, NULL);
+1 # rows (not including the header row)
+1 # columns
+CreateNetwork('roadsZ', 1, 4326, NULL);
+1

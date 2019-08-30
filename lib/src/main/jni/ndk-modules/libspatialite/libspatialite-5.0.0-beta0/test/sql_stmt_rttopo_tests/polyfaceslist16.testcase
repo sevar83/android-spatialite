@@ -1,0 +1,7 @@
+TopoGeo_PolyFacesList - Double Column
+:memory: #use in-memory database
+SELECT TopoGeo_PolyFacesList('topology', NULL, 'table', 1.2, 'out');
+1 # rows (not including the header row)
+1 # columns
+TopoGeo_PolyFacesList('topology', NULL, 'table', 1.2, 'out')
+SQL/MM Spatial exception - invalid argument.

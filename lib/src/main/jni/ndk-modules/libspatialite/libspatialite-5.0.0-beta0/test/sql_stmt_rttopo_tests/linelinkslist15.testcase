@@ -1,0 +1,7 @@
+TopoNet_LineLinksList - Int Column
+:memory: #use in-memory database
+SELECT TopoNet_LineLinksList('network', NULL, 'table', 1, 'out');
+1 # rows (not including the header row)
+1 # columns
+TopoNet_LineLinksList('network', NULL, 'table', 1, 'out')
+SQL/MM Spatial exception - invalid argument.

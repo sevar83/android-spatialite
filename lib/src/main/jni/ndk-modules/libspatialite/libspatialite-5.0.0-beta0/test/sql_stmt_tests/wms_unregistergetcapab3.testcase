@@ -1,0 +1,7 @@
+WMS_UnRegisterGetCapabilities() - Double URL
+:memory: #use in-memory database
+SELECT WMS_UnRegisterGetCapabilities(1.1)
+1 # rows (not including the header row)
+1 # columns
+WMS_UnRegisterGetCapabilities(1.1)
+-1

@@ -1,0 +1,8 @@
+IsValidRasterStatistics - standard
+NEW:memory: #use in-memory database
+SELECT IsValidRasterStatistics('main', 'alpha', zeroblob(4));
+1 # rows (not including the header row)
+1 # columns
+IsValidRasterStatistics('main', 'alpha', zeroblob(4))
+0
+

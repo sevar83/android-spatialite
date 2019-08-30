@@ -1,0 +1,7 @@
+SqlProc_NumVariables - invalid BLOB
+:memory: #use in-memory database
+SELECT SqlProc_NumVariables(zeroblob(100));
+1 # rows (not including the header row)
+1 # columns
+SqlProc_NumVariables(zeroblob(100))
+SqlProc exception - invalid SQL Procedure BLOB.

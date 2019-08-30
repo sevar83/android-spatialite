@@ -1,0 +1,7 @@
+TopoNet_DisambiguateSegmentLinks - Text Network 
+:memory: #use in-memory database
+SELECT TopoNet_DisambiguateSegmentLinks('network');
+1 # rows (not including the header row)
+1 # columns
+TopoNet_DisambiguateSegmentLinks('network')
+SQL/MM Spatial exception - invalid network name.

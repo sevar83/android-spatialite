@@ -1,0 +1,7 @@
+DropNetwork - BLOB Network
+:memory: #use in-memory database
+SELECT DropNetwork(zeroblob(4));
+1 # rows (not including the header row)
+1 # columns
+DropNetwork(zeroblob(4))
+-1

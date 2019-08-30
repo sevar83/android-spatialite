@@ -1,0 +1,7 @@
+TopoGeo_FromGeoTableExt - Double Topology
+:memory: #use in-memory database
+SELECT TopoGeo_FromGeoTableExt(1.5, NULL, 'table', NULL, 'dustbin', 'dustbinview');
+1 # rows (not including the header row)
+1 # columns
+TopoGeo_FromGeoTableExt(1.5, NULL, 'table', NULL, 'dustbin', 'dustbinview')
+SQL/MM Spatial exception - invalid argument.

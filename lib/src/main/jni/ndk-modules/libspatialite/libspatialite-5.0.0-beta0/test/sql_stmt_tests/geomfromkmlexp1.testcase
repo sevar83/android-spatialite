@@ -1,0 +1,7 @@
+From KML - Point Exp-1
+:memory:
+SELECT AsText(GeomFromKML("<Point><coordinates>.1,.2,.3</coordinates></Point>"))
+1 # rows
+1 # column
+AsText(GeomFromKML("<Point><coordinates>.1,.2,.3</coordinates></Point>")))
+POINT Z(0.1 0.2 0.3)

@@ -1,0 +1,7 @@
+DrapeLine - invalid BLOB geom2
+:memory: #use in-memory database
+SELECT AsText(ST_DrapeLine(GeomFromText('LINESTRING(0 0, 1 1, 5 1)'), zeroblob(12)));
+1 # rows (not including the header row)
+1 # columns
+AsText(ST_DrapeLine(GeomFromText('LINESTRING(0 0, 1 1, 5 1)'), zeroblob(12)))
+(NULL)

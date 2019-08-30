@@ -1,0 +1,7 @@
+TopoGeo_SubdivideLines - NEGATIVE max-points
+:memory: #use in-memory database
+SELECT TopoGeo_SubdivideLines(GeomFromText('LINESTRINGZM(1 2 3 4, 5 6 7 8)', 4326), -1);
+1 # rows (not including the header row)
+1 # columns
+TopoGeo_SubdivideLines(GeomFromText('LINESTRINGZM(1 2 3 4, 5 6 7 8)', 4326), -1)
+SQL/MM Spatial exception - max_points should be >= 2.

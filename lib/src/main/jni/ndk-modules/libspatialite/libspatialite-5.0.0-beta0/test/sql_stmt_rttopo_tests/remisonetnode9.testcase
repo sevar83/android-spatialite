@@ -1,0 +1,7 @@
+RemIsoNetNode - NULL Node
+:memory: #use in-memory database
+SELECT ST_RemIsoNetNode('net', NULL);
+1 # rows (not including the header row)
+1 # columns
+ST_RemIsoNetNode('net', NULL)
+SQL/MM Spatial exception - null argument.

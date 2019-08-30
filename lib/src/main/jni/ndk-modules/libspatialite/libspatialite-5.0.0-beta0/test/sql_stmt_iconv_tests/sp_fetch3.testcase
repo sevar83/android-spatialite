@@ -1,0 +1,7 @@
+StoredProc_Get - Double name
+:memory: #use in-memory database
+SELECT StoredProc_Get(1.5);
+1 # rows (not including the header row)
+1 # columns
+StoredProc_Get(1.5)
+StoredProc exception - illegal Stored Procedure Name [not a TEXT string].

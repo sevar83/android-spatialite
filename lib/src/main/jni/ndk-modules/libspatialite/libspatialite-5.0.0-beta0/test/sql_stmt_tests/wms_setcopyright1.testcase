@@ -1,0 +1,7 @@
+WMS_SetGetMapCopyright() - NULL url
+:memory: #use in-memory database
+SELECT WMS_SetGetMapCopyright(NULL, 'layer', 'somebody')
+1 # rows (not including the header row)
+1 # columns
+WMS_SetGetMapCopyright(NULL, 'layer', 'somebody')
+-1

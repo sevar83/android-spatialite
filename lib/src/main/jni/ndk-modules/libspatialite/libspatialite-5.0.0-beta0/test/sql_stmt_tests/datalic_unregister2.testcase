@@ -1,0 +1,7 @@
+UnRegisterDataLicense() - Int license
+:memory: #use in-memory database
+SELECT UnRegisterDataLicense(1)
+1 # rows (not including the header row)
+1 # columns
+UnRegisterDataLicense(1)
+-1

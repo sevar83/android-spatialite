@@ -1,0 +1,7 @@
+StoredVar_UpdateValue - BLOB value
+:memory: #use in-memory database
+SELECT StoredVar_UpdateValue('varblob', zeroblob(20));
+1 # rows (not including the header row)
+1 # columns
+StoredVar_UpdateValue('varblob', zeroblob(20))
+1

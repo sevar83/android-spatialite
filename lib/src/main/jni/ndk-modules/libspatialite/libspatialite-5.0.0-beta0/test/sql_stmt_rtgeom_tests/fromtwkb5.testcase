@@ -1,0 +1,7 @@
+GeomFromTWKB - Invalid BLOB TWKB
+:memory: #use in-memory database
+SELECT GeomFromTWKB(zeroblob(100));
+1 # rows (not including the header row)
+1 # columns
+GeomFromTWKB(zeroblob(100));
+(NULL)

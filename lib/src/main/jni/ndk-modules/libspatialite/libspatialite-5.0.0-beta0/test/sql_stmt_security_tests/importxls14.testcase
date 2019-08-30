@@ -1,0 +1,7 @@
+importXLS - BLOB titles
+:memory: #use in-memory database
+SELECT ImportXLS('datasheet.xls', 'tablename', 1, zeroblob(4));
+1 # rows (not including the header row)
+1 # columns
+ImportXLS('datasheet.xls', 'tablename', 1, zeroblob(4))
+(NULL)

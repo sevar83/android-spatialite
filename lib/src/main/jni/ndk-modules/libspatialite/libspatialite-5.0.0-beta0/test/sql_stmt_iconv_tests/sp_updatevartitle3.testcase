@@ -1,0 +1,7 @@
+StoredVar_UpdateTitle - Double name
+:memory: #use in-memory database
+SELECT StoredVar_UpdateTitle(1.5, 'title');
+1 # rows (not including the header row)
+1 # columns
+StoredVar_UpdateTitle(1.5, 'title')
+StoredVar exception - illegal Stored Variable Name [not a TEXT string].

@@ -1,0 +1,7 @@
+From GeoJSON - Linestring bbox-coords-crs-type
+:memory:
+SELECT AsEWKT(GeomFromGeoJSON('{"bbox":[1,1,2,2],"coordinates":[[1,1],[2,2]],"crs":{"type":"name","properties":{"name":"EPSG:4326"}},"type":"LineString"}'));
+1 # rows
+1 # column
+AsEWKT(GeomFromGeoJSON('{"bbox":[1,1,2,2],"coordinates":[[1,1],[2,2]],"crs":{"type":"name","properties":{"name":"EPSG:4326"}},"type":"LineString"}')):0
+SRID=4326;LINESTRING(1 1,2 2)

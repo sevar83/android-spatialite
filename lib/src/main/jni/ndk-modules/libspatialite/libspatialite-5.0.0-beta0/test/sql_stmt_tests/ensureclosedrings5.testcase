@@ -1,0 +1,7 @@
+EnsureClosedRings Valid GeometryCollection
+:memory: #use in-memory database
+SELECT AsText(EnsureClosedRings(GeomFromText('GEOMETRYCOLLECTION(POINT(1 1), LINESTRING(10 10, 40 40), POLYGON((50 50, 100 50, 100 100, 50 100, 50 50), (60 60, 80 60, 80 80, 60 80, 60 60)))', 4326)));
+1 # rows (not including the header row)
+1 # columns
+AsText(EnsureClosedRings(GeomFromText('GEOMETRYCOLLECTION(POINT(1 1), LINESTRING(10 10, 40 40), POLYGON((50 50, 100 50, 100 100, 50 100, 50 50), (60 60, 80 60, 80 80, 60 80, 60 60)))', 4326)))
+GEOMETRYCOLLECTION(POINT(1 1), LINESTRING(10 10, 40 40), POLYGON((50 50, 100 50, 100 100, 50 100, 50 50), (60 60, 80 60, 80 80, 60 80, 60 60)))

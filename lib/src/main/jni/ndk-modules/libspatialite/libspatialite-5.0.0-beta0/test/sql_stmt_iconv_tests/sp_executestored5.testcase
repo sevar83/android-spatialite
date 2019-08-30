@@ -1,0 +1,7 @@
+StoredProc_Execute - not existing
+:memory: #use in-memory database
+SELECT StoredProc_Execute('not existing');
+1 # rows (not including the header row)
+1 # columns
+StoredProc_Execute('not existing')
+StoredProc exception - unable to retrive a Stored Procedure named "not existing".

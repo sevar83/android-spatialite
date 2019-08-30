@@ -1,0 +1,7 @@
+IsDecimalNumber() - NULL
+:memory: #use in-memory database
+SELECT IsDecimalNumber(NULL);
+1 # rows (not including the header row)
+1 # columns
+IsDecimalNumber(NULL)
+-1

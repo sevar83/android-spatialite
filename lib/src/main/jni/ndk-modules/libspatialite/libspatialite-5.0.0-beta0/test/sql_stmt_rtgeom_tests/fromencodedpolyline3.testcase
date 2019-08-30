@@ -1,0 +1,7 @@
+LineFromEncodedPolyline - DOUBLE encoded string
+:memory: #use in-memory database
+SELECT ST_LineFromEncodedPolyline(1.5);
+1 # rows (not including the header row)
+1 # columns
+ST_LineFromEncodedPolyline(1.5);
+(NULL)

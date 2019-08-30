@@ -1,0 +1,7 @@
+IsInteger() - NULL value
+:memory: #use in-memory database
+SELECT IsInteger(NULL);
+1 # rows (not including the header row)
+1 # columns
+IsInteger(NULL)
+-1

@@ -1,0 +1,7 @@
+TopoNet_Clone - BLOB Network (destination)
+:memory: #use in-memory database
+SELECT TopoNet_Clone(NULL, 'origin', zeroblob(4));
+1 # rows (not including the header row)
+1 # columns
+TopoNet_Clone(NULL, 'origin', zeroblob(4))
+SQL/MM Spatial exception - invalid argument.

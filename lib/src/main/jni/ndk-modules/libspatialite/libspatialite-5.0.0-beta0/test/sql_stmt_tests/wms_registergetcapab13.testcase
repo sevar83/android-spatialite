@@ -1,0 +1,7 @@
+WMS_RegisterGetCapabilities() - valid args
+:memory: #use in-memory database
+SELECT WMS_RegisterGetCapabilities('some-url', 'title', 'abstract');
+1 # rows (not including the header row)
+1 # columns
+WMS_RegisterGetCapabilities('some-url', 'title', 'abstract')
+0

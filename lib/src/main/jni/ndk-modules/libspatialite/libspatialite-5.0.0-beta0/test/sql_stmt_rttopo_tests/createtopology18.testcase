@@ -1,0 +1,7 @@
+CreateTopology - Double hasZ
+:memory: #use in-memory database
+SELECT CreateTopology('topoD', 4326, 1.5);
+1 # rows (not including the header row)
+1 # columns
+CreateTopology('topoD', 4326, 1.5);
+-1

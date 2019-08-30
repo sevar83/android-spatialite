@@ -1,0 +1,7 @@
+RenameDataLicense() - valid args
+:memory: #use in-memory database
+SELECT RenameDataLicense('old', 'new')
+1 # rows (not including the header row)
+1 # columns
+RenameDataLicense('old', 'new')
+0

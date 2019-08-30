@@ -1,0 +1,7 @@
+ModGeoLinkSplit - Blob Network
+:memory: #use in-memory database
+SELECT ST_ModGeoLinkSplit(zeroblob(4), -1, MakePoint(1, 2, 4326));
+1 # rows (not including the header row)
+1 # columns
+ST_ModGeoLinkSplit(zeroblob(4), -1, MakePoint(1, 2, 4326))
+SQL/MM Spatial exception - invalid argument.

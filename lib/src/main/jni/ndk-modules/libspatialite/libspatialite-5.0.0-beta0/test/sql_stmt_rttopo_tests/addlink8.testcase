@@ -1,0 +1,7 @@
+AddLink - Text Node From
+:memory: #use in-memory database
+SELECT ST_AddLink('net', 'from', 2, GeomFromText('LINESTRING(0 0, 1 1)', 4326));
+1 # rows (not including the header row)
+1 # columns
+ST_AddLink('net', 'from', 2, GeomFromText('LINESTRING(0 0, 1 1)', 4326))
+SQL/MM Spatial exception - invalid argument.

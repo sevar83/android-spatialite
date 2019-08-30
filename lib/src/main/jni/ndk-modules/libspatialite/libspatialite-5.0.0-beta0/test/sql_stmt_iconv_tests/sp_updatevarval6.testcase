@@ -1,0 +1,7 @@
+StoredVar_UpdateValue - Int value
+:memory: #use in-memory database
+SELECT StoredVar_UpdateValue('varint', 11);
+1 # rows (not including the header row)
+1 # columns
+StoredVar_UpdateValue('varint', 11)
+1

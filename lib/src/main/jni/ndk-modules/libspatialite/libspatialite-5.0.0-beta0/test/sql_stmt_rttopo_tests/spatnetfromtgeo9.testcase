@@ -1,0 +1,7 @@
+ST_SpatNetFromTGeo - BLOB Topology
+:memory: #use in-memory database
+SELECT ST_SpatNetFromTGeo('network', zeroblob(4));
+1 # rows (not including the header row)
+1 # columns
+ST_SpatNetFromTGeo('network', zeroblob(4))
+SQL/MM Spatial exception - invalid argument.

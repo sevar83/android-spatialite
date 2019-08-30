@@ -1,0 +1,7 @@
+WMS_RegisterSetting() - Double default
+:memory: #use in-memory database
+SELECT WMS_RegisterSetting('some-url', 'layer', 'key', 'value', 1.5);
+1 # rows (not including the header row)
+1 # columns
+WMS_RegisterSetting('some-url', 'layer', 'key', 'value', 1.5)
+-1

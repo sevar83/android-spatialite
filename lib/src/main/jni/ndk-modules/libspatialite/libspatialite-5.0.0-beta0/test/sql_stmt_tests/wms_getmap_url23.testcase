@@ -1,0 +1,7 @@
+WMS_GetMapRequestURL() - NULL maxx
+:memory: #use in-memory database
+SELECT WMS_GetMapRequestURL('some_url', 'layer', 1024, 1024, 30.5, 30.5, NULL, 60.5)
+1 # rows (not including the header row)
+1 # columns
+WMS_GetMapRequestURL('some_url', 'layer', 1024, 1024, 30.5, 30.5, NULL, 60.5)
+(NULL)

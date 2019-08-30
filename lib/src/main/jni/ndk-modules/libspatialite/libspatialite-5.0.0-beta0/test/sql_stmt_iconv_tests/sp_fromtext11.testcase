@@ -1,0 +1,7 @@
+SqlProc_FromText - valid charset
+:memory: #use in-memory database
+SELECT Hex(SqlProc_FromText('SELECT @col1@, @col2@ FROM @table@', 'ASCII'));
+1 # rows (not including the header row)
+1 # columns
+Hex(SqlProc_FromText('SELECT @col1@, @col2@ FROM @table@', 'ASCII'))
+00CD0187030087040087636F6C3187010087040087636F6C32870100870500877461626C6587010087220000008753454C4543542040636F6C31402C2040636F6C32402046524F4D20407461626C6540DC

@@ -1,0 +1,7 @@
+GetNodeByPoint - NULL Geometry
+:memory: #use in-memory database
+SELECT GetNodeByPoint('topology', NULL);
+1 # rows (not including the header row)
+1 # columns
+GetNodeByPoint('topology', NULL)
+SQL/MM Spatial exception - null argument.

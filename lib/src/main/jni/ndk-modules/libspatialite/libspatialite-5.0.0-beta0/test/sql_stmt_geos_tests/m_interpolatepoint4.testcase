@@ -1,0 +1,7 @@
+interpolate point - Text first geometry
+:memory: #use in-memory database
+SELECT ST_InterpolatePoint('geom', MakePoint(5, 5));
+1 # rows (not including the header row)
+1 # columns
+ST_InterpolatePoint('geom', MakePoint(5, 5))
+(NULL)

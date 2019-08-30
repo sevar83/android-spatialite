@@ -1,0 +1,7 @@
+IsInteger() - TEXT invalid
+:memory: #use in-memory database
+SELECT IsInteger('integer');
+1 # rows (not including the header row)
+1 # columns
+IsInteger('integer')
+0

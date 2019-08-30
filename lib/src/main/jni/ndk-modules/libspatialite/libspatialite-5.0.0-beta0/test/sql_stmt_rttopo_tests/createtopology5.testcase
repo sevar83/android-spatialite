@@ -1,0 +1,7 @@
+CreateTopology - Text Topology
+:memory: #use in-memory database
+SELECT CreateTopology('topo1');
+1 # rows (not including the header row)
+1 # columns
+CreateTopology('topo1')
+1

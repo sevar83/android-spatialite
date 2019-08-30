@@ -1,0 +1,7 @@
+TopoGeo_SnapLineToSeed - invalid BLOB line
+:memory: #use in-memory database
+SELECT TopoGeo_SnapLineToSeed(zeroblob(100), 'topo', 1);
+1 # rows (not including the header row)
+1 # columns
+TopoGeo_SnapLineToSeed(zeroblob(100), 'topo', 1)
+SQL/MM Spatial exception - invalid argument.

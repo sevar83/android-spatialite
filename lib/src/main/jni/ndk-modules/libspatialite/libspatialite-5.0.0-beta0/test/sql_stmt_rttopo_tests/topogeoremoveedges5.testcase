@@ -1,0 +1,7 @@
+TopoGeo_RemoveDanglingEdges - Text Topology
+:memory: #use in-memory database
+SELECT TopoGeo_RemoveDanglingEdges('topology');
+1 # rows (not including the header row)
+1 # columns
+TopoGeo_RemoveDanglingEdges('topology')
+SQL/MM Spatial exception - invalid topology name.

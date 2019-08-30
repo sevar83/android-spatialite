@@ -1,0 +1,7 @@
+IsInteger() - TEXT valid positive
+:memory: #use in-memory database
+SELECT IsInteger('+1234');
+1 # rows (not including the header row)
+1 # columns
+IsInteger('+1234')
+1

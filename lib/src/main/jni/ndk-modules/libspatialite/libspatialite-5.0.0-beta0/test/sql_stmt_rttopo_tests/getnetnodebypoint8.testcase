@@ -1,0 +1,7 @@
+GetNetNodeByPoint - Text Tolerance
+:memory: #use in-memory database
+SELECT GetNetNodeByPoint('network', MakePoint(1, 2, 4326), 'tol');
+1 # rows (not including the header row)
+1 # columns
+GetNetNodeByPoint('network', MakePoint(1, 2, 4326), 'tol')
+SQL/MM Spatial exception - invalid argument.

@@ -1,0 +1,7 @@
+TopoGeo_SnapLineToSeed - point instead of line
+:memory: #use in-memory database
+SELECT TopoGeo_SnapLineToSeed(ST_GeomFromText('POINT(1 1)'), 'topo', 1);
+1 # rows (not including the header row)
+1 # columns
+TopoGeo_SnapLineToSeed(ST_GeomFromText('POINT((1 1)'), 'topo', 1)
+SQL/MM Spatial exception - invalid argument.

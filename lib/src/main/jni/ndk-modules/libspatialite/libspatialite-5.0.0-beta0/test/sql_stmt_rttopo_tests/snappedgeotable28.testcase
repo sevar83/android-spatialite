@@ -1,0 +1,7 @@
+TopoGeo_SnappedGeoTable - Text tolerance_removal
+:memory: #use in-memory database
+SELECT TopoGeo_SnappedGeoTable('topo', 'db', 'input','geom', 'output', 0.1, 'remove', 1);
+1 # rows (not including the header row)
+1 # columns
+TopoGeo_SnappedGeoTable('topo', 'db', 'input', 'geom', 'output', 0.1, 'remove', 1)
+SQL/MM Spatial exception - invalid argument.

@@ -1,0 +1,7 @@
+StoredProc_Get - NULL name
+:memory: #use in-memory database
+SELECT StoredProc_Get(NULL);
+1 # rows (not including the header row)
+1 # columns
+StoredProc_Get(NULL)
+StoredProc exception - illegal Stored Procedure Name [not a TEXT string].

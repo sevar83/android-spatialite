@@ -1,0 +1,7 @@
+RemIsoNode - NULL Node
+:memory: #use in-memory database
+SELECT ST_RemIsoNode('topology', NULL);
+1 # rows (not including the header row)
+1 # columns
+ST_RemIsoNode('topology', NULL)
+SQL/MM Spatial exception - null argument.

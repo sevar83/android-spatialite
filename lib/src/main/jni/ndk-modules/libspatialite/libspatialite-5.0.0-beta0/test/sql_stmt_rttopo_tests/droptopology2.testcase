@@ -1,0 +1,7 @@
+DropTopology - Int Topology
+:memory: #use in-memory database
+SELECT DropTopology(1);
+1 # rows (not including the header row)
+1 # columns
+DropTopology(1)
+-1

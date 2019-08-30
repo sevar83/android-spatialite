@@ -1,0 +1,7 @@
+ST_IsValidTrajectory - POINT Geometry
+:memory: #use in-memory database
+SELECT ST_IsValidTrajectory(MakePointM(10, 10, 10));
+1 # rows (not including the header row)
+1 # columns
+ST_IsValidTrajectory(MakePointM(10, 10, 10))
+0

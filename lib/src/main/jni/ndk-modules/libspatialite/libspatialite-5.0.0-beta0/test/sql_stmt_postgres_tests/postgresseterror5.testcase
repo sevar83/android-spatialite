@@ -1,0 +1,7 @@
+PostgreSql_SetLastError - ok
+:memory: #use in-memory database
+SELECT PostgreSql_SetLastError ('some error');
+1 # rows (not including the header row)
+1 # columns
+PostgreSql_SetLastError ('some error')
+1

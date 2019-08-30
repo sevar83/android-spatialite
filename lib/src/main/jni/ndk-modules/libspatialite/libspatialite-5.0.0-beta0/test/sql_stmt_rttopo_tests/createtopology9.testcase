@@ -1,0 +1,7 @@
+CreateTopology - Double Srid
+:memory: #use in-memory database
+SELECT CreateTopology('topo', 4326.1);
+1 # rows (not including the header row)
+1 # columns
+CreateTopology('topo', 4326.1)
+-1

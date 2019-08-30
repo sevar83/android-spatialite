@@ -1,0 +1,7 @@
+RenameDataLicense() - NULL new-name
+:memory: #use in-memory database
+SELECT RenameDataLicense('old', NULL)
+1 # rows (not including the header row)
+1 # columns
+RenameDataLicense('old', NULL)
+-1

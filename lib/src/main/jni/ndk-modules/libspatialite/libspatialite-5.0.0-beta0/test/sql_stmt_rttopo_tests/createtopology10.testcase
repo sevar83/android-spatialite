@@ -1,0 +1,7 @@
+CreateTopology - Int Srid
+:memory: #use in-memory database
+SELECT CreateTopology('topo2', 4326);
+1 # rows (not including the header row)
+1 # columns
+CreateTopology('topo2', 4326)
+1

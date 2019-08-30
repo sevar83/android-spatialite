@@ -1,0 +1,7 @@
+geodesic Arc Area - valid default
+:memory:
+SELECT GeodesicArcArea(MakePoint(172.677712, -34.426461, 4326), MakePoint(167.836789, -46.969656, 4326));
+1 # rows
+1 # column
+GeodesicArcArea(MakePoint(172.677712, -34.426461, 4326), MakePoint(167.836789, -46.969656, 4326))
+39810530621.6272

@@ -1,0 +1,7 @@
+StoredVar_UpdateValue - NULL name
+:memory: #use in-memory database
+SELECT StoredVar_UpdateValue(NULL, 'value');
+1 # rows (not including the header row)
+1 # columns
+StoredVar_UpdateValue(NULL, 'value')
+StoredVar exception - illegal Stored Variable Name [not a TEXT string].

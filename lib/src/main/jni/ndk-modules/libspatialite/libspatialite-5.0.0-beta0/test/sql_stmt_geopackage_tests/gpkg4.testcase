@@ -1,0 +1,7 @@
+GPKG4
+:memory: #use in-memory database
+SELECT AutoGpkgStart(1)
+1 # rows (not including the header row)
+1 # columns
+AutoGpkgStart(1)
+-1

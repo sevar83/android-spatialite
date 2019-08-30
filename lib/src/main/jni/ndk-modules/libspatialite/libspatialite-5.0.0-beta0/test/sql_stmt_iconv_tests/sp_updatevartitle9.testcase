@@ -1,0 +1,7 @@
+StoredVar_UpdateTitle - Text title
+:memory: #use in-memory database
+SELECT StoredVar_UpdateTitle('varname', 'another title');
+1 # rows (not including the header row)
+1 # columns
+StoredVar_UpdateTitle('varname', 'another title')
+0

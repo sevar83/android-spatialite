@@ -1,0 +1,7 @@
+MakeStringList() - invalid values
+:memory: #use in-memory database
+SELECT MakeStringList(x) FROM (SELECT NULL AS x UNION SELECT 2.1 AS x UNION SELECT zeroblob(10) AS x); 
+1 # rows (not including the header row)
+1 # columns
+MakeStringList(x) FROM (SELECT NULL AS x UNION SELECT 2.1 AS x UNION SELECT zeroblob(10) AS x)
+ILLEGAL_VALUE,ILLEGAL_VALUE,ILLEGAL_VALUE

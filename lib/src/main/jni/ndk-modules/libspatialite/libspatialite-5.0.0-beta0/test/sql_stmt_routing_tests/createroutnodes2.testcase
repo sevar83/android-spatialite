@@ -1,0 +1,7 @@
+CreateRoutingNodes() - DOUBLE DB-prefix
+:memory: #use in-memory database
+SELECT CreateRoutingNodes(1.5, 'table', 'geom', 'from', 'to');
+1 # rows (not including the header row)
+1 # columns
+CreateRoutingNodes(1.5, 'table', 'geom', 'from', 'to')
+CreateRoutingNodes exception - illegal DB-prefix [not a TEXT string].

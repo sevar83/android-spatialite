@@ -1,0 +1,7 @@
+AddLink - BLOB Network
+:memory: #use in-memory database
+SELECT ST_AddLink(zeroblob(4), 1, 2, GeomFromText('LINESTRING(0 0, 1 1)', 4326));
+1 # rows (not including the header row)
+1 # columns
+ST_AddLink(zeroblob(4), 1, 2, GeomFromText('LINESTRING(0 0, 1 1)', 4326))
+SQL/MM Spatial exception - invalid argument.

@@ -1,0 +1,7 @@
+TopoGeo_NewEdgesSplit - NULL max-points
+:memory: #use in-memory database
+SELECT TopoGeo_NewEdgesSplit('topology', NULL);
+1 # rows (not including the header row)
+1 # columns
+TopoGeo_NewEdgesSplit('topology', NULL)
+SQL/MM Spatial exception - null argument.

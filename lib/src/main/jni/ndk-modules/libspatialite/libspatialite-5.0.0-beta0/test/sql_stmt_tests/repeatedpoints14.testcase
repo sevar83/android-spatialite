@@ -1,0 +1,7 @@
+RemoveRepeatedPoints Repeated Points MultiPoint + tolerance
+:memory: #use in-memory database
+SELECT AsText(RemoveRepeatedPoints(GeomFromText('MULTIPOINT(10 10, 10.01 10.01, 20 20, 10.02 10.02, 20.01 20.01, 10 10, 20 20)', 4326), 0.1));
+1 # rows (not including the header row)
+1 # columns
+AsText(RemoveRepeatedPoints(GeomFromText('MULTIPOINT(10 10, 10.01 10.01, 20 20, 10.02 10.02, 20.01 20.01, 10 10, 20 20)', 4326), 0.1))
+MULTIPOINT(10 10, 20 20)

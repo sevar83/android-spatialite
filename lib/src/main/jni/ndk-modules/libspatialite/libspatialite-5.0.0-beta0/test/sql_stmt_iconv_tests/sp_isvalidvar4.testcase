@@ -1,0 +1,7 @@
+SqlProc_IsValidVarValue - BLOB
+:memory: #use in-memory database
+SELECT SqlProc_IsValidVarValue(zeroblob(4));
+1 # rows (not including the header row)
+1 # columns
+SqlProc_IsValidVarValue(zeroblob(4))
+0

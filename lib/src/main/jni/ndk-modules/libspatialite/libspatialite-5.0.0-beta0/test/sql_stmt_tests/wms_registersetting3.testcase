@@ -1,0 +1,7 @@
+WMS_RegisterSetting() - Double URL
+:memory: #use in-memory database
+SELECT WMS_RegisterSetting(1.1, 'layer', 'key', 'value')
+1 # rows (not including the header row)
+1 # columns
+WMS_RegisterSetting(1.1, 'layer', 'key', 'value')
+-1

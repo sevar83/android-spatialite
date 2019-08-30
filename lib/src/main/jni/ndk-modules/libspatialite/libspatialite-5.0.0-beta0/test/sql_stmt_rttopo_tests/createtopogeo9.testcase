@@ -1,0 +1,7 @@
+ST_CreateTopoGeo - Invalid BLOB GeomCollection
+:memory: #use in-memory database
+SELECT ST_CreateTopoGeo('topology', zeroblob(100));
+1 # rows (not including the header row)
+1 # columns
+ST_CreateTopoGeo('topology', zeroblob(100))
+SQL/MM Spatial exception - not a Geometry.

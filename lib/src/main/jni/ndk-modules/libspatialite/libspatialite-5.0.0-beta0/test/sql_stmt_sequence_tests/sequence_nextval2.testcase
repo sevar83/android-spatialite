@@ -1,0 +1,7 @@
+sequence_nextval('name') - Named Sequence
+:memory: #use in-memory database
+SELECT sequence_nextval('name')
+1 # rows (not including the header row)
+1 # columns
+sequence_nextval('name')
+1

@@ -1,0 +1,7 @@
+CreateRoutingNodes() - DOUBLE to-column
+:memory: #use in-memory database
+SELECT CreateRoutingNodes(NULL, 'table', NULL, 'from', 1.5);
+1 # rows (not including the header row)
+1 # columns
+CreateRoutingNodes(NULL, 'table', NULL, 'from', 1.5)
+CreateRoutingNodes exception - illegal ToNode Column Name [not a TEXT string].

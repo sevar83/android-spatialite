@@ -1,0 +1,7 @@
+CreateTopology - NULL hasZ
+:memory: #use in-memory database
+SELECT CreateTopology('topoZ', 4326, NULL);
+1 # rows (not including the header row)
+1 # columns
+CreateTopology('topoZ', 4326, NULL);
+1

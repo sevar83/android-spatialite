@@ -1,0 +1,7 @@
+GetNetNodeByPoint - Int Tolerance
+:memory: #use in-memory database
+SELECT GetNetNodeByPoint('network', MakePoint(1, 2, 4326), 1);
+1 # rows (not including the header row)
+1 # columns
+GetNetNodeByPoint('network', MakePoint(1, 2, 4326), 1)
+SQL/MM Spatial exception - invalid network name.

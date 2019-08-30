@@ -1,0 +1,7 @@
+GetFaceGeometry - Text Face
+:memory: #use in-memory database
+SELECT ST_GetFaceGeometry('topology', 'face');
+1 # rows (not including the header row)
+1 # columns
+ST_GetFaceGeometry('topology', 'face')
+SQL/MM Spatial exception - invalid argument.

@@ -1,0 +1,7 @@
+geodesic Chord Length - NULL unit of measure
+:memory:
+SELECT GeodesicChordLength(MakePoint(172.677712, -34.426461, 4326), MakePoint(167.836789, -46.969656, 4326), NULL);
+1 # rows
+1 # column
+GeodesicChordLength(MakePoint(172.677712, -34.426461, 4326), MakePoint(167.836789, -46.969656, 4326), NULL)
+(NULL)

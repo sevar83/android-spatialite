@@ -1,0 +1,7 @@
+SetDataLicenseUrl() - BLOB license
+:memory: #use in-memory database
+SELECT SetDataLicenseUrl(zeroblob(10), 'anurl')
+1 # rows (not including the header row)
+1 # columns
+SetDataLicenseUrl(zeroblob(10), 'anurl')
+-1

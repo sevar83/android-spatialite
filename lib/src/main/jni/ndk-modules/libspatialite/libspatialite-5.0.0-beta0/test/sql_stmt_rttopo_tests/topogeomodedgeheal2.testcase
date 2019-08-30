@@ -1,0 +1,7 @@
+TopoGeo_ModEdgeHeal - Int Topology
+:memory: #use in-memory database
+SELECT TopoGeo_ModEdgeHeal(1);
+1 # rows (not including the header row)
+1 # columns
+TopoGeo_ModEdgeHeal(1)
+SQL/MM Spatial exception - invalid argument.

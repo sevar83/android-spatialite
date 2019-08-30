@@ -1,0 +1,7 @@
+RemoveRepeatedPoints Double Geometry
+:memory: #use in-memory database
+SELECT RemoveRepeatedPoints(1.5);
+1 # rows (not including the header row)
+1 # columns
+RemoveRepeatedPoints(1.5)
+(NULL)

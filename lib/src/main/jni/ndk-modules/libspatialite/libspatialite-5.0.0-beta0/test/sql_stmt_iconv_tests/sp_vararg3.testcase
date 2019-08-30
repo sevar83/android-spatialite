@@ -1,0 +1,7 @@
+SqlProc_VarValue - Double Name 
+:memory: #use in-memory database
+SELECT SqlProc_VarValue(1.5, 'value');
+1 # rows (not including the header row)
+1 # columns
+SqlProc_VarValue(1-5, 'value')
+SqlProc exception - illegal Name arg [not TEXT].

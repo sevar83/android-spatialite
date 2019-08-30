@@ -1,0 +1,7 @@
+SqlProc_RawSQL - TEXT
+:memory: #use in-memory database
+SELECT SqlProc_RawSQL('text');
+1 # rows (not including the header row)
+1 # columns
+SqlProc_RawSQL('text')
+SqlProc exception - illegal SQL Procedure arg [not a BLOB].

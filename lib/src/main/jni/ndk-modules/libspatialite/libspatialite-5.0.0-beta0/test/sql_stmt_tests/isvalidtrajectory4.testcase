@@ -1,0 +1,7 @@
+ST_IsValidTrajectory - LINESTRING Geometry
+:memory: #use in-memory database
+SELECT ST_IsValidTrajectory(ST_GeomFromText('LINESTRING(10 10, 20 20)'));
+1 # rows (not including the header row)
+1 # columns
+ST_IsValidTrajectory(ST_GeomFromText('LINESTRING(10 10, 20 20)'))
+0

@@ -1,0 +1,7 @@
+TopoGeo_SnapPointToSeed - linestring instead of point
+:memory: #use in-memory database
+SELECT TopoGeo_SnapPointToSeed(ST_GeomFromText('LINESTRING(1 1, 2 2)'), 'topo', 1);
+1 # rows (not including the header row)
+1 # columns
+TopoGeo_SnapPointToSeed(ST_GeomFromText('LINESTRING(1 1, 2 2)'), 'topo', 1)
+SQL/MM Spatial exception - invalid argument.

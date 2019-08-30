@@ -1,0 +1,7 @@
+SetDataLicenseUrl() - Int license
+:memory: #use in-memory database
+SELECT SetDataLicenseUrl(1, 'anurl')
+1 # rows (not including the header row)
+1 # columns
+SetDataLicenseUrl(1, 'anurl')
+-1

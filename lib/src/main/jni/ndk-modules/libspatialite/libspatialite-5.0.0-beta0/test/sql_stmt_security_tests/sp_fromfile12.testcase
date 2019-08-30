@@ -1,0 +1,7 @@
+SqlProc_FromFile - undefined charset
+:memory: #use in-memory database
+SELECT Hex(SqlProc_FromFile('./sqlproc_sample.txt', 'abcdefghi'));
+1 # rows (not including the header row)
+1 # columns
+Hex(SqlProc_FromFile('./sqlproc_sample.txt', 'abcdefghi'))
+SqlProc exception - unable to parse the external File.

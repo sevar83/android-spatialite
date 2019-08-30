@@ -1,0 +1,7 @@
+StoredProc_Register - invalid BLOB SQL body
+:memory: #use in-memory database
+SELECT StoredProc_Register('name', 'title', zeroblob(10));
+1 # rows (not including the header row)
+1 # columns
+StoredProc_Register('name', 'title', zeroblob(10))
+StoredProc exception - invalid SQL Procedure BLOB.

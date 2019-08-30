@@ -1,0 +1,7 @@
+SqlProc_VariableN - BLOB index
+:memory: #use in-memory database
+SELECT SqlProc_VariableN(SqlProc_FromText('SELECT @col1@, $col2$ FROM @table@'), zeroblob(10));
+1 # rows (not including the header row)
+1 # columns
+SqlProc_VariableN(SqlProc_FromText('SELECT @col1@, $col2$ FROM @table@'), zeroblob(10))
+SqlProc exception - illegal Index arg [not an INTEGER].

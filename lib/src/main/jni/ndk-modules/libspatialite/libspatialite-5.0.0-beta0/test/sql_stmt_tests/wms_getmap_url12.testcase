@@ -1,0 +1,7 @@
+WMS_GetMapRequestURL() - BLOB width
+:memory: #use in-memory database
+SELECT WMS_GetMapRequestURL('some_url', 'layer', zeroblob(4), 1024, 30, 30, 60, 60)
+1 # rows (not including the header row)
+1 # columns
+WMS_GetMapRequestURL('some_url', 'layer', zeroblob(4), 1024, 30, 30, 60, 60)
+(NULL)

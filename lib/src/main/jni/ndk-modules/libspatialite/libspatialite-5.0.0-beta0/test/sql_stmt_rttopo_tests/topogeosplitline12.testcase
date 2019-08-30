@@ -1,0 +1,7 @@
+TopoGeo_SubdivideLines - NULL max-length
+:memory: #use in-memory database
+SELECT AsText(TopoGeo_SubdivideLines(GeomFromText('LINESTRING(0 0, 1 1)', 4326), NULL, NULL));
+1 # rows (not including the header row)
+1 # columns
+AsText(TopoGeo_SubdivideLines(GeomFromText('LINESTRING(0 0, 1 1)', 4326), NULL, NULL))
+MULTILINESTRING((0 0, 1 1))

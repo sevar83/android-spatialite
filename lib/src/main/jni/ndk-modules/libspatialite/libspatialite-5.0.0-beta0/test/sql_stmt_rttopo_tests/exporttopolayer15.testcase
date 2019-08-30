@@ -1,0 +1,7 @@
+TopoGeo_ExportTopoLayer - Text create-only
+:memory: #use in-memory database
+SELECT TopoGeo_ExportTopoLayer('topology', 'topolayer', 'out', 1, 'no');
+1 # rows (not including the header row)
+1 # columns
+TopoGeo_ExportTopoLayer(topology, 'topolayer', 'out', 1, 'no')
+SQL/MM Spatial exception - invalid argument.

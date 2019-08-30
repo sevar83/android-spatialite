@@ -1,0 +1,7 @@
+WMS_SetGetMapCopyright() - Text license, NULL copyright
+:memory: #use in-memory database
+SELECT WMS_SetGetMapCopyright('anurl', 'layer', NULL, 'CC0 1.0')
+1 # rows (not including the header row)
+1 # columns
+WMS_SetGetMapCopyright('anurl', 'layer', NULL, 'CC0 1.0')
+0

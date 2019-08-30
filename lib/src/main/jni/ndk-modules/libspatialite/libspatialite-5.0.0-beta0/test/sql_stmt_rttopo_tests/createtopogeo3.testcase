@@ -1,0 +1,7 @@
+ST_CreateTopoGeo - Double Topology
+:memory: #use in-memory database
+SELECT ST_CreateTopoGeo(1.5, MakePoint(1, 2, 4326));
+1 # rows (not including the header row)
+1 # columns
+ST_CreateTopoGeo(1.5, MakePoint(1, 2, 4326))
+SQL/MM Spatial exception - invalid argument.

@@ -1,0 +1,7 @@
+TopoGeo_LineEdgesList - NULL ref-table
+:memory: #use in-memory database
+SELECT TopoGeo_LineEdgesList('topology', NULL, NULL, NULL, 'out');
+1 # rows (not including the header row)
+1 # columns
+TopoGeo_LineEdgesList('topology', NULL, NULL, NULL, 'out')
+SQL/MM Spatial exception - invalid argument.

@@ -1,0 +1,7 @@
+FDO_OGR5
+:memory: #use in-memory database
+SELECT AutoFDOStop('a')
+1 # rows (not including the header row)
+1 # columns
+AutoFDOStop('a')
+0

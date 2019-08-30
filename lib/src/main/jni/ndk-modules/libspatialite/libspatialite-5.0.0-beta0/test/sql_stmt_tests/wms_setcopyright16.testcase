@@ -1,0 +1,7 @@
+WMS_SetGetMapCopyright() - Double license
+:memory: #use in-memory database
+SELECT WMS_SetGetMapCopyright('anurl', 'layer', 'somebody', 1.4)
+1 # rows (not including the header row)
+1 # columns
+WMS_SetGetMapCopyright('anurl', 'layer', 'somebody', 1.4)
+-1

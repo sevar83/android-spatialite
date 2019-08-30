@@ -1,0 +1,7 @@
+TopoGeo_FromGeoTableNoFaceExt - NULL dustbin-view
+:memory: #use in-memory database
+SELECT TopoGeo_FromGeoTableNoFaceExt('topology', NULL, 'table', NULL, 'dustbin', NULL);
+1 # rows (not including the header row)
+1 # columns
+TopoGeo_FromGeoTableNoFaceExt('topology', NULL, 'table', NULL, 'dustbin', NULL)
+SQL/MM Spatial exception - null argument.

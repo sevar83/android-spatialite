@@ -1,0 +1,7 @@
+TopoGeo_FromGeoTableExt - Double line-max-points
+:memory: #use in-memory database
+SELECT TopoGeo_FromGeoTableExt('topology', NULL, 'table', NULL, 'dustbin', 'dustbinview', 1.5);
+1 # rows (not including the header row)
+1 # columns
+TopoGeo_FromGeoTableExt('topology', NULL, 'table', NULL, 'dustbin', 'dustbinview', 1.5)
+SQL/MM Spatial exception - invalid argument.

@@ -1,0 +1,7 @@
+PostgreSql_SetLastError - BLOB
+:memory: #use in-memory database
+SELECT PostgreSql_SetLastError (zeroblob(10));
+1 # rows (not including the header row)
+1 # columns
+PostgreSql_SetLastError (zeroblob(10))
+-1

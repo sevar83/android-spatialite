@@ -1,0 +1,7 @@
+interpolate point - Invalid Polygon second geometry
+:memory: #use in-memory database
+SELECT ST_InterpolatePoint(GeomFromText('LINESTRING M(0 0 0, 10 0 20)'), GeomFromText('POLYGON((0 0, 1 0, 1 1, 0 1, 0 0))'));
+1 # rows (not including the header row)
+1 # columns
+ST_InterpolatePoint(GeomFromText('LINESTRING M(0 0 0, 10 0 20)'), GeomFromText('POLYGON((0 0, 1 0, 1 1, 0 1, 0 0))'))
+(NULL)

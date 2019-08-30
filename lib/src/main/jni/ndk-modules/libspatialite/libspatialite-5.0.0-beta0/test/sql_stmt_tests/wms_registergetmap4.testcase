@@ -1,0 +1,7 @@
+WMS_RegisterGetMap() - BLOB GetCapabilities URL
+:memory: #use in-memory database
+SELECT WMS_RegisterGetMap(zeroblob(10), 'getmap_url', 'layer', '1.3.0', 'EPSG:3003', 'image/png', 'default', 1, 0)
+1 # rows (not including the header row)
+1 # columns
+WMS_RegisterGetMap(zeroblob(10), 'getmap_url', 'layer', '1.3.0', 'EPSG:3003', 'image/png', 'default', 1, 0):0
+-1

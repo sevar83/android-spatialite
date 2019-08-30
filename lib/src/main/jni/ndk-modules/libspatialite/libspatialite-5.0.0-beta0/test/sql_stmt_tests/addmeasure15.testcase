@@ -1,0 +1,7 @@
+ST_AddMeasure() - Int M-start and M-end
+:memory: #use in-memory database
+SELECT ST_AsText(ST_AddMeasure(GeomFromText('LINESTRING(0 0, 1 0, 1 1, 0 1)'), 100, 400))
+1 # rows (not including the header row)
+1 # columns
+ST_AsText(ST_AddMeasure(GeomFromText('LINESTRING(0 0, 1 0, 1 1, 0 1)'), 100, 400))
+LINESTRING M(0 0 100, 1 0 200, 1 1 300, 0 1 400)

@@ -1,0 +1,7 @@
+SqlProc_SetLogfile - NULL filepath
+:memory: #use in-memory database
+SELECT SqlProc_SetLogfile(NULL);
+1 # rows (not including the header row)
+1 # columns
+SqlProc_SetLogfile(NULL)
+1

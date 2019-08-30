@@ -1,0 +1,7 @@
+TopoGeo_Polygonize - Text force-rebuild
+:memory: #use in-memory database
+SELECT TopoGeo_Polygonize('topo', 'force');
+1 # rows (not including the header row)
+1 # columns
+TopoGeo_Polygonize('topo', 'force')
+SQL/MM Spatial exception - invalid argument.

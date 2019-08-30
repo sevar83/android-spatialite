@@ -1,0 +1,7 @@
+WMS_UnRegisterRefSys() - BLOB layer-name
+:memory: #use in-memory database
+SELECT WMS_UnRegisterRefSys('some-url', zeroblob(4), 'EPSG:4326')
+1 # rows (not including the header row)
+1 # columns
+WMS_UnRegisterRefSys('some-url', zeroblob(4), 'EPSG:4326'):0
+-1

@@ -1,0 +1,7 @@
+WMS_SetGetCapabilitiesInfos() - Double title
+:memory: #use in-memory database
+SELECT WMS_SetGetCapabilitiesInfos('some-url', 1.1, 'capabilities')
+1 # rows (not including the header row)
+1 # columns
+WMS_SetGetCapabilitiesInfos('some-url', 1.1, 'capabilities')
+-1

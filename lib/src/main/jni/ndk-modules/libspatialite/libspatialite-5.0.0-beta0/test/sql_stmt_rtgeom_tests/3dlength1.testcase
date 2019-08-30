@@ -1,0 +1,7 @@
+3dLength - NULL geometry
+:memory: #use in-memory database
+SELECT ST_3dLength(NULL)
+1 # rows (not including the header row)
+1 # columns
+ST_3dLength(NULL)
+(NULL)

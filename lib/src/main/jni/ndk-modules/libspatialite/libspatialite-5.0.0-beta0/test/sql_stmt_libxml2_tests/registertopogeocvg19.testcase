@@ -1,0 +1,7 @@
+RegisterTopoGeoCoverage - NULL Queryable
+:memory: #use in-memory database
+SELECT SE_RegisterTopoGeoCoverage('alpha', 'topo', 'title', 'abstract', NULL, 1);
+1 # rows (not including the header row)
+1 # columns
+SE_RegisterTopoGeoCoverage('alpha', 'topo', 'title', 'abstract', NULL, 1)
+-1

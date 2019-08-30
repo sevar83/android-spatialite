@@ -1,0 +1,7 @@
+LineFromEncodedPolyline - BLOB encoded string
+:memory: #use in-memory database
+SELECT ST_LineFromEncodedPolyline(zeroblob(10));
+1 # rows (not including the header row)
+1 # columns
+ST_LineFromEncodedPolyline(zeroblob(10));
+(NULL)

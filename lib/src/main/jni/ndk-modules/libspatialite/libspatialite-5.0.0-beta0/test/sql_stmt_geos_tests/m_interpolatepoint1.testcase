@@ -1,0 +1,7 @@
+interpolate point - NULL first geometry
+:memory: #use in-memory database
+SELECT ST_InterpolatePoint(NULL, MakePoint(5, 5));
+1 # rows (not including the header row)
+1 # columns
+ST_InterpolatePoint(NULL, MakePoint(5, 5))
+(NULL)
