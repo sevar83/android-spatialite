@@ -28,7 +28,7 @@ allprojects {
 
 2) Add the following to your module's `build.gradle`:
 ```
-compile 'com.github.sevar83:android-spatialite:2.0.0'
+implementation 'com.github.sevar83:android-spatialite:<LATEST_VERSION>'
 ```
 
 ## EXAMPLE CODE
@@ -84,7 +84,7 @@ android {
 - freexl 1.0.2
 
 ## REQUIREMENTS
-Min SDK 15
+Min SDK 16
 
 ## MIGRATION TO 2.0+
 
@@ -93,6 +93,10 @@ Min SDK 15
 3. Replace all occasions of `import org.spatialite.database.SQLite***Exception;` with `import android.database.sqlite.SQLite***Exception;`
 
 ## CHANGES
+
+### 2.0.1
+- Migrated to AndroidX
+- Fixed native crash [#4](https://github.com/sevar83/android-spatialite/issues/4)
 
 ### 2.0.0
 - Now using the [Requery.io SQLite wrapper](https://github.com/requery/sqlite-android/) instead of SQLCipher's. This results to:
