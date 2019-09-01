@@ -45,7 +45,7 @@ Simply: *Spatialite* = *SQLite* + advanced geospatial support.<br>
 *Spatialite* is a geospatial extension to *SQLite*. It is a set of few libraries written in C to extend *SQLite* with geometry data types and many [SQL functions](http://www.gaia-gis.it/gaia-sins/spatialite-sql-4.3.0.html) above geometry data. For more info: https://www.gaia-gis.it/gaia-sins/
 
 ### Is there a list of all supported Spatialite functions?
-Yes - http://www.gaia-gis.it/gaia-sins/spatialite-sql-4.4.0.html
+Yes - http://www.gaia-gis.it/gaia-sins/spatialite-sql-5.0.0.html
 
 ### Does it use JDBC?
 No. It uses cursors - the suggested lightweight approach to access SQL used in the Android platform instead of the heavier JDBC.
@@ -75,9 +75,11 @@ android {
 ### What libraries are packaged currently?
 
 - SQLite 3.15.1
-- Spatialite 4.3.0a
-- GEOS 3.4.2
-- Proj4 4.8.0
+- Spatialite 5.0.0-beta0
+- GEOS 3.7.2
+- RtTopo 1.1.0
+- json-c 0.13.1-20180305
+- Proj4 4.9.3
 - lzma 5.2.1
 - iconv 1.13
 - xml2 2.9.2
