@@ -31,14 +31,15 @@ LOCAL_LDLIBS += -llog
 
 include $(BUILD_SHARED_LIBRARY)
 
+NDK_MODULES_PATH := ndk-modules
+
 # The library concrete version subfolder name must match its .mk file.
 # E.g. libxml2-2.9.2/ -> libxml2-2.9.2.mk
-
-NDK_MODULES_PATH := ndk-modules
 
 SPATIALITE_PATH := libspatialite-5.0.0-beta0
 PROJ4_PATH := proj-4.9.3
 GEOS_PATH := geos-3.7.2
+JSONC_PATH := json-c-0.13.1-20180305
 ICONV_PATH := libiconv-1.13
 LZMA_PATH := xz-5.2.1
 XML2_PATH := libxml2-2.9.2
@@ -49,6 +50,7 @@ include $(NDK_MODULES_PATH)/sqlite/sqlite.mk
 include $(NDK_MODULES_PATH)/libspatialite/$(SPATIALITE_PATH).mk
 include $(NDK_MODULES_PATH)/proj.4/$(PROJ4_PATH).mk
 include $(NDK_MODULES_PATH)/geos/$(GEOS_PATH).mk
+include $(NDK_MODULES_PATH)/json-c/$(JSONC_PATH).mk
 include $(NDK_MODULES_PATH)/libiconv/$(ICONV_PATH).mk
 include $(NDK_MODULES_PATH)/liblzma/$(LZMA_PATH).mk
 include $(NDK_MODULES_PATH)/libxml2/$(XML2_PATH).mk
