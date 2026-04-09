@@ -5,7 +5,7 @@ LOCAL_MODULE := proj4
 
 PROJ4_CONFIG := $(LOCAL_PATH)/config
 
-LOCAL_CFLAGS += -fvisibility=hidden
+LOCAL_CFLAGS += -fvisibility=hidden -Wno-int-conversion -Wno-implicit-function-declaration
 LOCAL_C_INCLUDES := $(LOCAL_PATH)/$(PROJ4_PATH)/proj/src $(PROJ4_CONFIG)
 LOCAL_EXPORT_C_INCLUDES := $(LOCAL_PATH)/$(PROJ4_PATH)/proj/src $(PROJ4_CONFIG)
 LOCAL_SRC_FILES := \

@@ -173,7 +173,9 @@ spatialite_flags := \
 
 LOCAL_CFLAGS    := \
    $(common_sqlite_flags) \
-   $(spatialite_flags)
+   $(spatialite_flags) \
+   -Wno-int-conversion \
+   -Wno-implicit-function-declaration
 
 LOCAL_STATIC_LIBRARIES := proj4 geos libsqlite3x iconv libxml2 freexl
 

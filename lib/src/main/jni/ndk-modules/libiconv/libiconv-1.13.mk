@@ -5,6 +5,8 @@ LOCAL_MODULE := iconv
 
 LOCAL_CFLAGS    := \
     -Wno-multichar \
+    -Wno-int-conversion \
+    -Wno-implicit-function-declaration \
     -D_ANDROID \
     -DLIBDIR "$(LOCAL_PATH)/$(ICONV_PATH)/libcharset/lib" \
     -DBUILDING_LIBICONV \

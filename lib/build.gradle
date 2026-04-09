@@ -1,75 +1,59 @@
 plugins {
-    id 'de.undercouch.download' version '3.3.0'
+    id 'com.android.library'
+    id 'de.undercouch.download'
 }
-
-apply plugin: 'com.android.library'
-apply plugin: 'de.undercouch.download'
-apply plugin: 'com.github.dcendents.android-maven'
-
-group = 'com.github.sevar83'
 
 import de.undercouch.gradle.tasks.download.Download
-import org.gradle.internal.os.OperatingSystem;
-
-gradle.projectsEvaluated {
-    preBuild.dependsOn(buildSqlite)
-}
+import org.gradle.internal.os.OperatingSystem
 
 android {
-    compileSdkVersion 29
+    compileSdk 36
+    namespace 'org.spatialite'
 
     defaultConfig {
-        minSdkVersion 16
-        targetSdkVersion 29
+        minSdk 21
+        targetSdk 36
+        ndkVersion "27.2.12479018"
         versionCode 1
         versionName project.version
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles 'proguard-rules.pro'
     }
+
     buildTypes {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+
     lintOptions {
         abortOnError false
     }
+
     compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_7
-        targetCompatibility JavaVersion.VERSION_1_7
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
     }
-    // ndk gradle support is still very bad so it's built with the regular ndk-build
+
+    // ndk-build is invoked manually; disable AGP's built-in JNI source scanning
     sourceSets.main.jni.srcDirs = ['src/main/none']
 }
 
 dependencies {
-    implementation 'androidx.core:core:1.0.2'
-    implementation 'androidx.annotation:annotation:1.1.0'
-    androidTestImplementation 'androidx.test:runner:1.2.0'
-    androidTestImplementation 'androidx.test:rules:1.2.0'
-    androidTestImplementation 'androidx.test.ext:junit:1.1.1'
+    implementation 'androidx.core:core:1.13.1'
+    implementation 'androidx.annotation:annotation:1.8.2'
+    androidTestImplementation 'androidx.test:runner:1.6.2'
+    androidTestImplementation 'androidx.test:rules:1.6.1'
+    androidTestImplementation 'androidx.test.ext:junit:1.2.1'
 }
 
 ext {
-    sqliteDistributionUrl = 'http://sqlite.org/2016/sqlite-amalgamation-3150100.zip'
+    sqliteDistributionUrl = 'https://sqlite.org/2025/sqlite-amalgamation-3490100.zip'
 }
 
-task sourcesJar(type: Jar) {
-    classifier = 'sources'
-    from android.sourceSets.main.java.srcDirs
-}
-
-task javadoc(type: Javadoc) {
-    source = android.sourceSets.main.java.srcDirs
-    classpath += project.files(android.getBootClasspath().join(File.pathSeparator))
-    classpath += configurations.compile
-    failOnError false
-}
-
-task javadocJar(type: Jar, dependsOn: javadoc) {
-    classifier = 'javadoc'
-    from javadoc.destinationDir
+gradle.projectsEvaluated {
+    preBuild.dependsOn(buildSqlite)
 }
 
 task downloadSqlite(type: Download) {
@@ -93,33 +77,31 @@ if (ndkDir == null) {
         properties.load(propertiesFile.newDataInputStream())
         ndkDir = properties.getProperty('ndk.dir')
         if (ndkDir == null) {
-            throw GradleScriptException("Either NDK_HOME or ndk.dir in local.properties should point to Android NDK!")
+            throw new GradleException("Either NDK_HOME or ndk.dir in local.properties must point to the Android NDK.")
         }
     } else {
-        throw GradleScriptException("Either NDK_HOME or ndk.dir in local.properties should point to Android NDK!")
+        throw new GradleException("Either NDK_HOME or ndk.dir in local.properties must point to the Android NDK.")
     }
 }
 
 task buildSqlite(dependsOn: installSqlite, type: Exec) {
     println("NDK directory: $ndkDir")
-
-    // Add NDK_DEBUG=1 for debug symbols or V=1 for verbose building output
     if (OperatingSystem.current().linux) {
         commandLine "$ndkDir/ndk-build", '-j8', '-C', file('src/main/jni').absolutePath
     } else if (OperatingSystem.current().windows) {
         commandLine "$ndkDir/ndk-build.cmd", '-j8', '-C', file('src/main/jni').absolutePath
     } else {
-        throw GradleScriptException("Unsupported OS")
+        throw new GradleException("Unsupported OS: ${OperatingSystem.current()}")
     }
 }
 
-task ndkClean(type: Exec, description: 'Clean NDK Binaries') {
+task ndkClean(type: Exec, description: 'Clean NDK binaries') {
     if (OperatingSystem.current().linux) {
         commandLine "$ndkDir/ndk-build", 'clean', '-C', file('src/main/jni').absolutePath
     } else if (OperatingSystem.current().windows) {
         commandLine "$ndkDir/ndk-build.cmd", 'clean', '-C', file('src/main/jni').absolutePath
     } else {
-        throw GradleScriptException("Unsupported OS")
+        throw new GradleException("Unsupported OS: ${OperatingSystem.current()}")
     }
 }
 

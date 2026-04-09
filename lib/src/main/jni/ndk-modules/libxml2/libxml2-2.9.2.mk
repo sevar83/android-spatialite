@@ -14,7 +14,9 @@ xml2_flags := \
  -DLIBXML_THREAD_ENABLED=1
 
 LOCAL_CFLAGS    := \
- $(xml2_flags)
+ $(xml2_flags) \
+ -Wno-int-conversion \
+ -Wno-implicit-function-declaration
 
 LOCAL_C_INCLUDES := \
  $(LOCAL_PATH)/$(XML2_PATH)/include \

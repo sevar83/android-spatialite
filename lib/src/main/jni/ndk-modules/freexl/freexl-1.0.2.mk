@@ -8,7 +8,7 @@ LOCAL_MODULE := freexl
 FREEXL_FILES :=  \
 	${FREEXL_PATH}/src/freexl.c
 
-LOCAL_CFLAGS += -fvisibility=hidden
+LOCAL_CFLAGS += -fvisibility=hidden -Wno-int-conversion -Wno-implicit-function-declaration
 
 LOCAL_C_INCLUDES := \
     $(LOCAL_PATH)/$(FREEXL_PATH) \

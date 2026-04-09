@@ -10,7 +10,9 @@ LOCAL_MODULE    := liblzma
 lzma_flags := \
  -DHAVE_CONFIG_H \
  -g -O2 \
- -std=gnu99
+ -std=gnu99 \
+ -Wno-int-conversion \
+ -Wno-implicit-function-declaration
 
 LOCAL_CFLAGS    := \
  $(lzma_flags)
