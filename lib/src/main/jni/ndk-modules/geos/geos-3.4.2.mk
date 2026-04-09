@@ -306,6 +306,12 @@ LOCAL_SRC_FILES := \
     $(GEOS_FILES) \
     src-io-CLocalizer.cpp
 
+# GEOS 3.4.2 uses std::auto_ptr which was removed in C++17.
+# Force C++14 for this module so it compiles with NDK r21+.
+LOCAL_CPPFLAGS += -std=c++14
+# Use response files to avoid Windows command-line length limit (Error 87 from llvm-ar).
+LOCAL_SHORT_COMMANDS := true
+
 TARGET-process-src-files-tags += $(call add-src-files-target-cflags, \
    geos/src/io/WKTReader.cpp, -include cctype)
 

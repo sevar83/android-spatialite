@@ -30,6 +30,7 @@
 #include "CursorWindow.h"
 
 #include <string>
+#include <mutex>
 
 #include <spatialite.h>
 
@@ -53,6 +54,31 @@ namespace android {
 static const int BUSY_TIMEOUT_MS = 2500;
 
 static JavaVM *gpJavaVM = 0;
+
+// ---------------------------------------------------------------------------
+// Lazy JNI registration
+//
+// JNI_OnLoad fires on the Mono bootstrap thread, which holds the *system*
+// class loader.  FindClass("org/spatialite/...") therefore returns null and
+// the subsequent LOG_FATAL_IF aborts the process (SIGABRT).
+//
+// Fix: skip all RegisterNatives in JNI_OnLoad; call them once from nativeOpen()
+// which always runs on a Java application thread that owns the app class loader.
+// ---------------------------------------------------------------------------
+static std::once_flag g_jni_register_once;
+// Forward declarations (definitions are near the bottom of this file / other TUs)
+static int register_android_database_SQLiteConnection(JNIEnv *env);
+extern int register_android_database_SQLiteGlobal(JNIEnv *env);
+extern int register_android_database_SQLiteDebug(JNIEnv *env);
+extern int register_android_database_CursorWindow(JNIEnv *env);
+
+static void doLazyRegisterAll(JNIEnv* env) {
+    register_android_database_SQLiteConnection(env);
+    register_android_database_SQLiteDebug(env);
+    register_android_database_SQLiteGlobal(env);
+    register_android_database_CursorWindow(env);
+}
+// ---------------------------------------------------------------------------
 
 static struct {
     jfieldID name;
@@ -134,6 +160,10 @@ static int coll_localized(
 
 static jlong nativeOpen(JNIEnv* env, jclass clazz, jstring pathStr, jint openFlags,
         jstring labelStr, jboolean enableTrace, jboolean enableProfile) {
+    // Ensure all four JNI native-method tables are registered exactly once, on
+    // an app thread so FindClass resolves against the app class loader.
+    std::call_once(g_jni_register_once, doLazyRegisterAll, env);
+
     int sqliteFlags;
     if (openFlags & SQLiteConnection::CREATE_IF_NECESSARY) {
         sqliteFlags = SQLITE_OPEN_READWRITE | SQLITE_OPEN_CREATE;
@@ -930,7 +960,8 @@ static JNINativeMethod sMethods[] =
 int register_android_database_SQLiteConnection(JNIEnv *env)
 {
     jclass clazz;
-    FIND_CLASS(clazz, "org/spatialite/database/SQLiteCustomFunction");
+    clazz = env->FindClass("org/spatialite/database/SQLiteCustomFunction");
+    LOG_FATAL_IF(!clazz, "Unable to find class org/spatialite/database/SQLiteCustomFunction");
 
     GET_FIELD_ID(gSQLiteCustomFunctionClassInfo.name, clazz,
             "name", "Ljava/lang/String;");
@@ -939,7 +970,8 @@ int register_android_database_SQLiteConnection(JNIEnv *env)
     GET_METHOD_ID(gSQLiteCustomFunctionClassInfo.dispatchCallback,
             clazz, "dispatchCallback", "([Ljava/lang/String;)Ljava/lang/String;");
 
-    FIND_CLASS(clazz, "java/lang/String");
+    clazz = env->FindClass("java/lang/String");
+    LOG_FATAL_IF(!clazz, "Unable to find class java/lang/String");
     gStringClassInfo.clazz = jclass(env->NewGlobalRef(clazz));
 
     return jniRegisterNativeMethods(env, 
@@ -948,23 +980,13 @@ int register_android_database_SQLiteConnection(JNIEnv *env)
     );
 }
 
-extern int register_android_database_SQLiteGlobal(JNIEnv *env);
-extern int register_android_database_SQLiteDebug(JNIEnv *env);
-extern int register_android_database_CursorWindow(JNIEnv *env);
-
 } // namespace android
 
 extern "C" JNIEXPORT jint JNICALL JNI_OnLoad(JavaVM* vm, void* reserved) {
-  JNIEnv *env = 0;
-
+  // Only save the VM pointer here. All RegisterNatives calls happen lazily
+  // from nativeOpen() (the first native call on an app thread) so that
+  // FindClass resolves against the app class loader, not the bootstrap loader.
   android::gpJavaVM = vm;
-  vm->GetEnv((void**)&env, JNI_VERSION_1_4);
-
-  android::register_android_database_SQLiteConnection(env);
-  android::register_android_database_SQLiteDebug(env);
-  android::register_android_database_SQLiteGlobal(env);
-  android::register_android_database_CursorWindow(env);
-
   return JNI_VERSION_1_4;
 }
 
